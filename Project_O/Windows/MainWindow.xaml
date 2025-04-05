@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project_O"
+        xmlns:UserControls="clr-namespace:Project_O.UserControls"
         mc:Ignorable="d"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Title="MainWindow"
-        Height="450" 
-        Width="800"
+        Title="Week Calendar"
+        Height="650" 
+        Width="900"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
@@ -23,7 +24,6 @@
             UseAeroCaptionButtons="False"/>
     </WindowChrome.WindowChrome>
 
-    <!-- Main container with proper rounded corners -->
     <Border CornerRadius="15" 
             Background="White" 
             BorderBrush="Gray" 
@@ -37,59 +37,71 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Title bar area -->
+            <!-- Title bar -->
             <Grid Grid.Row="0" Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
-                <TextBlock Text="MainWindow" VerticalAlignment="Center" Margin="10,0"/>
 
-                <!-- Window buttons -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button x:Name="btnMinimize" Content="🗕" Width="40" Height="30" Padding="0,0,10,0"
+                    <Button x:Name="btnMinimize" Content="🗕" Width="40" Height="30" 
                             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                             Click="btnMinimize_Click"/>
-                    <Button x:Name="btnMaximize" Content="🗖" Width="40" Height="30" Padding="0,0,10,0"
+                    <Button x:Name="btnMaximize" Content="🗖" Width="40" Height="30" 
                             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                             Click="btnMaximize_Click"/>
-                    <Button x:Name="btnClose" Content="✖" Width="40" Height="30" Padding="0,0,10,0"
+                    <Button x:Name="btnClose" Content="✖" Width="40" Height="30" 
                             Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
                             Click="btnClose_Click"/>
                 </StackPanel>
             </Grid>
 
-            <!-- Content area with rounded bottom corners -->
-            <Border Grid.Row="1" 
-                    Background="White" 
-                    CornerRadius="0,0,15,15"
-                    Margin="0,-1,0,0"
-                    ClipToBounds="True">
-                <!-- Your main content goes here -->
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <!-- Content area takes remaining space -->
-                        <RowDefinition Height="Auto"/>
-                        <!-- Title bar will size to its content -->
-                        <RowDefinition Height="*"/>
-                        <!-- Content area takes remaining space -->
-                        <RowDefinition Height="Auto"/>
-                        <!-- Title bar will size to its content -->
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="1" Grid.ColumnSpan="7" 
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"> Числитель </TextBlock>
-                    <TextBlock Grid.Row="3" Grid.ColumnSpan="7" 
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"> Знаменатель </TextBlock>
-                </Grid>
-            </Border>
+            <!-- Week navigation and content -->
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="◄" Width="30" Margin="10,0" Command="{Binding PreviousWeekCommand}"/>
+                    <TextBlock Text="{Binding CurrentDate, StringFormat='MMMM yyyy'}" VerticalAlignment="Center" FontSize="14"/>
+                    <Button Content="►" Width="30" Margin="10,0" Command="{Binding NextWeekCommand}"/>
+                </StackPanel>
+                
+                <!-- Numerator label -->
+                <TextBlock Grid.Row="0" Text="Числитель" HorizontalAlignment="Center" Margin="0,10" FontWeight="Bold"/>
+
+                <!-- Numerator days -->
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding NumeratorDays}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="7"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <UserControls:ucDay Margin="5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Denominator label -->
+                <TextBlock Grid.Row="2" Text="Знаменатель" HorizontalAlignment="Center" Margin="0,10" FontWeight="Bold"/>
+
+                <!-- Denominator days -->
+                <ItemsControl Grid.Row="3" ItemsSource="{Binding DenominatorDays}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="7"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <UserControls:ucDay Margin="5"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
         </Grid>
     </Border>
 </Window>

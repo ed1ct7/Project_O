@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project_O.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,9 @@ namespace Project_O
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new WeekViewModel();
         }
+
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             this.ClipToBounds = true; 
