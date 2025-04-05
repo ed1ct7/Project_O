@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace Project_O.UserControls
 {
-    /// <summary>
-    /// Interaction logic for ucDay.xaml
-    /// </summary>
     public partial class ucDay : UserControl
     {
         public ucDay()
