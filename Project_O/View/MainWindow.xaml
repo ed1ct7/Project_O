@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Project_O"
+        xmlns:local="clr-namespace:Project_O.Classes"
         xmlns:UserControls="clr-namespace:Project_O.UserControls"
         mc:Ignorable="d"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
@@ -11,10 +11,11 @@
         Height="650" 
         Width="900"
         WindowStyle="None"
+        
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="CanResize">
-
+    
     <WindowChrome.WindowChrome>
         <WindowChrome 
             CornerRadius="0"
@@ -24,83 +25,125 @@
             UseAeroCaptionButtons="False"/>
     </WindowChrome.WindowChrome>
 
-    <Border CornerRadius="15" 
-            Background="White" 
+    <Border CornerRadius="8"
+            Background="{Binding BGP_Default, Source={x:Static local:Properties.Instance}}" 
             BorderBrush="Gray" 
             BorderThickness="1"
             SnapsToDevicePixels="True"
             ClipToBounds="True">
-
-        <Grid>
+        
+        <!--Main program-->
+        <Grid Margin="10,10,10,30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180*"></ColumnDefinition>
+                <ColumnDefinition Width="639*"></ColumnDefinition>
+                <ColumnDefinition Width="79*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <!-- Title bar -->
-            <Grid Grid.Row="0" Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
+            <!--WindowMenu-->
+            <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button x:Name="btnMinimize" Content="🗕" Width="40" Height="30" 
-                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                            Click="btnMinimize_Click"/>
-                    <Button x:Name="btnMaximize" Content="🗖" Width="40" Height="30" 
-                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                            Click="btnMaximize_Click"/>
-                    <Button x:Name="btnClose" Content="✖" Width="40" Height="30" 
-                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
-                            Click="btnClose_Click"/>
+                    <Button x:Name="btnMinimize" Content="🗕"
+                Style="{StaticResource S_WMClose}"
+                Click="btnMinimize_Click"/>
+                    <Button x:Name="btnMaximize" Content="🗖"
+                Style="{StaticResource S_WMOther}"
+                Click="btnMaximize_Click"/>
+                    <Button x:Name="btnClose" Content="✖"
+                Style="{StaticResource S_WMOther}"
+                Click="btnClose_Click"/>
                 </StackPanel>
             </Grid>
 
-            <!-- Week navigation and content -->
-            <Grid Grid.Row="2">
+            <StackPanel Orientation="Vertical" Grid.Row="2">
+                <Label Style="{StaticResource S_DefaultLabel}" Content="Меню" FontSize="22"></Label>
+                <Button Style="{StaticResource S_MenuButton}" Content="Настройки"></Button>
+                <Button Style="{StaticResource S_MenuButton}" Content="Настройки"></Button>
+                <Button Style="{StaticResource S_MenuButton}" Content="Настройки"></Button>
+                <Label Style="{StaticResource S_DefaultLabel}" Content="Заметки" FontSize="18"></Label>
+                <TextBox 
+                         Style="{StaticResource S_TextBox}" Height="200"
+                         SpellCheck.IsEnabled="True" Language="ru-ru"
+                         AcceptsReturn="True"
+                         VerticalContentAlignment="Top"
+                         TextAlignment="Left"
+                         TextWrapping="Wrap"
+                    />
+            </StackPanel>
+            
+            <!-- Grid calendar -->
+            <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Main" Visibility="Visible">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <Button Content="◄" Width="30" Margin="10,0" Click="PreviousWeek_Click"/>
-                    <TextBlock x:Name="MonthYearText" VerticalAlignment="Center" FontSize="14"/>
-                    <Button Content="►" Width="30" Margin="10,0" Click="NextWeek_Click"/>
-                </StackPanel>
+                <Label Style="{StaticResource S_DefaultLabel}" Content="Расписание" FontSize="22"></Label>
+                
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <!-- Numerator label -->
-                <TextBlock Grid.Row="0" Text="Числитель" HorizontalAlignment="Center" Margin="0,10" FontWeight="Bold"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Content="◄" Width="30" Margin="10,0" Click="PreviousWeek_Click"/>
+                        <TextBlock x:Name="MonthYearText" VerticalAlignment="Center" Foreground="White" FontSize="14"/>
+                        <Button Content="►" Width="30" Margin="10,0" Click="NextWeek_Click"/>
+                    </StackPanel>
 
-                <!-- Numerator days -->
-                <ItemsControl Grid.Row="1" ItemsSource="{Binding NumeratorDays, RelativeSource={RelativeSource AncestorType=Window}}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="7"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <UserControls:ucDay Margin="5"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                        
+                    </StackPanel>
+                    
+                    
+                    <!-- Numerator label -->
+                    <TextBlock Grid.Row="0" Text="Числитель" Foreground="White" HorizontalAlignment="Center" Margin="0,10" FontWeight="Bold"/>
 
-                <!-- Denominator label -->
-                <TextBlock Grid.Row="2" Text="Знаменатель" HorizontalAlignment="Center" Margin="0,10" FontWeight="Bold"/>
+                    <!-- Numerator days -->
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding NumeratorDays, RelativeSource={RelativeSource AncestorType=Window}}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="7"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <UserControls:ucDay Margin="5"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
 
-                <!-- Denominator days -->
-                <ItemsControl Grid.Row="3" ItemsSource="{Binding DenominatorDays, RelativeSource={RelativeSource AncestorType=Window}}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Columns="7"/>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <UserControls:ucDay Margin="5"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                    <!-- Denominator label -->
+                    <TextBlock Grid.Row="2" Text="Знаменатель" Foreground="White" HorizontalAlignment="Center" Margin="0,10" FontWeight="Bold"/>
+
+                    <!-- Denominator days -->
+                    <ItemsControl Grid.Row="3" ItemsSource="{Binding DenominatorDays, RelativeSource={RelativeSource AncestorType=Window}}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="7"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <UserControls:ucDay Margin="5"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Grid>
+
+            <!-- Grid Settings -->
+            <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Settings" Visibility="Collapsed">
+                
             </Grid>
         </Grid>
     </Border>

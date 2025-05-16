@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using Project_O.UserControls;
 
 namespace Project_O
 {
@@ -34,11 +35,11 @@ namespace Project_O
             NumeratorDays.Clear();
             DenominatorDays.Clear();
 
-            // Находим понедельник текущей недели
+            // Morning of the next week
             DateTime monday = CurrentDate.AddDays(-(int)CurrentDate.DayOfWeek + (int)DayOfWeek.Monday);
             if (monday > CurrentDate) monday = monday.AddDays(-7);
 
-            // Заполняем числитель (текущая неделя)
+            // First week
             for (int i = 0; i < 7; i++)
             {
                 DateTime day = monday.AddDays(i);
@@ -46,11 +47,12 @@ namespace Project_O
                 {
                     DayOfWeek = day.ToString("dddd"),
                     DayNumber = day.Day,
-                    Lessons = new ObservableCollection<string>()
+                    Lessons = new ObservableCollection<ucLesson>(),
+                    Date = day
                 });
             }
 
-            // Заполняем знаменатель (следующая неделя)
+            // Second week
             for (int i = 0; i < 7; i++)
             {
                 DateTime day = monday.AddDays(i + 7);
@@ -58,23 +60,24 @@ namespace Project_O
                 {
                     DayOfWeek = day.ToString("dddd"),
                     DayNumber = day.Day,
-                    Lessons = new ObservableCollection<string>()
+                    Lessons = new ObservableCollection<ucLesson>(),
+                    Date = day
                 });
             }
 
-            // Обновляем отображение даты
+            // Date update
             MonthYearText.Text = CurrentDate.ToString("MMMM yyyy");
         }
 
         private void PreviousWeek_Click(object sender, RoutedEventArgs e)
         {
-            CurrentDate = CurrentDate.AddDays(-7);
+            CurrentDate = CurrentDate.AddDays(-14);
             GenerateWeeks();
         }
 
         private void NextWeek_Click(object sender, RoutedEventArgs e)
         {
-            CurrentDate = CurrentDate.AddDays(7);
+            CurrentDate = CurrentDate.AddDays(14);
             GenerateWeeks();
         }
 
@@ -96,6 +99,7 @@ namespace Project_O
     {
         public string DayOfWeek { get; set; }
         public int DayNumber { get; set; }
-        public ObservableCollection<string> Lessons { get; set; }
+        public ObservableCollection<ucLesson> Lessons { get; set; }
+        public DateTime Date { get; set; }
     }
 }
