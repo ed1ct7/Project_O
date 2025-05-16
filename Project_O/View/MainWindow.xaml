@@ -8,14 +8,17 @@
         mc:Ignorable="d"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Title="Week Calendar"
-        Height="650" 
-        Width="900"
+        Height="800" 
+        Width="1200"
         WindowStyle="None"
         
         AllowsTransparency="True"
         Background="Transparent"
-        ResizeMode="CanResize">
-    
+        ResizeMode="CanResize"
+        MinHeight="700"
+        MinWidth="1100"
+        >
+
     <WindowChrome.WindowChrome>
         <WindowChrome 
             CornerRadius="0"
@@ -26,27 +29,25 @@
     </WindowChrome.WindowChrome>
 
     <Border CornerRadius="8"
-            Background="{Binding BGP_Default, Source={x:Static local:Properties.Instance}}" 
+            Background="{Binding BG_Default, Source={x:Static local:Properties.Instance}}" 
             BorderBrush="Gray" 
             BorderThickness="1"
             SnapsToDevicePixels="True"
             ClipToBounds="True">
-        
+
         <!--Main program-->
         <Grid Margin="10,10,10,30">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="180*"></ColumnDefinition>
-                <ColumnDefinition Width="639*"></ColumnDefinition>
-                <ColumnDefinition Width="79*"/>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
             <!--WindowMenu-->
-            <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
+            <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button x:Name="btnMinimize" Content="🗕"
@@ -62,11 +63,11 @@
             </Grid>
 
             <StackPanel Orientation="Vertical" Grid.Row="2">
-                <Label Style="{StaticResource S_DefaultLabel}" Content="Меню" FontSize="22"></Label>
+                <Label Style="{StaticResource S_DefaultLabel}" Content="Меню" FontSize="22" FontWeight="Bold"></Label>
+                <Button Style="{StaticResource S_MenuButton}" Content="Расписание"></Button>
                 <Button Style="{StaticResource S_MenuButton}" Content="Настройки"></Button>
-                <Button Style="{StaticResource S_MenuButton}" Content="Настройки"></Button>
-                <Button Style="{StaticResource S_MenuButton}" Content="Настройки"></Button>
-                <Label Style="{StaticResource S_DefaultLabel}" Content="Заметки" FontSize="18"></Label>
+                <Button Style="{StaticResource S_MenuButton}" Content="Выход"></Button>
+                <Label Style="{StaticResource S_DefaultLabel}" Content="Заметки" FontSize="18" FontWeight="Bold"></Label>
                 <TextBox 
                          Style="{StaticResource S_TextBox}" Height="200"
                          SpellCheck.IsEnabled="True" Language="ru-ru"
@@ -76,7 +77,7 @@
                          TextWrapping="Wrap"
                     />
             </StackPanel>
-            
+
             <!-- Grid calendar -->
             <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Main" Visibility="Visible">
                 <Grid.RowDefinitions>
@@ -84,8 +85,8 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label Style="{StaticResource S_DefaultLabel}" Content="Расписание" FontSize="22"></Label>
-                
+                <Label Style="{StaticResource S_DefaultLabel}" Content="Расписание" FontSize="22" FontWeight="Bold"></Label>
+
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -94,19 +95,14 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
+                    <!-- Numerator label -->
+                    <Label Grid.Row="0" Content="Числитель" Style="{StaticResource S_NomDin}"/>
+
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <Button Content="◄" Width="30" Margin="10,0" Click="PreviousWeek_Click"/>
                         <TextBlock x:Name="MonthYearText" VerticalAlignment="Center" Foreground="White" FontSize="14"/>
                         <Button Content="►" Width="30" Margin="10,0" Click="NextWeek_Click"/>
                     </StackPanel>
-
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                        
-                    </StackPanel>
-                    
-                    
-                    <!-- Numerator label -->
-                    <TextBlock Grid.Row="0" Text="Числитель" Foreground="White" HorizontalAlignment="Center" Margin="0,10" FontWeight="Bold"/>
 
                     <!-- Numerator days -->
                     <ItemsControl Grid.Row="1" ItemsSource="{Binding NumeratorDays, RelativeSource={RelativeSource AncestorType=Window}}">
@@ -123,7 +119,10 @@
                     </ItemsControl>
 
                     <!-- Denominator label -->
-                    <TextBlock Grid.Row="2" Text="Знаменатель" Foreground="White" HorizontalAlignment="Center" Margin="0,10" FontWeight="Bold"/>
+                    <Label Grid.Row="2" 
+                           Content="Знаменатель" 
+                           Style="{StaticResource S_NomDin}"
+                           />
 
                     <!-- Denominator days -->
                     <ItemsControl Grid.Row="3" ItemsSource="{Binding DenominatorDays, RelativeSource={RelativeSource AncestorType=Window}}">
@@ -142,9 +141,7 @@
             </Grid>
 
             <!-- Grid Settings -->
-            <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Settings" Visibility="Collapsed">
-                
-            </Grid>
+            <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Settings" Visibility="Collapsed"/>
         </Grid>
     </Border>
 </Window>

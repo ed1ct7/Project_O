@@ -55,6 +55,8 @@ namespace Project_O
             // Second week
             for (int i = 0; i < 7; i++)
             {
+
+
                 DateTime day = monday.AddDays(i + 7);
                 DenominatorDays.Add(new DayModel
                 {

@@ -20,7 +20,7 @@
                         BorderThickness="{TemplateBinding BorderThickness}"
                         Height="{TemplateBinding Height}"
                         CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}">
-                    <ContentPresenter 
+                        <ContentPresenter 
                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                         Margin="{TemplateBinding Padding}"
@@ -29,6 +29,14 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="S_NomDin" TargetType="Label">
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Foreground" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"/>
+        <Setter Property="Margin" Value="0,10"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
 </ResourceDictionary>
