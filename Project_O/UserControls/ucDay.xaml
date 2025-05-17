@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:UserControls="clr-namespace:Project_O.UserControls"
              xmlns:local="clr-namespace:Project_O.Classes"
-             
              mc:Ignorable="d" 
              d:DesignHeight="180" d:DesignWidth="120">
     <Border x:Name="Border" BorderBrush="LightGray" BorderThickness="1" CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}" Margin="5" Padding="5">
@@ -21,55 +20,32 @@
                 <TextBlock Text="{Binding DayNumber}" Foreground="White"  HorizontalAlignment="Right" Margin="0,5,0,0" FontSize="14"/>
             </StackPanel>
 
-            <!-- Lessons -->
-            <ItemsControl Grid.Row="1" Margin="0,5,0,0">
-                <ItemsControl.ItemsSource>
-                    <CompositeCollection>
-                        <CollectionContainer Collection="{Binding Lessons}" />
-                        <!-- Additional items (like your button) go here -->
-                        <Button 
-                                x:Name="AddLessonButtonN" 
-                                Content="+"
-                                VerticalContentAlignment="Center"/>
-                    </CompositeCollection>
-                </ItemsControl.ItemsSource>
-                
-                
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Rows="8" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <ContentControl>
-                            <ContentControl.Style>
-                                <Style TargetType="ContentControl">
-                                    <Setter Property="ContentTemplate">
-                                        <Setter.Value>
-                                            <DataTemplate>
-                                                <UserControls:ucLesson Margin="5" Foreground="White" />
-                                            </DataTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding}" Value="{x:Null}">
-                                            <!-- Fallback for non-lesson items (like the button) -->
-                                            <Setter Property="ContentTemplate">
-                                                <Setter.Value>
-                                                    <DataTemplate>
-                                                        <Button Content="+" Command="{Binding DataContext.AddLessonCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
-                                                    </DataTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ContentControl.Style>
-                        </ContentControl>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            
+            <!-- Lessons and Button -->
+            <StackPanel Grid.Row="1">
+                <!-- Scrollable Lessons -->
+                <ScrollViewer 
+                    VerticalScrollBarVisibility="Auto"
+                    MaxHeight="200">
+                    <!-- Prevents infinite expansion -->
+                    <ItemsControl ItemsSource="{Binding Lessons}">
+                        
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <UserControls:ucLesson Margin="0,0,0,0"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- Fixed Button -->
+                <Button 
+                    Content="+"
+                    Margin="0,0,0,0"
+                    Click="AddLessonButton_Click"
+                    />
+            </StackPanel>
         </Grid>
     </Border>
 </UserControl>

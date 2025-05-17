@@ -37,20 +37,18 @@ namespace Project_O.UserControls
                 {
                     Border.BorderBrush = Brushes.Blue;
                 }
-            
-                // Call AddLessonButton here if it depends on DataContext
-                AddLessonButton(dayModel);
             }
         }
 
-        private void AddLessonButton(DayModel dayModel)
+        public class LessonModel
         {
-            Button btt = new Button();
-            var lessons = dayModel.Lessons;
-            if (lessons.Count < 8 && GroupSettings.isMaster == true)
-            {
-                //ItemPanel.Items.Add(btt);
-            }
+
+        }
+
+        private void AddLessonButton_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBox comboBox = new ComboBox();
+            
         }
     }
 }

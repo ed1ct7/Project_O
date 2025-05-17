@@ -39,24 +39,49 @@ namespace Project_O
             DateTime monday = CurrentDate.AddDays(-(int)CurrentDate.DayOfWeek + (int)DayOfWeek.Monday);
             if (monday > CurrentDate) monday = monday.AddDays(-7);
 
-            // First week
+            // First week (Numerator)
             for (int i = 0; i < 7; i++)
             {
                 DateTime day = monday.AddDays(i);
-                NumeratorDays.Add(new DayModel
+                var dayModel = new DayModel
                 {
                     DayOfWeek = day.ToString("dddd"),
                     DayNumber = day.Day,
                     Lessons = new ObservableCollection<ucLesson>(),
                     Date = day
-                });
+                };
+
+                dayModel.Lessons.Add(new ucLesson { });
+                dayModel.Lessons.Add(new ucLesson { });
+                dayModel.Lessons.Add(new ucLesson { });
+                // Add sample lessons to certain days
+                switch (day.DayOfWeek)
+                {
+                    case DayOfWeek.Monday:
+                        dayModel.Lessons.Add(new ucLesson { });
+                        dayModel.Lessons.Add(new ucLesson { });
+                        dayModel.Lessons.Add(new ucLesson { });
+                        dayModel.Lessons.Add(new ucLesson { });
+                        dayModel.Lessons.Add(new ucLesson { });
+                        break;
+                    case DayOfWeek.Wednesday:
+                        dayModel.Lessons.Add(new ucLesson { });
+                        dayModel.Lessons.Add(new ucLesson { });
+
+                        break;
+                    case DayOfWeek.Friday:
+                        dayModel.Lessons.Add(new ucLesson { });
+                        dayModel.Lessons.Add(new ucLesson { });
+                        dayModel.Lessons.Add(new ucLesson { });
+                        break;
+                }
+
+                NumeratorDays.Add(dayModel);
             }
 
-            // Second week
+            // Second week (Denominator)
             for (int i = 0; i < 7; i++)
             {
-
-
                 DateTime day = monday.AddDays(i + 7);
                 DenominatorDays.Add(new DayModel
                 {
