@@ -9,14 +9,14 @@
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Title="Week Calendar"
         Height="800" 
-        Width="1200"
+        Width="1700"
         WindowStyle="None"
         
         AllowsTransparency="True"
         Background="Transparent"
         ResizeMode="CanResize"
         MinHeight="700"
-        MinWidth="1100"
+        MinWidth="1400"
         >
 
     <WindowChrome.WindowChrome>
@@ -40,6 +40,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="1.5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
@@ -47,7 +48,7 @@
             </Grid.RowDefinitions>
 
             <!--WindowMenu-->
-            <Grid Grid.Row="0" Grid.ColumnSpan="2" Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
+            <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button x:Name="btnMinimize" Content="🗕"
@@ -62,31 +63,39 @@
                 </StackPanel>
             </Grid>
 
-            <StackPanel Orientation="Vertical" Grid.Row="2">
-                <Label Style="{StaticResource S_DefaultLabel}" Content="Меню" FontSize="22" FontWeight="Bold"></Label>
-                <Button Style="{StaticResource S_MenuButton}" Content="Расписание"></Button>
-                <Button Style="{StaticResource S_MenuButton}" Content="Настройки"></Button>
-                <Button Style="{StaticResource S_MenuButton}" Content="Выход"></Button>
-                <Label Style="{StaticResource S_DefaultLabel}" Content="Заметки" FontSize="18" FontWeight="Bold"></Label>
-                <TextBox 
-                         Style="{StaticResource S_TextBox}" Height="200"
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Style="{StaticResource S_DefaultLabel}" Content="Меню" FontSize="22" FontWeight="Bold"></Label>
+                <Button Grid.Row="1" Style="{StaticResource S_MenuButton}" Content="Обновить"></Button>
+                <Button Grid.Row="2" Style="{StaticResource S_MenuButton}" Content="Расписание"></Button>
+                <Button Grid.Row="3" Style="{StaticResource S_MenuButton}" Content="Настройки"></Button>
+                <Button Grid.Row="4" Style="{StaticResource S_MenuButton}" Content="Выход"></Button>
+                <Label Grid.Row="5" Style="{StaticResource S_DefaultLabel}" Content="Заметки" FontSize="22" FontWeight="Bold"></Label>
+                <TextBox Grid.Row="6" Height="auto"
+                         Style="{StaticResource S_TextBox}"
                          SpellCheck.IsEnabled="True" Language="ru-ru"
                          AcceptsReturn="True"
                          VerticalContentAlignment="Top"
                          TextAlignment="Left"
                          TextWrapping="Wrap"
                     />
-            </StackPanel>
+            </Grid>
 
             <!-- Grid calendar -->
-            <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Main" Visibility="Visible">
+            <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" x:Name="Main" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-
                 <Label Style="{StaticResource S_DefaultLabel}" Content="Расписание" FontSize="22" FontWeight="Bold"></Label>
-
                 <Grid Grid.Row="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -139,9 +148,33 @@
                     </ItemsControl>
                 </Grid>
             </Grid>
-
             <!-- Grid Settings -->
             <Grid Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" x:Name="Settings" Visibility="Collapsed"/>
+
+            <Grid Grid.Column="2" Grid.Row="1" x:Name="Information">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Style="{StaticResource S_DefaultLabel}" Content="Информация" FontSize="22" FontWeight="Bold"></Label>
+
+                <Label Grid.Row="1" x:Name="placeHolderText" VerticalContentAlignment="Center">
+                    <Label.Content>
+                        <AccessText FontSize="20" FontWeight="Thin" TextWrapping="Wrap" Text="Выберите предмет для отображения информации"/>
+                    </Label.Content>
+                    <Label.Style>
+                        <Style TargetType="Label" BasedOn="{StaticResource S_NomDin}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=ucNInformation, Path=Visibility}" Value="Visible">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+                <UserControls:ucInformation Grid.Row="1" x:Name="ucNInformation" Visibility="Collapsed"/>
+            </Grid>
         </Grid>
     </Border>
 </Window>

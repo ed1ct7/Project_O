@@ -7,6 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="120">
     <Grid>
-        <Button x:Name="Lesson" Content="{Binding name}" Click="LessonButton_Click"></Button>
+        <Button x:Name="Lesson" Content="{Binding Name}" Click="LessonButton_Click"></Button>
     </Grid>
 </UserControl>

@@ -39,4 +39,26 @@
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
+    <Style x:Key="S_Info" TargetType="Label">
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Foreground" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"></Setter>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Label">
+                    <Grid>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Rectangle Margin="-10,-10,-10,-10" Fill="{Binding FG_Control, Source={x:Static local:Properties.Instance}}" Height="2" VerticalAlignment="Top"/>
+                        <Rectangle Fill="Transparent" Width="2" HorizontalAlignment="Right"/>
+                        <Rectangle Margin="-10,-10,-10,-10" Fill="{Binding FG_Control, Source={x:Static local:Properties.Instance}}" Height="2" VerticalAlignment="Bottom"/>
+                        <Rectangle Fill="Transparent" Width="2" HorizontalAlignment="Left"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>

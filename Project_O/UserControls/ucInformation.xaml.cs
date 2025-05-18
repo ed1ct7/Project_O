@@ -18,21 +18,12 @@ namespace Project_O.UserControls
     /// <summary>
     /// Interaction logic for ucLesson.xaml
     /// </summary>
-    public partial class ucLesson : UserControl
+    public partial class ucInformation : UserControl
     {
-        public ucLesson()
+        public ucInformation()
         {
             InitializeComponent();
-        }
-        private void LessonButton_Click(object sender, RoutedEventArgs e)
-        {
-            var mainWindow = Window.GetWindow(this) as MainWindow;
-            if (mainWindow != null && mainWindow.ucNInformation.Visibility == Visibility.Collapsed) 
-                mainWindow.ucNInformation.Visibility = Visibility.Visible;
-
-            var lessonModel = DataContext as LessonModel;
 
         }
-
     }
 }

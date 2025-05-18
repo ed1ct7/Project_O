@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -53,7 +54,8 @@ namespace Project_O.UserControls
             {
                 var lessonModel = new LessonModel
                 {
-                    name = lesson
+                    Name = lesson,
+                    Date = date
                 };
                 dayModel.Lessons.Add(lessonModel);
             }
@@ -88,7 +90,7 @@ namespace Project_O.UserControls
                 if (!string.IsNullOrWhiteSpace(newLesson))
                 {
                     GroupSettings.Lessons[dayIndex] = GroupSettings.Lessons[dayIndex].Concat(new[] { newLesson }).ToArray();
-                    dayModel.Lessons.Add(new LessonModel { name = newLesson });
+                    dayModel.Lessons.Add(new LessonModel { Name = newLesson });
 
                     if (StackPanelLessons.Children.Contains(comboBox))
                         StackPanelLessons.Children.Remove(comboBox);

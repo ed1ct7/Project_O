@@ -67,7 +67,6 @@ namespace Project_O
                     Lessons = new ObservableCollection<LessonModel>()
                 });
             }
-
             // Date update
             MonthYearText.Text = CurrentDate.ToString("MMMM yyyy");
         }
@@ -106,6 +105,7 @@ namespace Project_O
     }
     public class LessonModel
     {
-        public string name { get; set; } = "Sample Lesson";
+        public string Name { get; set; }
+        public DateTime Date { get; set; }
     }
 }
