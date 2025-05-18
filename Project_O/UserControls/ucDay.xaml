@@ -22,25 +22,23 @@
 
             
             <!-- Lessons and Button -->
-            <StackPanel Grid.Row="1">
+            <StackPanel x:Name="StackPanelLessons" Grid.Row="1">
                 <!-- Scrollable Lessons -->
                 <ScrollViewer 
                     VerticalScrollBarVisibility="Auto"
                     MaxHeight="200">
                     <!-- Prevents infinite expansion -->
-                    <ItemsControl ItemsSource="{Binding Lessons}">
-                        
+                    <ItemsControl x:Name="LessonsCollection" ItemsSource="{Binding Lessons}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <UserControls:ucLesson Margin="0,0,0,0"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-                        
                     </ItemsControl>
                 </ScrollViewer>
 
                 <!-- Fixed Button -->
-                <Button 
+                <Button  x:Name="AddLessonButton"
                     Content="+"
                     Margin="0,0,0,0"
                     Click="AddLessonButton_Click"

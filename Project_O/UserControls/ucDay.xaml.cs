@@ -20,35 +20,104 @@ namespace Project_O.UserControls
 {
     public partial class ucDay : UserControl
     {
-         public ucDay()
-            {
-                InitializeComponent();
-                this.Loaded += UcDay_Loaded;  // Subscribe to the Loaded event
-            }
+        public ObservableCollection<LessonModel> lessons { get; set; }
+        public DateTime date {  get; set; }
+        public ucDay()
+        {
+            InitializeComponent();
+           
+            this.Loaded += UcDay_Loaded;
+        }
 
         private void UcDay_Loaded(object sender, RoutedEventArgs e)
         {
-            // Now DataContext should be available
             var dayModel = DataContext as DayModel;
+            this.date = dayModel.Date;
+            
             if (dayModel != null)
             {
-                DateTime date = dayModel.Date;
                 if (date == DateTime.Today)
                 {
                     Border.BorderBrush = Brushes.Blue;
                 }
+                GenerateLessons();
             }
         }
 
-        public class LessonModel
+        public void GenerateLessons()
         {
+            var dayModel = DataContext as DayModel;
+            dayModel.Lessons.Clear(); // Clear existing lessons
 
+            foreach (var lesson in GroupSettings.Lessons[(int)dayModel.Date.DayOfWeek])
+            {
+                var lessonModel = new LessonModel
+                {
+                    name = lesson
+                };
+                dayModel.Lessons.Add(lessonModel);
+            }
         }
 
         private void AddLessonButton_Click(object sender, RoutedEventArgs e)
         {
-            ComboBox comboBox = new ComboBox();
-            
+            var dayModel = DataContext as DayModel;
+            int dayIndex = (int)dayModel.Date.DayOfWeek;
+
+            var comboBox = new ComboBox
+            {
+                IsEditable = true,
+                IsTextSearchEnabled = true
+            };
+
+            // Удаляем кнопку добавления и добавляем ComboBox
+            if (StackPanelLessons.Children.Contains(AddLessonButton))
+                StackPanelLessons.Children.Remove(AddLessonButton);
+
+            if (!StackPanelLessons.Children.Contains(comboBox))
+                StackPanelLessons.Children.Add(comboBox);
+
+
+            // Обработчик события выбора элемента или ввода текста
+            void AddNewLesson()
+            {
+                string newLesson = comboBox.SelectedItem != null
+                    ? comboBox.SelectedItem.ToString()
+                    : comboBox.Text;
+
+                if (!string.IsNullOrWhiteSpace(newLesson))
+                {
+                    GroupSettings.Lessons[dayIndex] = GroupSettings.Lessons[dayIndex].Concat(new[] { newLesson }).ToArray();
+                    dayModel.Lessons.Add(new LessonModel { name = newLesson });
+
+                    if (StackPanelLessons.Children.Contains(comboBox))
+                        StackPanelLessons.Children.Remove(comboBox);
+
+                    if (!StackPanelLessons.Children.Contains(AddLessonButton))
+                        StackPanelLessons.Children.Add(AddLessonButton);
+                }
+            }
+
+            comboBox.KeyDown += (s, args) =>
+            {
+                if (args.Key == Key.Enter)
+                {
+                    AddNewLesson();
+                }
+            };
+
+            //comboBox.LostFocus += (s, args) =>
+            //{
+            //    AddNewLesson();
+            //};
+
+            comboBox.SelectionChanged += (s, args) =>
+            {
+                if (comboBox.SelectedItem != null)
+                {
+                    AddNewLesson();
+                }
+            };
         }
     }
 }

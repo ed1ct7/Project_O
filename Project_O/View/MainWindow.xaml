@@ -105,7 +105,7 @@
                     </StackPanel>
 
                     <!-- Numerator days -->
-                    <ItemsControl Grid.Row="1" ItemsSource="{Binding NumeratorDays, RelativeSource={RelativeSource AncestorType=Window}}">
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding NumeratorDays}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="7"/>
@@ -125,7 +125,7 @@
                            />
 
                     <!-- Denominator days -->
-                    <ItemsControl Grid.Row="3" ItemsSource="{Binding DenominatorDays, RelativeSource={RelativeSource AncestorType=Window}}">
+                    <ItemsControl Grid.Row="3" ItemsSource="{Binding DenominatorDays}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <UniformGrid Columns="7"/>

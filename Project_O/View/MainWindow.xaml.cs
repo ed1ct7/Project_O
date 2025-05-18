@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using Project_O.UserControls;
+using static Project_O.UserControls.ucDay;
 
 namespace Project_O
 {
@@ -27,6 +28,7 @@ namespace Project_O
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
             GenerateWeeks();
         }
 
@@ -47,35 +49,9 @@ namespace Project_O
                 {
                     DayOfWeek = day.ToString("dddd"),
                     DayNumber = day.Day,
-                    Lessons = new ObservableCollection<ucLesson>(),
-                    Date = day
+                    Date = day,
+                    Lessons = new ObservableCollection<LessonModel>()
                 };
-
-                dayModel.Lessons.Add(new ucLesson { });
-                dayModel.Lessons.Add(new ucLesson { });
-                dayModel.Lessons.Add(new ucLesson { });
-                // Add sample lessons to certain days
-                switch (day.DayOfWeek)
-                {
-                    case DayOfWeek.Monday:
-                        dayModel.Lessons.Add(new ucLesson { });
-                        dayModel.Lessons.Add(new ucLesson { });
-                        dayModel.Lessons.Add(new ucLesson { });
-                        dayModel.Lessons.Add(new ucLesson { });
-                        dayModel.Lessons.Add(new ucLesson { });
-                        break;
-                    case DayOfWeek.Wednesday:
-                        dayModel.Lessons.Add(new ucLesson { });
-                        dayModel.Lessons.Add(new ucLesson { });
-
-                        break;
-                    case DayOfWeek.Friday:
-                        dayModel.Lessons.Add(new ucLesson { });
-                        dayModel.Lessons.Add(new ucLesson { });
-                        dayModel.Lessons.Add(new ucLesson { });
-                        break;
-                }
-
                 NumeratorDays.Add(dayModel);
             }
 
@@ -87,8 +63,8 @@ namespace Project_O
                 {
                     DayOfWeek = day.ToString("dddd"),
                     DayNumber = day.Day,
-                    Lessons = new ObservableCollection<ucLesson>(),
-                    Date = day
+                    Date = day,
+                    Lessons = new ObservableCollection<LessonModel>()
                 });
             }
 
@@ -108,7 +84,6 @@ namespace Project_O
             GenerateWeeks();
         }
 
-        // Остальные методы управления окном
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -126,7 +101,11 @@ namespace Project_O
     {
         public string DayOfWeek { get; set; }
         public int DayNumber { get; set; }
-        public ObservableCollection<ucLesson> Lessons { get; set; }
         public DateTime Date { get; set; }
+        public ObservableCollection<LessonModel> Lessons { get; set; }
+    }
+    public class LessonModel
+    {
+        public string name { get; set; } = "Sample Lesson";
     }
 }
