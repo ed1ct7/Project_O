@@ -48,9 +48,10 @@ namespace Project_O.UserControls
         public void GenerateLessons()
         {
             var dayModel = DataContext as DayModel;
-            dayModel.Lessons.Clear(); // Clear existing lessons
+            int dayIndex = (int)dayModel.Date.DayOfWeek + 7 * dayModel.DenNum;
+            dayModel.Lessons.Clear();
 
-            foreach (var lesson in GroupSettings.Lessons[(int)dayModel.Date.DayOfWeek])
+            foreach (var lesson in GroupSettings.Lessons[dayIndex])
             {
                 var lessonModel = new LessonModel
                 {
@@ -64,7 +65,7 @@ namespace Project_O.UserControls
         private void AddLessonButton_Click(object sender, RoutedEventArgs e)
         {
             var dayModel = DataContext as DayModel;
-            int dayIndex = (int)dayModel.Date.DayOfWeek;
+            int dayIndex = (int)dayModel.Date.DayOfWeek + 7 * dayModel.DenNum;
 
             var comboBox = new ComboBox
             {

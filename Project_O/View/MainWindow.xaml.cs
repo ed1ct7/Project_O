@@ -47,6 +47,7 @@ namespace Project_O
                 DateTime day = monday.AddDays(i);
                 var dayModel = new DayModel
                 {
+                    DenNum = 0,
                     DayOfWeek = day.ToString("dddd"),
                     DayNumber = day.Day,
                     Date = day,
@@ -61,6 +62,7 @@ namespace Project_O
                 DateTime day = monday.AddDays(i + 7);
                 DenominatorDays.Add(new DayModel
                 {
+                    DenNum = 1,
                     DayOfWeek = day.ToString("dddd"),
                     DayNumber = day.Day,
                     Date = day,
@@ -98,6 +100,7 @@ namespace Project_O
 
     public class DayModel
     {
+        public short DenNum {  get; set; } //0 - Numerator; 1 - Denumerator
         public string DayOfWeek { get; set; }
         public int DayNumber { get; set; }
         public DateTime Date { get; set; }

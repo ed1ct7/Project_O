@@ -23,6 +23,7 @@ namespace Project_O.UserControls
         public ucLesson()
         {
             InitializeComponent();
+
         }
         private void LessonButton_Click(object sender, RoutedEventArgs e)
         {
@@ -31,8 +32,7 @@ namespace Project_O.UserControls
                 mainWindow.ucNInformation.Visibility = Visibility.Visible;
 
             var lessonModel = DataContext as LessonModel;
-
+            mainWindow.ucNInformation.DataContext = lessonModel;
         }
-
     }
 }

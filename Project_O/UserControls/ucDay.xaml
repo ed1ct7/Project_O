@@ -39,6 +39,7 @@
 
                 <!-- Fixed Button -->
                 <Button  x:Name="AddLessonButton"
+                    Style="{StaticResource S_Lesson}"
                     Content="+"
                     Margin="0,0,0,0"
                     Click="AddLessonButton_Click"

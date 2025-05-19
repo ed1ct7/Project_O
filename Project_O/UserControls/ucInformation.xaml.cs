@@ -23,7 +23,7 @@ namespace Project_O.UserControls
         public ucInformation()
         {
             InitializeComponent();
-
+            this.DataContext = this;
         }
     }
 }

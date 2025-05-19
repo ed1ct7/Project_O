@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Project_O.Classes">
+
+    <Style x:Key="S_AddLesson" TargetType="ComboBox">
+        <Setter Property="Background" Value="Black"></Setter>
+    </Style>
+
+</ResourceDictionary>
