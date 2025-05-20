@@ -17,11 +17,58 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}">
+                        CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}"
+                        Padding="{TemplateBinding Padding}">
                         <ScrollViewer x:Name="PART_ContentHost"
                                   Margin="{TemplateBinding Padding}"
                                   VerticalAlignment="Top"/>
                     </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="S_PlaceHolderText" TargetType="TextBox" BasedOn="{StaticResource S_TextBox}">
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border" 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}"
+                        Padding="{TemplateBinding Padding}"
+                        SnapsToDevicePixels="True">
+                        <Grid>
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                            <TextBlock x:Name="textBlock"
+                                   Margin="2,0,0,0"
+                                   FontSize="14"
+                                   Foreground="{TemplateBinding BorderBrush}"
+                                   IsHitTestVisible="False"
+                                   Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                   Visibility="Collapsed"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Text" Value="">
+                            <Setter TargetName="textBlock" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF7EB4EA" />
+                        </Trigger>
+                        <Trigger Property="IsKeyboardFocused" Value="True">
+                            <Setter TargetName="textBlock" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="border" Property="BorderBrush" Value="#FF569DE5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using TaskManagerLogic;
 
 namespace Project_O
 {

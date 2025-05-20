@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using System.Windows;
 
 namespace Project_O.Classes
@@ -58,7 +53,7 @@ namespace Project_O.Classes
                 "P_DefaultCornerRadius",
                 typeof(int),
                 typeof(Properties),
-                new PropertyMetadata(9));
+                new PropertyMetadata(10));
         public int DefaultCornerRadius
         {
             get { return (int)GetValue(P_DefaultCornerRadius); }
