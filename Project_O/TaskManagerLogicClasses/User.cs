@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using YandexDisk;
 using System.Security.Cryptography;
 using System.Text;
+using System.IO;
 
 namespace TaskManagerLogic.Classes
 {
