@@ -33,7 +33,7 @@
     <Style x:Key="S_WMClose" TargetType="Button" BasedOn="{StaticResource S_WindowMenuButton}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="Red" />
+                <Setter Property="Foreground" Value="{Binding ProperRed, Source={x:Static local:Properties.Instance}}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -41,7 +41,7 @@
     <Style x:Key="S_WMOther" TargetType="Button" BasedOn="{StaticResource S_WindowMenuButton}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="Blue" />
+                <Setter Property="Foreground" Value="{Binding ProperBlue, Source={x:Static local:Properties.Instance}}"/>
                 <Setter Property="Background" Value="Transparent"></Setter>
             </Trigger>
         </Style.Triggers>
@@ -74,7 +74,8 @@
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="#FFBCBCBC"/>
-                            <Setter TargetName="border" Property="BorderBrush" Value="#FF505050"/>
+                            <Setter TargetName="border" Property="BorderBrush" 
+                                    Value="{Binding FontSizeOnHovered, Source={x:Static local:Properties.Instance}}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -82,34 +83,45 @@
         </Setter>
     </Style>
 
+    <Style x:Key="S_Auth" TargetType="Button" BasedOn="{StaticResource S_MenuButton}">
+        <Setter Property="Background" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"/>
+        <Setter Property="Foreground" Value="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"/>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+    
+    
+    
     <Style x:Key="S_Lesson" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Height" Value="30"></Setter>
+        <Setter Property="Margin" Value="0,0"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" 
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="0"
-                    CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}">
-                        <ContentPresenter HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  TextElement.Foreground="{TemplateBinding Foreground}"/>
-                    </Border>
+                    <Grid>
+                        <Rectangle Fill="Transparent" VerticalAlignment="Bottom"/>
+                        <Rectangle Fill="Transparent" HorizontalAlignment="Right"/>
+                        <Rectangle Margin="0,0,0,0" 
+                                   Fill="{Binding FG_Control, Source={x:Static local:Properties.Instance}}" 
+                                   Height="1" 
+                                   VerticalAlignment="Top"/>
+                        <Rectangle Fill="Transparent" HorizontalAlignment="Left"/>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#FFC8C8C8"/>
+                            <Setter Property="Background" Value="{Binding BG_ControlOnHovered, Source={x:Static local:Properties.Instance}}"></Setter>
+                            <Setter Property="FontSize" Value="{Binding FontSizeOnHovered, Source={x:Static local:Properties.Instance}}"></Setter>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="#FFBCBCBC"/>
-                            <Setter TargetName="border" Property="BorderBrush" Value="#FF505050"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

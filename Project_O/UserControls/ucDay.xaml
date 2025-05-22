@@ -26,12 +26,12 @@
                 <!-- Scrollable Lessons -->
                 <ScrollViewer 
                     VerticalScrollBarVisibility="Auto"
-                    MaxHeight="200">
+                    MaxHeight="140">
                     <!-- Prevents infinite expansion -->
                     <ItemsControl x:Name="LessonsCollection" ItemsSource="{Binding Lessons}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <UserControls:ucLesson Margin="0,0,0,0"/>
+                                <UserControls:ucLesson Margin="3,3"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -41,9 +41,10 @@
                 <Button  x:Name="AddLessonButton"
                     Style="{StaticResource S_Lesson}"
                     Content="+"
-                    Margin="0,0,0,0"
+                    Margin="0,3"
                     Click="AddLessonButton_Click"
                     />
+                
             </StackPanel>
         </Grid>
     </Border>

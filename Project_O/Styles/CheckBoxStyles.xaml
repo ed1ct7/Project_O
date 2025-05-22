@@ -30,7 +30,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
-                    <Border Width="60" Height="20" CornerRadius="10" Background="{TemplateBinding Background}" >
+                    <Border Width="45" Height="20" CornerRadius="10" Background="{TemplateBinding Background}" >
                         <Grid>
                             <Border x:Name="border" Width="18" Height="18" CornerRadius="9" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="1 0" Background="White">
                                 <Border.RenderTransform>
@@ -47,25 +47,35 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Text" TargetName="txt" Value="{Binding Tag,RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Setter Property="Background" Value="{Binding ProperBlue, Source={x:Static local:Properties.Instance}}"></Setter>
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="40" Duration="00:00:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="txt" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="00:00:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetName="border" 
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" 
+                                                         To="25" Duration="00:00:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetName="txt" 
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" 
+                                                         To="0" Duration="00:00:0.2"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="0" Duration="00:00:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="txt" Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" To="18" Duration="00:00:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetName="border" 
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" 
+                                                         To="0" Duration="00:00:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetName="txt" 
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" 
+                                                         To="18" Duration="00:00:0.2"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
                         </Trigger>
                         <Trigger Property="IsChecked" Value="False">
                             <Setter Property="Text" TargetName="txt" Value="{Binding Content,RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Setter Property="Background" Value="{Binding ProperRed, Source={x:Static local:Properties.Instance}}"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

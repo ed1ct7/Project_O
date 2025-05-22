@@ -52,13 +52,13 @@
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button x:Name="btnMinimize" Content="🗕"
-                Style="{StaticResource S_WMClose}"
+                Style="{StaticResource S_WMOther}"
                 Click="btnMinimize_Click"/>
                     <Button x:Name="btnMaximize" Content="🗖"
                 Style="{StaticResource S_WMOther}"
                 Click="btnMaximize_Click"/>
                     <Button x:Name="btnClose" Content="✖"
-                Style="{StaticResource S_WMOther}"
+                Style="{StaticResource S_WMClose}"
                 Click="btnClose_Click"/>
                 </StackPanel>
             </Grid>

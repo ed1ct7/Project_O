@@ -13,7 +13,7 @@
             BorderBrush="White">
             <StackPanel x:Name="InfoPanel">
                 <Label Margin="10,10" Style="{StaticResource S_Info}" Content="Предмет"></Label>
-                <Label Style="{StaticResource S_NomDin}" Content="{Binding Name}"></Label>
+                <Label Style="{StaticResource S_NomDin}" FontWeight="Thin" Content="{Binding Name}"></Label>
                 <Label Margin="10,10" Style="{StaticResource S_Info}" Content="Задание"></Label>
                 <RichTextBox></RichTextBox>
                 <Label Margin="10,10" Style="{StaticResource S_Info}" Content="Описание"></Label>
