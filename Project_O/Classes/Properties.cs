@@ -48,6 +48,65 @@ namespace Project_O.Classes
         }
         //
 
+        //
+        // Foreground color property for Control on Hovered
+        public static readonly DependencyProperty ControlBorderColor =
+            DependencyProperty.Register(
+                "ControlBorderColorOnHovered",
+                typeof(Brush),
+                typeof(Properties),
+                new PropertyMetadata(Brushes.White));
+        public Brush BorderColor
+        {
+            get { return (Brush)GetValue(ControlBorderColor); }
+            set { SetValue(ControlBorderColor, value); }
+        }
+        //
+
+
+        // Foreground color property for Control on Hovered
+        public static readonly DependencyProperty FGP_ControlOnHovered =
+            DependencyProperty.Register(
+                "FGP_ControlOnHovered",
+                typeof(Brush),
+                typeof(Properties),
+                new PropertyMetadata(Brushes.White));
+        public Brush FG_ControlOnHovered
+        {
+            get { return (Brush)GetValue(FGP_ControlOnHovered); }
+            set { SetValue(FGP_ControlOnHovered, value); }
+        }
+        //
+
+        // Background color property for Control on Hovered
+        public static readonly DependencyProperty BGP_ControlOnHovered =
+            DependencyProperty.Register(
+                "BGP_ControlOnHovered",
+                typeof(Brush),
+                typeof(Properties),
+                new PropertyMetadata(Brushes.White));
+        public Brush BG_ControlOnHovered
+        {
+            get { return (Brush)GetValue(BGP_ControlOnHovered); }
+            set { SetValue(BGP_ControlOnHovered, value); }
+        }
+        //
+
+
+        public static readonly DependencyProperty P_FontSizeChangedOnHovered =
+           DependencyProperty.Register(
+               "P_FontSizeChangedOnHovered",
+               typeof(int),
+               typeof(Properties),
+               new PropertyMetadata(10));
+        public int FontSizeOnHovered
+        {
+            get { return (int)GetValue(P_FontSizeChangedOnHovered); }
+            set { SetValue(P_FontSizeChangedOnHovered, value); }
+        }
+
+
+
         public static readonly DependencyProperty P_DefaultCornerRadius =
             DependencyProperty.Register(
                 "P_DefaultCornerRadius",

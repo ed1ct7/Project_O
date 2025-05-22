@@ -9,7 +9,6 @@ namespace Project_O
         public ObservableCollection<DayModel> NumeratorDays { get; } = new ObservableCollection<DayModel>();
         public ObservableCollection<DayModel> DenominatorDays { get; } = new ObservableCollection<DayModel>();
         public DateTime CurrentDate { get; private set; } = DateTime.Today;
-
         public MainWindow()
         {
             InitializeComponent();

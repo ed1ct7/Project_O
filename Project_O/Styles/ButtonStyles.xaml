@@ -69,7 +69,8 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#FFC8C8C8"/>
+                            <Setter Property="Background" Value="{Binding BG_ControlOnHovered, Source={x:Static local:Properties.Instance}}"></Setter>
+                            <Setter Property="FontSize" Value="{Binding FontSizeOnHovered, Source={x:Static local:Properties.Instance}}"></Setter>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter Property="Background" Value="#FFBCBCBC"/>
