@@ -48,6 +48,32 @@
     </Style>
 
 
+    <Style x:Key="S_TextButton" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="Transparent"
+                     BorderBrush="Transparent">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{Binding ProperBlue, Source={x:Static local:Properties.Instance}}"/>
+                <Setter Property="Background" Value="Transparent"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
 
     <Style x:Key="S_MenuButton" TargetType="Button">
         <Setter Property="Background" Value="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"/>
