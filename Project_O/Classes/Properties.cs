@@ -1,4 +1,9 @@
-﻿using System.Windows.Media;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows;
 
 namespace Project_O.Classes
@@ -48,127 +53,12 @@ namespace Project_O.Classes
         }
         //
 
-        public static readonly DependencyProperty P_ProperBlue =
-            DependencyProperty.Register(
-                "ProperBlue",
-                typeof(Brush),
-                typeof(Properties),
-                new PropertyMetadata(new SolidColorBrush(Color.FromRgb(61, 95, 199))));
-        public Brush ProperBlue
-        {
-            get { return (Brush)GetValue(P_ProperBlue); }
-            set { SetValue(P_ProperBlue, value); }
-        }
-
-        public static readonly DependencyProperty P_ProperRed =
-            DependencyProperty.Register(
-                "P_ProperRed",
-                typeof(Brush),
-                typeof(Properties),
-                new PropertyMetadata(new SolidColorBrush(Color.FromRgb(199, 29, 76))));
-        public Brush ProperRed
-        {
-            get { return (Brush)GetValue(P_ProperRed); }
-            set { SetValue(P_ProperRed, value); }
-        }
-
-
-
-        //
-        // Foreground color property for Control on Hovered
-        public static readonly DependencyProperty ControlBorderColor =
-            DependencyProperty.Register(
-                "ControlBorderColorOnHovered",
-                typeof(Brush),
-                typeof(Properties),
-                new PropertyMetadata(Brushes.White));
-        public Brush BorderColor
-        {
-            get { return (Brush)GetValue(ControlBorderColor); }
-            set { SetValue(ControlBorderColor, value); }
-        }
-        //
-
-
-        // Foreground color property for Control on Hovered
-        public static readonly DependencyProperty FGP_ControlOnHovered =
-            DependencyProperty.Register(
-                "FGP_ControlOnHovered",
-                typeof(Brush),
-                typeof(Properties),
-                new PropertyMetadata(Brushes.White));
-        public Brush FG_ControlOnHovered
-        {
-            get { return (Brush)GetValue(FGP_ControlOnHovered); }
-            set { SetValue(FGP_ControlOnHovered, value); }
-        }
-        //
-
-        // Background color property for Control on Hovered
-        public static readonly DependencyProperty BGP_ControlOnHovered =
-            DependencyProperty.Register(
-                "BGP_ControlOnHovered",
-                typeof(Brush),
-                typeof(Properties),
-                new PropertyMetadata(Brushes.White));
-        public Brush BG_ControlOnHovered
-        {
-            get { return (Brush)GetValue(BGP_ControlOnHovered); }
-            set { SetValue(BGP_ControlOnHovered, value); }
-        }
-        //
-
-
-        // Foreground color property for Control on Hovered
-        public static readonly DependencyProperty FGP_ControlOnPressed =
-            DependencyProperty.Register(
-                "FGP_ControlOnPressed",
-                typeof(Brush),
-                typeof(Properties),
-                new PropertyMetadata(Brushes.White));
-        public Brush FG_ControlOnPressed
-        {
-            get { return (Brush)GetValue(FGP_ControlOnPressed); }
-            set { SetValue(FGP_ControlOnPressed, value); }
-        }
-        //
-
-        // Background color property for Control on Hovered
-        public static readonly DependencyProperty BGP_ControlOnPressed =
-            DependencyProperty.Register(
-                "BGP_ControlOnPressed",
-                typeof(Brush),
-                typeof(Properties),
-                new PropertyMetadata(Brushes.White));
-        public Brush BG_ControlOnPressed
-        {
-            get { return (Brush)GetValue(BGP_ControlOnPressed); }
-            set { SetValue(BGP_ControlOnPressed, value); }
-        }
-        //
-
-
-
-        public static readonly DependencyProperty P_FontSizeChangedOnHovered =
-           DependencyProperty.Register(
-               "P_FontSizeChangedOnHovered",
-               typeof(int),
-               typeof(Properties),
-               new PropertyMetadata(15));
-        public int FontSizeOnHovered
-        {
-            get { return (int)GetValue(P_FontSizeChangedOnHovered); }
-            set { SetValue(P_FontSizeChangedOnHovered, value); }
-        }
-
-
-
         public static readonly DependencyProperty P_DefaultCornerRadius =
             DependencyProperty.Register(
                 "P_DefaultCornerRadius",
                 typeof(int),
                 typeof(Properties),
-                new PropertyMetadata(10));
+                new PropertyMetadata(9));
         public int DefaultCornerRadius
         {
             get { return (int)GetValue(P_DefaultCornerRadius); }

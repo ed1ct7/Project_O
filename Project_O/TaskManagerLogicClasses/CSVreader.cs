@@ -65,6 +65,12 @@ namespace TaskManagerLogic.Classes
             Lines.Add(NewLine);
             Write(FilePath, Lines);
         }
+        public static void EditLine(string FilePath, string NewLine, int n)
+        {
+            var Lines = File.ReadAllLines(FilePath).ToList();
+            Lines[n] = NewLine;
+            Write(FilePath, Lines);
+        }
 
         // Перезаписывает строку файла по указанному пути с указанными значениями определённых столбцов, зачем - не знаю
         public static int WriteStringByColumns(string FilePath, string[] columnNames, string[] rowValues, string newValue)

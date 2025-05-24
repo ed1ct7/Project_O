@@ -9,9 +9,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="120">
     <Grid>
-        <Button x:Name="Lesson" 
-            Content="{Binding Name}"
-            Click="LessonButton_Click"
-            Style="{StaticResource S_Lesson}"/>
+        <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}">
+            <Button x:Name="Lesson" 
+                    Content="{Binding Name}"
+                    Click="LessonButton_Click"
+                    Style="{StaticResource S_Lesson}"/>
+            
+        </Border>
     </Grid>
 </UserControl>

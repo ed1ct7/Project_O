@@ -1,9 +1,22 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Project_O;
 using Project_O.Classes;
+using TaskManagerLogic.Classes;
 
 namespace Project_O.UserControls
 {
@@ -27,25 +40,30 @@ namespace Project_O.UserControls
             {
                 if (date == DateTime.Today)
                 {
-                    Border.BorderBrush = Classes.Properties.Instance.ProperBlue;
+                    Border.BorderBrush = Brushes.Blue;
                 }
                 GenerateLessons();
             }
         }
 
-        public void GenerateLessons()
+        public async Task GenerateLessons()
         {
             var dayModel = DataContext as DayModel;
             int dayIndex = (int)dayModel.Date.DayOfWeek + 7 * dayModel.DenNum;
             dayModel.Lessons.Clear();
-
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            
             foreach (var lesson in GroupSettings.Lessons[dayIndex])
             {
+                SubjectTask CurrentTask = await mainWindow.user.Groups[0].GetTaskAtDate(lesson, date);
+                
                 var lessonModel = new LessonModel
                 {
                     Name = lesson,
-                    Date = date
+                    Date = date,
+                
                 };
+                lessonModel.CurrentTask = CurrentTask;
                 dayModel.Lessons.Add(lessonModel);
             }
         }
