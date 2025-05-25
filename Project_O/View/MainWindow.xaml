@@ -164,9 +164,12 @@
                         </Grid.RowDefinitions>
 
                         <!-- Numerator label -->
-                        <Label Grid.Row="0" Content="Числитель" Style="{StaticResource S_NomDin}"/>
+                        <Label Grid.Row="0" 
+                               Content="Числитель" 
+                               Style="{StaticResource S_NomDin}"
+                               Margin="0"/>
 
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0">
                             <Button Content="◄" Width="30" Margin="10,0" Click="PreviousWeek_Click"/>
                             <TextBlock x:Name="MonthYearText" VerticalAlignment="Center" Foreground="White" FontSize="14"/>
                             <Button Content="►" Width="30" Margin="10,0" Click="NextWeek_Click"/>
@@ -190,10 +193,11 @@
                         <Label Grid.Row="2" 
                                Content="Знаменатель" 
                                Style="{StaticResource S_NomDin}"
+                               Margin="0"
                                />
 
                         <!-- Denominator days -->
-                        <ItemsControl Grid.Row="2" ItemsSource="{Binding DenominatorDays}" Margin="2,50,-2,2" Grid.RowSpan="2">
+                        <ItemsControl Grid.Row="3" ItemsSource="{Binding DenominatorDays}" Grid.RowSpan="2">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <UniformGrid Columns="7"/>
