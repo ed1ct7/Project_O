@@ -25,6 +25,7 @@ namespace TaskManagerLogic.Classes
             dateFormat,
             CultureInfo.InvariantCulture);
         }
+        
         public static DateTime ToDateWTime(string date)
         {
             string dateFormat = "dd.MM.yyyy";

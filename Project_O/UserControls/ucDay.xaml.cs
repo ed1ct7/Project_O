@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,24 +47,22 @@ namespace Project_O.UserControls
             }
         }
 
-        public async Task GenerateLessons()
+        public void GenerateLessons()
         {
             var dayModel = DataContext as DayModel;
             int dayIndex = (int)dayModel.Date.DayOfWeek + 7 * dayModel.DenNum;
             dayModel.Lessons.Clear();
             var mainWindow = Window.GetWindow(this) as MainWindow;
             
-            foreach (var lesson in GroupSettings.Lessons[dayIndex])
+            foreach (var lesson in mainWindow.user.Groups[0].Timetable[dayIndex])
             {
-                SubjectTask CurrentTask = await mainWindow.user.Groups[0].GetTaskAtDate(lesson, date);
-                
+            
                 var lessonModel = new LessonModel
                 {
                     Name = lesson,
                     Date = date,
-                
+                    CurrentTask = mainWindow.user.Groups[0].GetTaskCreatedAtDate(lesson, date)
                 };
-                lessonModel.CurrentTask = CurrentTask;
                 dayModel.Lessons.Add(lessonModel);
             }
         }
@@ -96,7 +95,9 @@ namespace Project_O.UserControls
 
                 if (!string.IsNullOrWhiteSpace(newLesson))
                 {
-                    GroupSettings.Lessons[dayIndex] = GroupSettings.Lessons[dayIndex].Concat(new[] { newLesson }).ToArray();
+                    var mainWindow = Window.GetWindow(this) as MainWindow;
+                    mainWindow.user.Groups[0].Timetable[dayIndex] = mainWindow.user.Groups[0].Timetable[dayIndex].Concat(new[] { newLesson }).ToArray();
+
                     dayModel.Lessons.Add(new LessonModel { Name = newLesson });
 
                     if (StackPanelLessons.Children.Contains(comboBox))

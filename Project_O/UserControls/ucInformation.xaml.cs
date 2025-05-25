@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using TaskManagerLogic.Classes;
 
 namespace Project_O.UserControls
 {
@@ -40,9 +41,17 @@ namespace Project_O.UserControls
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            var mainWindow = Window.GetWindow(this) as MainWindow;
             var lessonModel = DataContext as LessonModel;
-            lessonModel.Name = "Помогите";
-            this.DataContext = lessonModel;
+            if (lessonModel.CurrentTask == null) {
+                lessonModel.CurrentTask = await mainWindow.user.Groups[0].UploadTask(TaskName.Text, lessonModel.Name, TaskDesc.Text, new List<string>(), lessonModel.Date, DateTime.Now, 1); 
+            }
+            else
+            {
+                lessonModel.CurrentTask = await mainWindow.user.Groups[0].UpdateTask(TaskName.Text, lessonModel.Name, TaskDesc.Text, new List<string>(), lessonModel.Date, DateTime.Now, 1);
+            }
+
+                this.DataContext = lessonModel;
         }
     }
 }

@@ -48,7 +48,7 @@ namespace TaskManagerLogic.Classes
         }
 
         // Перезаписывает всё содержимое файла, не для использования из вне
-        private static void Write(string FilePath, List<string> Lines)
+        public static void Write(string FilePath, List<string> Lines)
         {
             var csv = new StringBuilder();
             foreach (var Line in Lines) { 

@@ -75,7 +75,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Style="{StaticResource S_DefaultLabel}" Content="Меню" FontSize="22" FontWeight="Bold"></Label>
                 <Button Grid.Row="1" Style="{StaticResource S_MenuButton}" Content="Обновить"></Button>
-                <Button Grid.Row="2" Style="{StaticResource S_MenuButton}" Content="Расписание"></Button>
+                <Button Grid.Row="2" Style="{StaticResource S_MenuButton}" Content="Расписание" Click="Button_Click"></Button>
                 <Button Grid.Row="3" Style="{StaticResource S_MenuButton}" Content="Настройки"></Button>
                 <Button Grid.Row="4" Style="{StaticResource S_MenuButton}" Content="Выход"></Button>
                 <Label Grid.Row="5" Style="{StaticResource S_DefaultLabel}" Content="Заметки" FontSize="22" FontWeight="Bold"></Label>

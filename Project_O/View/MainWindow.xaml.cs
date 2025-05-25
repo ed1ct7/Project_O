@@ -23,7 +23,7 @@ namespace Project_O
 {
     public partial class MainWindow : Window
     {
-        public User user = new User("NTC532", new List<Group> { new Group("TestGroup")});
+        public User user = new User("NTC532", new List<Group> { new Group("TestGroup") });
         
         public ObservableCollection<DayModel> NumeratorDays { get; } = new ObservableCollection<DayModel>();
         public ObservableCollection<DayModel> DenominatorDays { get; } = new ObservableCollection<DayModel>();
@@ -88,7 +88,10 @@ namespace Project_O
         private async void PreviousWeek_Click(object sender, RoutedEventArgs e)
         {
             CurrentDate = CurrentDate.AddDays(-14);
-            
+            await Group.CreateGroup("TestGroup");
+            await User.ActualizeUsersBase();
+
+            await user.Groups[0].ActualizeGroupFiles();
             
             GenerateWeeks();
         }
@@ -110,6 +113,11 @@ namespace Project_O
         private void btnMaximize_Click(object sender, RoutedEventArgs e) => WindowState = WindowState == 
             WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         private void btnClose_Click(object sender, RoutedEventArgs e) => Close();
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            await user.Groups[0].UploadTimeTable();
+        }
     }
 
     public class DayModel
