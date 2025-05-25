@@ -5,7 +5,7 @@
     <Style x:Key="S_WindowMenuButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="FontSize" Value="11"/>
         <Setter Property="Width" Value="40"></Setter> 
         <Setter Property="Height" Value="30"></Setter>
@@ -42,13 +42,13 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Foreground" Value="{Binding ProperBlue, Source={x:Static local:Properties.Instance}}"/>
-                <Setter Property="Background" Value="Transparent"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
 
 
     <Style x:Key="S_TextButton" TargetType="Button">
+        <Setter Property="BorderBrush" Value="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -57,7 +57,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Background="Transparent"
-                     BorderBrush="Transparent">
+                     BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter HorizontalAlignment="Center"
                                    VerticalAlignment="Center"/>
                     </Border>
@@ -73,22 +73,27 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="S_TextButtonRed" TargetType="Button" BasedOn="{StaticResource S_TextButton}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{Binding ProperRed, Source={x:Static local:Properties.Instance}}"/>
+                <Setter Property="Background" Value="Transparent"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 
     <Style x:Key="S_MenuButton" TargetType="Button">
-        <Setter Property="Background" Value="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"/>
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="Height" Value="40"/>
-        <Setter Property="Margin" Value="6,6,6,6"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="border" 
                         Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}">
+                        BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
                                       TextElement.Foreground="{TemplateBinding Foreground}"/>
@@ -108,6 +113,9 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    
+    
 
     <Style x:Key="S_Auth" TargetType="Button" BasedOn="{StaticResource S_MenuButton}">
         <Setter Property="Background" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"/>
@@ -120,21 +128,20 @@
     <Style x:Key="S_Lesson" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"/>
-        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontSize" Value="12"/>
         <Setter Property="Height" Value="30"></Setter>
         <Setter Property="Margin" Value="0,0"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid>
-                        <Rectangle Fill="Transparent" VerticalAlignment="Bottom"/>
-                        <Rectangle Fill="Transparent" HorizontalAlignment="Right"/>
                         <Rectangle Margin="0,0,0,0" 
-                                   Fill="{Binding FG_Control, Source={x:Static local:Properties.Instance}}" 
+                                   Fill="{TemplateBinding BorderBrush}"
                                    Height="1" 
-                                   VerticalAlignment="Top"/>
-                        <Rectangle Fill="Transparent" HorizontalAlignment="Left"/>
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="Top"
+                                   Width="10000"/>
+                        <ContentPresenter 
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Grid>
                     <ControlTemplate.Triggers>

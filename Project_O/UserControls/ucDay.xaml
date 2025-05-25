@@ -7,22 +7,38 @@
              xmlns:local="clr-namespace:Project_O.Classes"
              mc:Ignorable="d" 
              d:DesignHeight="180" d:DesignWidth="120">
-    <Border x:Name="Border" BorderBrush="LightGray" BorderThickness="1" CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}" Margin="5" Padding="5">
+    <Border
+            BorderBrush = "{Binding BorderBrushS, Source={x:Static local:Properties.Instance}}" 
+            BorderThickness="0" 
+            Padding="0,5"
+            Background="#242326"
+            >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
 
+            <Rectangle Margin="0,0,0,0" x:Name="BorderU"
+                   Fill="{Binding BorderBrushS, Source={x:Static local:Properties.Instance}}" 
+                   Height="1" 
+                   VerticalAlignment="Top"
+                   Width="10000"/>
+            <Rectangle Margin="0,0,0,0" Grid.Row="3" x:Name="BorderB"
+                   Fill="{Binding BorderBrushS, Source={x:Static local:Properties.Instance}}" 
+                   Height="1" 
+                   VerticalAlignment="Bottom"
+                   Width="10000"/>  
             <!-- Header -->
             <StackPanel x:Name="StackPanel">
-                <TextBlock Text="{Binding DayOfWeek}" Foreground="White" HorizontalAlignment="Center" FontSize="14"/>
-                <TextBlock Text="{Binding DayNumber}" Foreground="White"  HorizontalAlignment="Right" Margin="0,5,0,0" FontSize="14"/>
+                <TextBlock Text="{Binding DayOfWeek}" Foreground="White" HorizontalAlignment="Center" Margin="0,5,0,0" FontSize="14"/>
+                <TextBlock Text="{Binding DayNumber}" Foreground="White"  HorizontalAlignment="Right" Margin="0,5,5,3" FontSize="14"/>
             </StackPanel>
 
-            
+
             <!-- Lessons and Button -->
-            <StackPanel x:Name="StackPanelLessons" Grid.Row="1">
+            <StackPanel x:Name="StackPanelLessons" Margin="0,50,0,0" Grid.RowSpan="3">
                 <!-- Scrollable Lessons -->
                 <ScrollViewer 
                     VerticalScrollBarVisibility="Auto"
@@ -31,7 +47,7 @@
                     <ItemsControl x:Name="LessonsCollection" ItemsSource="{Binding Lessons}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <UserControls:ucLesson Margin="3,3"/>
+                                <UserControls:ucLesson Margin="0,0"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -44,7 +60,7 @@
                     Margin="0,3"
                     Click="AddLessonButton_Click"
                     />
-                
+
             </StackPanel>
         </Grid>
     </Border>

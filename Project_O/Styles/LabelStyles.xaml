@@ -4,30 +4,10 @@
 
     <Style x:Key="S_DefaultLabel" TargetType="Label">
         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-        <Setter Property="Background" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"/>
-        <Setter Property="Foreground" Value="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"/>
-        <Setter Property="Margin" Value="6,6,6,6"/>
+        <Setter Property="Background" Value="{Binding  BG_SControl, Source={x:Static local:Properties.Instance}}"/>
+        <Setter Property="Foreground" Value="{Binding FG_SControl, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="BorderBrush" Value="#FFA0A0A0"/>
-        <Setter Property="Padding" Value="8,4"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Label">
-                    <Border x:Name="border" 
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        Height="{TemplateBinding Height}"
-                        CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}">
-                        <ContentPresenter 
-                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                        Margin="{TemplateBinding Padding}"
-                        RecognizesAccessKey="True"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="BorderBrush" Value="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"/>
     </Style>
 
     <Style x:Key="S_Header" TargetType="Label" BasedOn="{StaticResource S_DefaultLabel}">
