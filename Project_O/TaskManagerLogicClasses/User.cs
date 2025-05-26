@@ -12,7 +12,7 @@ using System.IO;
 namespace TaskManagerLogic.Classes
 {
     
-    internal class User
+    public class User
     {
         static private string Hash(string input)
         {
@@ -25,22 +25,23 @@ namespace TaskManagerLogic.Classes
             }
         }
         public string UserName { get; private set; }
-        public Group[] Groups { get; private set; }
-        public User(string UserName)
+        public List<Group> Groups { get; private set; }
+        public User(string UserName, List<Group> Groups)
         {
-            this.UserName = UserName;
-            
+            this.UserName = UserName;  
+            this.Groups = Groups;
         }
-        static public async System.Threading.Tasks.Task ActualizeUsersBase()
+        static public async Task ActualizeUsersBase()
         {
 
             YandexDrive drive = new YandexDrive();
-            string CurrentFileName = CSVreader.GetFileNameByMask(Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Downloads") + "\\TaskManager", "users*.csv");
+            string CurrentFileName = CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager", "users*.csv");
             bool isActual = await drive.CheckFileNameExists("/Users", CurrentFileName);
             if (!isActual)
             {
-                File.Delete(Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Downloads") + "\\TaskManager\\" + CurrentFileName);
-                await drive.DownloadFile($"/Users/{await drive.GetFileNameByStart("user", "/Users")}", Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Downloads") + "\\TaskManager");
+                if (File.Exists("C:\\ProgramData" + "\\TaskManager\\" + CurrentFileName))
+                File.Delete("C:\\ProgramData" + "\\TaskManager\\" + CurrentFileName);
+                await drive.DownloadFile($"/Users/{await drive.GetFileNameByStart("user", "/Users")}", "C:\\ProgramData" + "\\TaskManager");
                 
             };
         }
@@ -52,7 +53,7 @@ namespace TaskManagerLogic.Classes
         {
             await ActualizeUsersBase();
             string[] userdata;
-            foreach (string Line in CSVreader.Read(Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Downloads") + "\\TaskManager" + "\\" + CSVreader.GetFileNameByMask(Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Downloads") + "\\TaskManager", "users*.csv")))
+            foreach (string Line in CSVreader.Read("C:\\ProgramData" + "\\TaskManager" + "\\" + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager", "users*.csv")))
             {
                 userdata = Line.Split(";");
                 if (userdata[0] == UserName) {
@@ -65,10 +66,24 @@ namespace TaskManagerLogic.Classes
             }
             throw new UserException("Пользователь не существует", 1);
         }
+        static public async Task<List<Group>> CreateGroupsList(string UserName)
+        {
+            await ActualizeUsersBase();
+            List<Group> groups = new List<Group>();
+            var groupNames = CSVreader.ReadStringByColumns($"C:\\ProgramData\\TaskManager\\{CSVreader.GetFileNameByMask("C:\\ProgramData\\TaskManager","users*.csv")}", new string[] {"User"}, new string[] {UserName}).Split(";")[2].Split(",");
+            foreach (string group in groupNames)
+            {
+                groups.Add(new Group(group));
+            }
+            return groups;
+        }
         static public async Task<User?> Login(string UserName, string Password)
         {
             bool isExist = await CheckUserInfo(UserName, Password);
-            if (isExist) return new User(UserName);
+            if (isExist)
+            {
+                return new User(UserName, await CreateGroupsList(UserName));
+            }
             else return null;
         }
 
@@ -83,19 +98,29 @@ namespace TaskManagerLogic.Classes
             catch (UserException ex) when (ex.ErrorCode == 1)
             {
                 YandexDrive drive = new YandexDrive();
-                CSVreader.AddNewRecord(Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Downloads") + "\\TaskManager" + "\\" + CSVreader.GetFileNameByMask(Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Downloads") + "\\TaskManager", "users*.csv"), $"{UserName};{Hash(Password)};");
+                CSVreader.AddNewRecord("C:\\ProgramData" + "\\TaskManager" + "\\" + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager", "users*.csv"), $"{UserName};{Hash(Password)};");
                 string oldFileName = await drive.GetFileNameByStart("user", "/Users");
                 string newFileName = $"users{TMDateFormatter.ToString(DateTime.Now)}.csv";
-                File.Move(Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Downloads") + "\\TaskManager\\" + oldFileName, Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Downloads") + "\\TaskManager\\" + newFileName);
-                await drive.UploadFile($"/Users/{newFileName}", Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\Downloads") + "\\TaskManager\\" + newFileName);
+                File.Move("C:\\ProgramData" + "\\TaskManager\\" + oldFileName, "C:\\ProgramData" + "\\TaskManager\\" + newFileName);
+                await drive.UploadFile($"/Users/{newFileName}", "C:\\ProgramData" + "\\TaskManager\\" + newFileName);
                 await drive.DeleteFile($"/Users/{oldFileName}");
-                return new User(UserName);
-            }
-            
-            
-
-
-            
+                return new User(UserName, await CreateGroupsList(UserName));
+            }  
         }
+        public async Task ConnectToGroup(string GroupName)
+        {
+            await ActualizeUsersBase();
+            YandexDrive drive = new YandexDrive();
+            var UserData = CSVreader.ReadStringByColumns("C:\\ProgramData" + "\\TaskManager" + "\\" + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager", "users*.csv"), new string[] { "UserName" }, new string[] { UserName }).Split(";");
+            if (UserData[2] != "") GroupName = "," + GroupName;
+            CSVreader.WriteStringByColumns("C:\\ProgramData" + "\\TaskManager" + "\\" + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager", "users*.csv"), new string[] { "UserName" }, new string[] { UserName }, $"{UserData[0]};{UserData[1]};{UserData[2]+GroupName}");
+            string oldFileName = await drive.GetFileNameByStart("user", "/Users");
+            string newFileName = $"users{TMDateFormatter.ToString(DateTime.Now)}.csv";
+            File.Move("C:\\ProgramData" + "\\TaskManager\\" + oldFileName, "C:\\ProgramData" + "\\TaskManager\\" + newFileName);
+            await drive.UploadFile($"/Users/{newFileName}", "C:\\ProgramData" + "\\TaskManager\\" + newFileName);
+            await drive.DeleteFile($"/Users/{oldFileName}");
+
+        }
+
     }
 }

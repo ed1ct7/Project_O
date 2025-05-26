@@ -1,9 +1,23 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Project_O;
 using Project_O.Classes;
+using TaskManagerLogic.Classes;
 
 namespace Project_O.UserControls
 {
@@ -27,8 +41,7 @@ namespace Project_O.UserControls
             {
                 if (date == DateTime.Today)
                 {
-                    BorderU.Fill = Classes.Properties.Instance.ProperBlue; 
-                    BorderB.Fill = Classes.Properties.Instance.ProperBlue;
+                    Border.BorderBrush = Classes.Properties.Instance.ProperBlue;
                 }
                 GenerateLessons();
             }
@@ -39,13 +52,16 @@ namespace Project_O.UserControls
             var dayModel = DataContext as DayModel;
             int dayIndex = (int)dayModel.Date.DayOfWeek + 7 * dayModel.DenNum;
             dayModel.Lessons.Clear();
-
-            foreach (var lesson in GroupSettings.Lessons[dayIndex])
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            
+            foreach (var lesson in mainWindow.user.Groups[0].Timetable[dayIndex])
             {
+            
                 var lessonModel = new LessonModel
                 {
                     Name = lesson,
-                    Date = date
+                    Date = date,
+                    CurrentTask = mainWindow.user.Groups[0].GetTaskCreatedAtDate(lesson, date)
                 };
                 dayModel.Lessons.Add(lessonModel);
             }
@@ -79,7 +95,9 @@ namespace Project_O.UserControls
 
                 if (!string.IsNullOrWhiteSpace(newLesson))
                 {
-                    GroupSettings.Lessons[dayIndex] = GroupSettings.Lessons[dayIndex].Concat(new[] { newLesson }).ToArray();
+                    var mainWindow = Window.GetWindow(this) as MainWindow;
+                    mainWindow.user.Groups[0].Timetable[dayIndex] = mainWindow.user.Groups[0].Timetable[dayIndex].Concat(new[] { newLesson }).ToArray();
+
                     dayModel.Lessons.Add(new LessonModel { Name = newLesson });
 
                     if (StackPanelLessons.Children.Contains(comboBox))
