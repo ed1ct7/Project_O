@@ -113,7 +113,6 @@ namespace TaskManagerLogic.Classes
                     n = i; break;
                 }
             }
-
             CSVreader.EditLine("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\"
                 + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"tasks*.csv"),
                 $"{Name};{Subject};{Description};{string.Join(',')};{TMDateFormatter.ToString(CreateDate)};{TMDateFormatter.ToString(DateTime.Now)};{TMDateFormatter.ToString(DeadlineDate)};{PriorityCoef}", n);

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaskManagerLogic.Classes;
+using System.Diagnostics;
 
 namespace Project_O.UserControls
 {
@@ -37,6 +38,9 @@ namespace Project_O.UserControls
             var lessonModel = DataContext as LessonModel;
             
             mainWindow.ucNInformation.DataContext = lessonModel;
+            Trace.Write(lessonModel.Name + " ");
+            if (lessonModel.CurrentTask != null) Trace.WriteLine(lessonModel.CurrentTask.Name);
+            else Trace.WriteLine("Null");
 
         }
     }
