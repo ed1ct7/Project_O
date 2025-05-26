@@ -27,13 +27,13 @@ namespace Project_O.Windows
         {
             if (LogIn.Visibility == Visibility.Visible)
             {
-                LogIn.Visibility = Visibility.Collapsed;
-                Register.Visibility = Visibility.Visible;
+            //    LogIn.Visibility = Visibility.Collapsed;
+            //    Register.Visibility = Visibility.Visible;
             }
             else
             {
-                LogIn.Visibility = Visibility.Visible;
-                Register.Visibility = Visibility.Collapsed;
+                //LogIn.Visibility = Visibility.Visible;
+                //Register.Visibility = Visibility.Collapsed;
             }
         }
     }

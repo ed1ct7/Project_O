@@ -55,7 +55,7 @@
                 <Border
                     BorderBrush="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"
                     BorderThickness="2"
-                    CornerRadius="9,9,6,6"
+                    CornerRadius="10,10,12,12"
                     Background="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"
                     >
                 <Grid Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
@@ -108,10 +108,14 @@
                         CornerRadius="0"
                         Padding="0,5">
                     <StackPanel>
-                        <Button Style="{StaticResource S_MenuButton}" Content="Обновить" Margin="0,0,0,5"/>
-                        <Button Style="{StaticResource S_MenuButton}" Content="Расписание" Margin="0,0,0,5"/>
-                        <Button Style="{StaticResource S_MenuButton}" Content="Настройки" Margin="0,0,0,5"/>
-                        <Button Style="{StaticResource S_MenuButton}" Content="Выход"/>
+                        <Button Style="{StaticResource S_MenuButton}" Content="Обновить" 
+                                Margin="0,0,0,5"/>
+                        <Button Style="{StaticResource S_MenuButton}" Content="Расписание" 
+                                Margin="0,0,0,5"/>
+                        <Button Style="{StaticResource S_MenuButton}" Content="Настройки" 
+                                Margin="0,0,0,5"/>
+                        <Button Style="{StaticResource S_MenuButton}" Content="Выход" 
+                                Margin="0,0,0,5"/>
                     </StackPanel>
                 </Border>
 
@@ -268,7 +272,7 @@
                         Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
                         BorderBrush="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"
                         
-                            >                        
+                            >
                         <Label x:Name="placeHolderText" VerticalContentAlignment="Center"
                            Margin="0"
                            >
@@ -286,10 +290,7 @@
                                 </Style>
                             </Label.Style>
                         </Label>
-                        
                     </Border>
-
-
                     <UserControls:ucInformation Grid.Row="1" Grid.Column="2" x:Name="ucNInformation" Visibility="Collapsed"/>
                 </Grid>
             </Border>

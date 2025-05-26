@@ -44,7 +44,7 @@
                         <TextBlock x:Name="textBlock"
                                    Margin="2,0,0,0"
                                    FontSize="14"
-                                   Foreground="{TemplateBinding BorderBrush}"
+                                   Foreground="DimGray"
                                    IsHitTestVisible="False"
                                    Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
                                    Visibility="Collapsed"
