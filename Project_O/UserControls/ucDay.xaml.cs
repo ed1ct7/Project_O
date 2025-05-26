@@ -41,7 +41,8 @@ namespace Project_O.UserControls
             {
                 if (date == DateTime.Today)
                 {
-                    Border.BorderBrush = Classes.Properties.Instance.ProperBlue;
+                    BorderU.Fill = Classes.Properties.Instance.ProperBlue;
+                    BorderB.Fill = Classes.Properties.Instance.ProperBlue;
                 }
                 GenerateLessons();
             }

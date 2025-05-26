@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="120">
     <Grid>
-        <Border BorderBrush="LightGray" BorderThickness="1" CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}">
+        <Border BorderBrush="LightGray" BorderThickness="0" CornerRadius="{Binding DefaultCornerRadius, Source={x:Static local:Properties.Instance}}">
             <Button x:Name="Lesson" 
                     Content="{Binding Name}"
                     Click="LessonButton_Click"
