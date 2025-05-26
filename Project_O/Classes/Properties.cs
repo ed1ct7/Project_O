@@ -133,15 +133,7 @@ namespace Project_O.Classes
             set { SetValue(P_ProperRed, value); }
         }
 
-
-
-
-
-
-
-
         //
-        // Foreground color property for Control on Hovered
         public static readonly DependencyProperty ControlBorderColor =
             DependencyProperty.Register(
                 "ControlBorderColorOnHovered",
@@ -156,13 +148,13 @@ namespace Project_O.Classes
         //
 
 
-        // Foreground color property for Control on Hovered
+        //
         public static readonly DependencyProperty FGP_ControlOnHovered =
             DependencyProperty.Register(
                 "FGP_ControlOnHovered",
                 typeof(Brush),
                 typeof(Properties),
-                new PropertyMetadata(Brushes.White));
+                 new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
         public Brush FG_ControlOnHovered
         {
             get { return (Brush)GetValue(FGP_ControlOnHovered); }
@@ -170,13 +162,13 @@ namespace Project_O.Classes
         }
         //
 
-        // Background color property for Control on Hovered
+        // 
         public static readonly DependencyProperty BGP_ControlOnHovered =
             DependencyProperty.Register(
                 "BGP_ControlOnHovered",
                 typeof(Brush),
                 typeof(Properties),
-                new PropertyMetadata(Brushes.White));
+                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
         public Brush BG_ControlOnHovered
         {
             get { return (Brush)GetValue(BGP_ControlOnHovered); }
@@ -185,7 +177,37 @@ namespace Project_O.Classes
         //
 
 
-        // Foreground color property for Control on Hovered
+        // 
+        public static readonly DependencyProperty FGP_SControlOnHovered =
+            DependencyProperty.Register(
+                "FGP_SControlOnHovered",
+                typeof(Brush),
+                typeof(Properties),
+                 new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
+        public Brush FG_SControlOnHovered
+        {
+            get { return (Brush)GetValue(FGP_SControlOnHovered); }
+            set { SetValue(FGP_SControlOnHovered, value); }
+        }
+        //
+
+        // 
+        public static readonly DependencyProperty BGP_SControlOnHovered =
+            DependencyProperty.Register(
+                "BGP_SControlOnHovered",
+                typeof(Brush),
+                typeof(Properties),
+                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
+        public Brush BG_SControlOnHovered
+        {
+            get { return (Brush)GetValue(BGP_SControlOnHovered); }
+            set { SetValue(BGP_SControlOnHovered, value); }
+        }
+        //
+
+
+
+        //
         public static readonly DependencyProperty FGP_ControlOnPressed =
             DependencyProperty.Register(
                 "FGP_ControlOnPressed",
@@ -199,7 +221,7 @@ namespace Project_O.Classes
         }
         //
 
-        // Background color property for Control on Hovered
+        //
         public static readonly DependencyProperty BGP_ControlOnPressed =
             DependencyProperty.Register(
                 "BGP_ControlOnPressed",

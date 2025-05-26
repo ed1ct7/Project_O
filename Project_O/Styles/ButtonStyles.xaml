@@ -126,7 +126,7 @@
     
     
     <Style x:Key="S_Lesson" TargetType="Button">
-        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
         <Setter Property="Foreground" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Height" Value="30"></Setter>
@@ -134,6 +134,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid>
+                        <Rectangle Name="BackgroundElement" 
+                             Fill="Transparent"
+                             Margin="0,0,0,0"/>
                         <Rectangle Margin="0,0,0,0" 
                                    Fill="{TemplateBinding BorderBrush}"
                                    Height="1" 
@@ -145,11 +148,11 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{Binding BG_ControlOnHovered, Source={x:Static local:Properties.Instance}}"></Setter>
+                            <Setter TargetName="BackgroundElement" Property="Fill" Value="{Binding BG_ControlOnHovered, Source={x:Static local:Properties.Instance}}"/>
                             <Setter Property="FontSize" Value="{Binding FontSizeOnHovered, Source={x:Static local:Properties.Instance}}"></Setter>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#FFBCBCBC"/>
+                            <Setter TargetName="BackgroundElement" Property="Fill" Value="#FFBCBCBC"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

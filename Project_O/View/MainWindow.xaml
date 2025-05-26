@@ -28,7 +28,7 @@
             UseAeroCaptionButtons="False"/>
     </WindowChrome.WindowChrome>
 
-    <Border CornerRadius="8"
+    <Border CornerRadius="9"
             Background="{Binding BG_Default, Source={x:Static local:Properties.Instance}}" 
             BorderBrush="{Binding BG_Default, Source={x:Static local:Properties.Instance}}" 
             BorderThickness="1"
@@ -36,7 +36,7 @@
             ClipToBounds="True"
             >
         <!--Main program-->
-        <Grid Margin="0,0,0,10">
+        <Grid Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="6*"/>
@@ -48,19 +48,31 @@
             </Grid.RowDefinitions>
 
             <!--WindowMenu-->
-            <Grid Grid.Row="0" Grid.ColumnSpan="4" Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button x:Name="btnMinimize" Content="🗕"
-                Style="{StaticResource S_WMOther}"
-                Click="btnMinimize_Click"/>
-                    <Button x:Name="btnMaximize" Content="🗖"
-                Style="{StaticResource S_WMOther}"
-                Click="btnMaximize_Click"/>
-                    <Button x:Name="btnClose" Content="✖"
-                Style="{StaticResource S_WMClose}"
-                Click="btnClose_Click"/>
-                </StackPanel>
-            </Grid>
+            <Border  Grid.Row="0" Grid.ColumnSpan="4"
+                     Background="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"
+                     CornerRadius="9,9,0,0"
+                     >
+                <Border
+                    BorderBrush="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"
+                    BorderThickness="2"
+                    CornerRadius="9,9,6,6"
+                    Background="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"
+                    >
+                <Grid Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button x:Name="btnMinimize" Content="🗕"
+                            Style="{StaticResource S_WMOther}"
+                            Click="btnMinimize_Click"/>
+                        <Button x:Name="btnMaximize" Content="🗖"
+                            Style="{StaticResource S_WMOther}"
+                            Click="btnMaximize_Click"/>
+                        <Button x:Name="btnClose" Content="✖"
+                            Style="{StaticResource S_WMClose}"
+                            Click="btnClose_Click"/>
+                    </StackPanel>
+                </Grid>
+                </Border>
+            </Border>
 
             <!-- Grid menu -->
             <Grid Grid.Row="1">
@@ -75,9 +87,9 @@
                 </Grid.RowDefinitions>
 
                 <Border
-                    CornerRadius="9,0,0,0"
+                    CornerRadius="0,0,0,0"
                     Background="{Binding BG_SControl, Source={x:Static local:Properties.Instance}}"
-                    Margin="6,0"
+                    Margin="0,0,6,0"
                     >
                     <Label Grid.Row="0" Style="{StaticResource S_DefaultLabel}" 
                            Content="Меню" 
@@ -91,8 +103,8 @@
                 <Border Grid.Row="1"
                         BorderBrush="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"
                         Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
-                        BorderThickness="1"
-                        Margin="6,0,6,0"
+                        BorderThickness="2"
+                        Margin="0,0,6,0"
                         CornerRadius="0"
                         Padding="0,5">
                     <StackPanel>
@@ -106,26 +118,27 @@
                 <Border Grid.Row="2"
                     CornerRadius="0"
                     Background="{Binding BG_SControl, Source={x:Static local:Properties.Instance}}"
-                    Margin="6,0"
+                    Margin="0,0,6,0"
                     >
                     <Label Grid.Row="0" Style="{StaticResource S_DefaultLabel}" 
                            Content="Заметки" 
                            FontSize="22" 
                            FontWeight="Bold"
-                           Margin="6,6,6,0"
+                           Margin="0,6,6,0"
                            Background="Transparent"
                            ></Label>
                 </Border>
 
 
                 <TextBox Grid.Row="6" Height="auto"
-                         Margin="6,0,6,0"
+                         Margin="0,0,6,0"
                          Style="{StaticResource S_TextBox}"
                          SpellCheck.IsEnabled="True" Language="ru-ru"
                          AcceptsReturn="True"
                          VerticalContentAlignment="Top"
                          TextAlignment="Left"
                          TextWrapping="Wrap"
+                         BorderThickness="2"
                          Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
                     />
             </Grid>
@@ -133,7 +146,7 @@
             <!-- Grid calendar -->
             <Border Grid.Row="1" Grid.Column="1"
                     Margin="6,0,6,0"
-                    BorderThickness="1"
+                    BorderThickness="2"
                     BorderBrush="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"
                 >
                 <Grid x:Name="Main" Visibility="Visible">
@@ -147,7 +160,7 @@
                         Background="{Binding BG_SControl, Source={x:Static local:Properties.Instance}}"
                         >
                         <Label Grid.Row="0" Style="{StaticResource S_DefaultLabel}" 
-                               Content="Меню" 
+                               Content="Расписание" 
                                FontSize="22" 
                                FontWeight="Bold"
                                Margin="6,6,6,0"
@@ -155,12 +168,13 @@
                                ></Label>
                     </Border>
 
-                    <Grid Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2">
+                    <Grid Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <!-- Numerator label -->
@@ -168,12 +182,6 @@
                                Content="Числитель" 
                                Style="{StaticResource S_NomDin}"
                                Margin="0"/>
-
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0">
-                            <Button Content="◄" Width="30" Margin="10,0" Click="PreviousWeek_Click"/>
-                            <TextBlock x:Name="MonthYearText" VerticalAlignment="Center" Foreground="White" FontSize="14"/>
-                            <Button Content="►" Width="30" Margin="10,0" Click="NextWeek_Click"/>
-                        </StackPanel>
 
                         <!-- Numerator days -->
                         <ItemsControl Grid.Row="1" ItemsSource="{Binding NumeratorDays}">
@@ -184,20 +192,31 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <UserControls:ucDay Margin="5,0,5,10"/>
+                                    <UserControls:ucDay Margin="5,0,5,5"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
+
+                        <StackPanel Orientation="Horizontal" 
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" 
+                                    Margin="0,10,0,10" 
+                                    Grid.Row="4">
+                            <Button Content="◄" Width="30" Margin="10,0" Click="PreviousWeek_Click"/>
+                            <TextBlock x:Name="MonthYearText" VerticalAlignment="Center" Foreground="White" FontSize="14"/>
+                            <Button Content="►" Width="30" Margin="10,0" Click="NextWeek_Click"/>
+                        </StackPanel>
 
                         <!-- Denominator label -->
                         <Label Grid.Row="2" 
                                Content="Знаменатель" 
                                Style="{StaticResource S_NomDin}"
-                               Margin="0"
+                               VerticalContentAlignment="Center"
+                               Margin="0,0,0,0"
                                />
 
                         <!-- Denominator days -->
-                        <ItemsControl Grid.Row="3" ItemsSource="{Binding DenominatorDays}" Grid.RowSpan="2">
+                        <ItemsControl Grid.Row="3" ItemsSource="{Binding DenominatorDays}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <UniformGrid Columns="7"/>
@@ -205,7 +224,7 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <UserControls:ucDay Margin="5,0,5,10"/>
+                                    <UserControls:ucDay Margin="5,0,5,0"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
@@ -219,10 +238,10 @@
 
             <!--Grid Information-->
             <Border  Grid.Column="2" Grid.Row="1"
-                    Margin="6,0,6,0"
-                    BorderThickness="1"
+                    Margin="6,0,0,0"
+                    BorderThickness="2"
                     BorderBrush="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"
-                    CornerRadius="0,9,9,0"
+                    CornerRadius="0,0,9,0"
                      >
                 <Grid x:Name="Information">
                     <Grid.RowDefinitions>
@@ -231,7 +250,7 @@
                     </Grid.RowDefinitions>
 
                     <Border
-                        CornerRadius="0,9,0,0"
+                        CornerRadius="0,0,0,0"
                         Background="{Binding BG_SControl, Source={x:Static local:Properties.Instance}}"
                         >
                         <Label Grid.Row="0" Style="{StaticResource S_DefaultLabel}" 
@@ -247,6 +266,8 @@
                     <Border Grid.Row="1" 
                         CornerRadius="9,9,9,9"
                         Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
+                        BorderBrush="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"
+                        
                             >                        
                         <Label x:Name="placeHolderText" VerticalContentAlignment="Center"
                            Margin="0"
