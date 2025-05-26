@@ -64,9 +64,9 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Style="{StaticResource S_Header}" Content="Вход в аккаунт"
                        Margin="10"></Label>
-                <TextBox Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" Tag="Имя" 
+                <TextBox x:Name = "UserNameLoginTextBox" Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" Tag="Имя" 
                          Margin="10" ></TextBox>
-                <UserControls:ucPasswordBox Grid.Row="2" Margin="10"/>
+                <UserControls:ucPasswordBox x:Name = "PasswordLoginTextBox" Grid.Row="2" Margin="10"/>
 
                 <!--<Button Content="Войти" Margin="10" Grid.Row="5" Style="{StaticResource S_Auth}"></Button>-->
 
@@ -81,7 +81,7 @@
                             Content="Войти" Margin="0" Grid.Row="5" Style="{StaticResource S_Auth}"
                             Width="80"
                             HorizontalAlignment="Right"
-                            BorderThickness="0"
+                            BorderThickness="0" Click="Button_Login_Click"
                             ></Button>
 
                     <Label Grid.Column="1"
@@ -101,13 +101,13 @@
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label Content="Нету аккаунта?" Grid.Column="0"
+                    <Label Content="Нет аккаунта?" Grid.Column="0"
                        Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
                        HorizontalAlignment="Center" FontWeight="Medium"
                        ></Label>
                     <Button Grid.Column="1"
                             Click="RegAuthButton_Click" FontWeight="Medium"
-                            Style="{StaticResource S_TextButtonRed}" Width="70" Content="Регестрация"
+                            Style="{StaticResource S_TextButtonRed}" Width="70" Content="Регистрация"
                             ></Button>
                 </Grid>
 
@@ -131,7 +131,7 @@
                          Margin="10" ></TextBox>
                 <UserControls:ucPasswordBox Grid.Row="2" Margin="10"/>
 
-                <Button Content="Зарегестрировать" Margin="10" Grid.Row="4" Style="{StaticResource S_Auth}"></Button>
+                <Button Content="Зарегестрировать" Margin="10" Grid.Row="4" Style="{StaticResource S_Auth}" Click="Button_Register_Click" ></Button>
 
               
 
