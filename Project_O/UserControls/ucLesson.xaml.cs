@@ -38,10 +38,9 @@ namespace Project_O.UserControls
             var lessonModel = DataContext as LessonModel;
             
             mainWindow.ucNInformation.DataContext = lessonModel;
-            Trace.Write(lessonModel.Name + " ");
-            if (lessonModel.CurrentTask != null) Trace.WriteLine(lessonModel.CurrentTask.Name);
-            else Trace.WriteLine("Null");
-
+        }
+        private void LessonRemove_Click(object sender, RoutedEventArgs e) { 
+        
         }
     }
 }

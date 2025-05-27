@@ -11,10 +11,27 @@
     </Style>
 
     <Style x:Key="S_Header" TargetType="Label" BasedOn="{StaticResource S_DefaultLabel}">
+        <Setter Property="Background" Value="{Binding  BG_SControl, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="FontWeight" Value="Bold"></Setter>
         <Setter Property="FontSize" Value="16"></Setter>
         <Setter Property="Height" Value="40"></Setter>
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Label">
+                    <Grid>
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                            BorderThickness="1"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            ></Border>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="S_NomDin" TargetType="Label">

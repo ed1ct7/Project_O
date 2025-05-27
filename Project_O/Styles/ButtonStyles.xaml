@@ -93,6 +93,7 @@
                 <ControlTemplate TargetType="Button">
                     <Border x:Name="border" 
                         Background="{TemplateBinding Background}"
+                        CornerRadius="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
                         BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter HorizontalAlignment="Center"
                                       VerticalAlignment="Center"
