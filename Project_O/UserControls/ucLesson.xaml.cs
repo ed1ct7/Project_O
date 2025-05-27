@@ -38,9 +38,18 @@ namespace Project_O.UserControls
             var lessonModel = DataContext as LessonModel;
             
             mainWindow.ucNInformation.DataContext = lessonModel;
+            mainWindow.ucNInformation.UpdateTextBoxInfo();
+            Debug.WriteLine((int)lessonModel.Day.Date.DayOfWeek);
         }
-        private void LessonRemove_Click(object sender, RoutedEventArgs e) { 
-        
+        private void LessonRemove_Click(object sender, RoutedEventArgs e) {
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+
+            var lessonModel = DataContext as LessonModel;
+            var old = mainWindow.user.Groups[0].Timetable[(int)lessonModel.Day.Date.DayOfWeek + 7 * lessonModel.Day.DenNum].ToList();
+            old.Remove(lessonModel.Name);
+            mainWindow.user.Groups[0].Timetable[(int)lessonModel.Day.Date.DayOfWeek + 7 * lessonModel.Day.DenNum] = old.ToArray();
+            if (mainWindow.ucNInformation.DataContext as LessonModel == lessonModel) mainWindow.ucNInformation.Visibility = Visibility.Collapsed;
+            mainWindow.GenerateWeeks();
         }
     }
 }

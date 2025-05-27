@@ -109,7 +109,7 @@
                         Padding="0,5">
                     <StackPanel>
                         <Button Style="{StaticResource S_MenuButton}" Content="Обновить" 
-                                Margin="0,0,0,5"/>
+                                Margin="0,0,0,5" Click="Button_Click"/>
                         <Button Style="{StaticResource S_MenuButton}" Content="Расписание" 
                                 Margin="0,0,0,5"/>
                         <Button Style="{StaticResource S_MenuButton}" Content="Настройки" 

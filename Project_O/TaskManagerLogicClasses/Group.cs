@@ -8,6 +8,7 @@ using System.IO;
 using YandexDisk;
 using System.Xml.Linq;
 using System.Diagnostics;
+using System.Windows.Media;
 
 namespace TaskManagerLogic.Classes
 {
@@ -32,7 +33,7 @@ namespace TaskManagerLogic.Classes
                 new string[] {  },
                 new string[] {  }
             };
-        public string[] UniqueLessons = new string[] { };
+        public List<string> UniqueLessons = new List<string>();
 
         static public async Task<bool> CheckCode(string code) {
             return true;
@@ -70,7 +71,9 @@ namespace TaskManagerLogic.Classes
         {
             this.GroupName = GroupName;
             Directory.CreateDirectory("C:\\ProgramData" + "\\TaskManager\\" + GroupName);
-            UpdateTimeTable();
+            UpdateTimeTable(); Trace.WriteLine("this.UniqueLessons");
+
+
         }
         public async Task ActualizeGroupFiles()
         {
@@ -155,15 +158,28 @@ namespace TaskManagerLogic.Classes
         }
         public void UpdateTimeTable()
         {
+
             var lines = CSVreader.Read("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "" + "\\"
                 + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"timetable*.csv"));
+            this.UniqueLessons = new List<string>();
             for (int i = 0; i < 14; i++) {
                 if (lines[i] != "")
                 {
                     Timetable[i] = lines[i].Split(';');
+                    foreach (string line in Timetable[i])
+                    {
+                        if (!this.UniqueLessons.Contains(line))
+                        {
+                            UniqueLessons.Add(line);
+                        }
+                    }
+                    
                 }
 
             }
+            this.UniqueLessons.Sort();
+            
+           
         }
     }
 }
