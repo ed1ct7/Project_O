@@ -68,7 +68,6 @@
                                 </Setter>
                             </Style>
                         </ContextMenu.Resources>
-
                         <MenuItem Header="Удалить"
                              FontSize="13" 
                              FontWeight="SemiBold"

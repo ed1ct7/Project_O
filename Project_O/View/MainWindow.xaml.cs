@@ -29,7 +29,7 @@ namespace Project_O
         public ObservableCollection<DayModel> DenominatorDays { get; } = new ObservableCollection<DayModel>();
         public DateTime CurrentDate { get; private set; } = DateTime.Today;
 
-        public MainWindow(User user)
+        public MainWindow()
         {
             InitializeComponent();
             DataContext = this;
@@ -42,8 +42,6 @@ namespace Project_O
             }
             
         }
-
-        
         private void GenerateWeeks()
         {
             NumeratorDays.Clear();

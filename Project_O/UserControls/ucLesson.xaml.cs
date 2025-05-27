@@ -40,7 +40,7 @@ namespace Project_O.UserControls
             mainWindow.ucNInformation.DataContext = lessonModel;
         }
         private void LessonRemove_Click(object sender, RoutedEventArgs e) { 
-        
+            
         }
     }
 }

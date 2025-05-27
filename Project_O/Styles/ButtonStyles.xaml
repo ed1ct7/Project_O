@@ -114,17 +114,12 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
-    
 
     <Style x:Key="S_Auth" TargetType="Button" BasedOn="{StaticResource S_MenuButton}">
         <Setter Property="Background" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="Foreground" Value="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="FontWeight" Value="Bold"></Setter>
     </Style>
-    
-    
     
     <Style x:Key="S_Lesson" TargetType="Button">
         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
