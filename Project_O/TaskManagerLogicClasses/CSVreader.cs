@@ -7,7 +7,7 @@ using System.IO;
 
 namespace TaskManagerLogic.Classes
 {
-    internal class CSVreader
+    public class CSVreader
     {
         // Возвращает все строки файла по указанному пути в виде листа (0-индекс заголовки столбцов)
         public static List<string> Read(string FilePath)
