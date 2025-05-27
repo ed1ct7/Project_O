@@ -39,7 +39,6 @@
                                Fill="{Binding FG_Control, Source={x:Static local:Properties.Instance}}" 
                                Height="1" 
                                VerticalAlignment="Bottom"/>
-
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -48,12 +47,12 @@
                             <Image Grid.Column="0"
                                    Source="{Binding Path=(local:TagProperties.CustomTag), 
                                    RelativeSource={RelativeSource TemplatedParent}}"
-                                   Width="16"
-                                   Height="16"
+                                   Width="22"
+                                   Height="18"
                                    Visibility="Visible"/>
                             <TextBlock x:Name="textBlock"
                                    Grid.Column="1"
-                                   Margin="2,0,0,0"
+                                   Margin="6,0,0,0"
                                    FontSize="14"
                                    Foreground="DimGray"
                                    IsHitTestVisible="False"
@@ -63,10 +62,11 @@
                                    HorizontalAlignment="Left"
                                    />
                             <ScrollViewer x:Name="PART_ContentHost"
-                                   Grid.Column="1"
+                                          FontSize="28"
+                                          Margin="6,0,0,0"
+                                          Grid.Column="1"
                                           />
                         </Grid>
-                        
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Text" Value="">
@@ -76,16 +76,13 @@
                             <Setter TargetName="border" Property="Opacity" Value="0.56" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter TargetName="textBlock" Property="Visibility" Value="Collapsed" />
-                            
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>
