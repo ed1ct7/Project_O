@@ -9,6 +9,7 @@ namespace Project_O.Windows
     /// </summary>
     public partial class Start : Window
     {
+        User user;
         public Start()
         {
             InitializeComponent();
@@ -46,15 +47,15 @@ namespace Project_O.Windows
         {
             try
             {
-                await User.Login(UserNameLoginTextBox.Text, PasswordLoginTextBox.maskedTextBox.Text);
+                user = await User.Login(UserNameLoginTextBox.Text, PasswordLoginTextBox._realText);
             }
             catch (UserException ex) when (ex.ErrorCode == 1)
             {
-
+                MessageBox.Show($"Пользователь с ником {UserNameLoginTextBox.Text} не существует");
             }
             catch (UserException ex) when (ex.ErrorCode == 2)
             {
-
+                MessageBox.Show($"Введён неверный пароль для пользователя {UserNameLoginTextBox.Text}");
             }
         }
 
@@ -62,11 +63,11 @@ namespace Project_O.Windows
         {
             try
             {
-                await User.Register(UserNameRegisterTextBox.Text, PasswordRegisterTextBox.maskedTextBox.Text);
+                user = await User.Register(UserNameRegisterTextBox.Text, PasswordRegisterTextBox._realText);
             }
             catch (UserException ex) when (ex.ErrorCode == 3)
             {
-
+                MessageBox.Show($"Пользователь с ником {UserNameRegisterTextBox.Text} уже существует");
             }
         }
     }

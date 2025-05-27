@@ -73,7 +73,7 @@ namespace TaskManagerLogic.Classes
             var groupNames = CSVreader.ReadStringByColumns($"C:\\ProgramData\\TaskManager\\{CSVreader.GetFileNameByMask("C:\\ProgramData\\TaskManager","users*.csv")}", new string[] {"User"}, new string[] {UserName}).Split(";")[2].Split(",");
             foreach (string group in groupNames)
             {
-                groups.Add(new Group(group));
+                if (group != "") groups.Add(new Group(group));
             }
             return groups;
         }
@@ -105,7 +105,11 @@ namespace TaskManagerLogic.Classes
                 await drive.UploadFile($"/Users/{newFileName}", "C:\\ProgramData" + "\\TaskManager\\" + newFileName);
                 await drive.DeleteFile($"/Users/{oldFileName}");
                 return new User(UserName, await CreateGroupsList(UserName));
-            }  
+            }
+            catch (UserException ex) when (ex.ErrorCode == 2)
+            {
+                throw new UserException("Пользователь с таким именем уже существует", 3);
+            }
         }
         public async Task ConnectToGroup(string GroupName)
         {

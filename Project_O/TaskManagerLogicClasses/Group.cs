@@ -34,18 +34,28 @@ namespace TaskManagerLogic.Classes
             };
         public string[] UniqueLessons = new string[] { };
 
-        static public async Task<bool> CheckCode(string code) { return true; }
-        static public async Task<Group> CreateGroup(string GroupName)
+        static public async Task<bool> CheckCode(string code) {
+            return true;
+
+        }
+        static public async Task<bool> isValidGroupName(string groupName) {
+            YandexDrive drive = new YandexDrive();
+            return await drive.CheckFileNameExists("/Groups", groupName);
+        }
+        static public async Task<Group?> CreateGroup(string GroupName, string Password)
         {
+            
             string date = TMDateFormatter.ToString(DateTime.Now);
             YandexDrive drive = new YandexDrive();
             await drive.CreateNewFolder($"/Groups/{GroupName}");
             await drive.CreateNewFolder($"/Groups/{GroupName}/Files");
             await drive.CreateFileWithContent($"/Groups/{GroupName}/timetable{date}.csv", "Timetable\n");
-            await drive.CreateFileWithContent($"/Groups/{GroupName}/settings{date}.csv", "Password\n");
+            await drive.CreateFileWithContent($"/Groups/{GroupName}/settings{date}.csv", $"Password\n{Password}");
             await drive.CreateFileWithContent($"/Groups/{GroupName}/users{date}.csv", "Users;Admins\n");
             await drive.CreateFileWithContent($"/Groups/{GroupName}/tasks{date}.csv", "Name;Subject;Desc;Files;CreateDate;EditDate;DeadlineDate;Priority\n");
             return new Group(GroupName);
+            
+            
 
         }
         static public async Task<bool> CheckUserInGroup(string GroupName, string UserName)

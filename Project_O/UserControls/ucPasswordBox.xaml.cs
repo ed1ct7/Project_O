@@ -13,7 +13,7 @@ namespace Project_O.UserControls
             InitializeComponent();
             this.DataContext = this;
         }
-        private string _realText = string.Empty;
+        public string _realText = string.Empty;
 
         private void MaskedTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

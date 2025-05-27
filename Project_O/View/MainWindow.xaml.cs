@@ -29,12 +29,12 @@ namespace Project_O
         public ObservableCollection<DayModel> DenominatorDays { get; } = new ObservableCollection<DayModel>();
         public DateTime CurrentDate { get; private set; } = DateTime.Today;
 
-        public MainWindow()
+        public MainWindow(User user)
         {
             InitializeComponent();
             DataContext = this;
             GenerateWeeks();
-            
+            this.user = user;
             string filesPath = "C:\\ProgramData\\TaskManager";
             if (!File.Exists(filesPath))
             {
@@ -88,10 +88,7 @@ namespace Project_O
         private async void PreviousWeek_Click(object sender, RoutedEventArgs e)
         {
             CurrentDate = CurrentDate.AddDays(-14);
-            await Group.CreateGroup("TestGroup");
-            await User.ActualizeUsersBase();
 
-            await user.Groups[0].ActualizeGroupFiles();
             
             GenerateWeeks();
         }

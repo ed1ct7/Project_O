@@ -12,4 +12,10 @@ namespace TaskManagerLogic.Classes
 
         public int ErrorCode { get; set; }
     }
+    internal class GroupException: ApplicationException
+    {
+        public GroupException(string message, int ErrorCode) : base(message) { this.ErrorCode = ErrorCode; }
+
+        public int ErrorCode { get; set; }
+    }
 }

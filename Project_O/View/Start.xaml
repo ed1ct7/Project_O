@@ -127,9 +127,9 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Style="{StaticResource S_Header}" Content="Регистрация"
                        Margin="10"></Label>
-                <TextBox Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" Tag="Имя" 
+                <TextBox x:Name = "UserNameRegisterTextBox" Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" Tag="Имя" 
                          Margin="10" ></TextBox>
-                <UserControls:ucPasswordBox Grid.Row="2" Margin="10"/>
+                <UserControls:ucPasswordBox x:Name="PasswordRegisterTextBox" Grid.Row="2" Margin="10"/>
 
                 <Button Content="Зарегестрировать" Margin="10" Grid.Row="4" Style="{StaticResource S_Auth}" Click="Button_Register_Click" ></Button>
 
