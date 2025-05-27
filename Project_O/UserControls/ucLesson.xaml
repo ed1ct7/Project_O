@@ -12,8 +12,70 @@
             <Button x:Name="Lesson" 
                     Content="{Binding Name}"
                     Click="LessonButton_Click"
-                    Style="{StaticResource S_Lesson}"/>
-            
+                    Style="{StaticResource S_Lesson}">
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <ContextMenu.Resources>
+                            <!-- Style for ContextMenu -->
+                            <Style TargetType="ContextMenu">
+                                <Setter Property="Background" Value="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"/>
+                                <Setter Property="BorderThickness" Value="1"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ContextMenu">
+                                            <Border 
+                                                 Background="{TemplateBinding Background}"
+                                                 BorderThickness="{TemplateBinding BorderThickness}"
+                                                 Padding="0"
+                                                 CornerRadius="9"
+                                                    >
+                                                <ItemsPresenter/>
+                                                <!-- This is crucial for showing menu items -->
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+
+                            <!-- Style for MenuItem -->
+                            <Style TargetType="MenuItem">
+                                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Foreground" Value="AliceBlue"></Setter>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="MenuItem">
+                                            <Border Name="Border"
+                                                Background="{TemplateBinding Background}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                Padding="0"
+                                                CornerRadius="9">
+                                                <Grid>
+                                                    <ContentPresenter ContentSource="Header"
+                                                    VerticalAlignment="Center"
+                                                    Margin="24,8,24,8"
+                                                    RecognizesAccessKey="True"/>
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsHighlighted" Value="True">
+                                                    <Setter TargetName="Border" Property="Background" Value="#3D3D3D"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ContextMenu.Resources>
+
+                        <MenuItem Header="Удалить"
+                             FontSize="13" 
+                             FontWeight="SemiBold"
+                             Click="LessonRemove_Click"/>
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
         </Border>
     </Grid>
 </UserControl>

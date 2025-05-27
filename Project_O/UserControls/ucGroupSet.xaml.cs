@@ -39,5 +39,9 @@ namespace Project_O.UserControls
                 GroupEntry.Visibility = Visibility.Collapsed;
             }
         }
+        private void SwitchAuthButton_Click (object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

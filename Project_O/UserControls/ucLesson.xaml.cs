@@ -37,7 +37,9 @@ namespace Project_O.UserControls
             var lessonModel = DataContext as LessonModel;
             
             mainWindow.ucNInformation.DataContext = lessonModel;
-
+        }
+        private void LessonRemove_Click(object sender, RoutedEventArgs e) { 
+        
         }
     }
 }

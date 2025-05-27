@@ -32,6 +32,20 @@ namespace Project_O.UserControls
             this.Loaded += UcDay_Loaded;
         }
 
+        private void scheduleShift_Check(object sender, RoutedEventArgs e)
+        {
+            if (scheduleShift.IsChecked.Value == true)
+            {
+                BorderU.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
+                BorderB.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
+            }
+            else
+            {
+                BorderU.Fill = Classes.Properties.Instance.BorderBrushS;
+                BorderB.Fill = Classes.Properties.Instance.BorderBrushS;
+            }
+        }
+
         private void UcDay_Loaded(object sender, RoutedEventArgs e)
         {
             var dayModel = DataContext as DayModel;
@@ -108,7 +122,6 @@ namespace Project_O.UserControls
                         StackPanelLessons.Children.Add(AddLessonButton);
                 }
             }
-
             comboBox.KeyDown += (s, args) =>
             {
                 if (args.Key == Key.Enter)

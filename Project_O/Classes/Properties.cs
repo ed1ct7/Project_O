@@ -76,22 +76,19 @@ namespace Project_O.Classes
         }
         //
 
-
-        // Foreground color property for Control
+        //
         public static readonly DependencyProperty P_BorderBrushS =
             DependencyProperty.Register(
                 "P_BorderBrushS",
                 typeof(Brush),
                 typeof(Properties),
-                new PropertyMetadata(Brushes.White));
+                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff9bb4"))));
         public Brush BorderBrushS
         {
             get { return (Brush)GetValue(P_BorderBrushS); }
             set { SetValue(P_BorderBrushS, value); }
         }
-        //
-
-
+        //"#ff9bb4" 
 
         //
         public static readonly DependencyProperty P_DefaultBackS =
