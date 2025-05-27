@@ -41,8 +41,19 @@ namespace Project_O.UserControls
             }
             else
             {
-                BorderU.Fill = Classes.Properties.Instance.BorderBrushS;
-                BorderB.Fill = Classes.Properties.Instance.BorderBrushS;
+                var dayModel = DataContext as DayModel;
+                this.date = dayModel.Date;
+                if (dayModel != null)
+                {
+                    if (date == DateTime.Today) {
+                        BorderU.Fill = Classes.Properties.Instance.ProperBlue;
+                        BorderB.Fill = Classes.Properties.Instance.ProperBlue;
+                    }
+                    else {
+                        BorderU.Fill = Classes.Properties.Instance.BorderBrushS;
+                        BorderB.Fill = Classes.Properties.Instance.BorderBrushS;
+                    }
+                }
             }
         }
 

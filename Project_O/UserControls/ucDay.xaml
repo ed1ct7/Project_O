@@ -59,12 +59,13 @@
                     />
             </StackPanel>
             <CheckBox x:Name="scheduleShift"
+                      Style="{StaticResource S_CustomCheckBox}"
                       Checked="scheduleShift_Check"
                       Unchecked="scheduleShift_Check"
                       Grid.Row="2"
                       VerticalAlignment="Bottom"
                       HorizontalAlignment="Left"
-                      Content="Исключение"></CheckBox>
+                      Content="" Margin="20,0,0,19" Height="16" Width="17"></CheckBox>
             <Rectangle Grid.Row="2" x:Name="BorderB"
                    Fill="{Binding BorderBrushS, Source={x:Static local:Properties.Instance}}" 
                    Height="1" 

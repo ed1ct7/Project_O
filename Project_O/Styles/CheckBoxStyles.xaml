@@ -16,7 +16,6 @@
         </Setter>
     </Style>
 
-    <!-- Rounded CheckBox Style -->
     <Style x:Key="S_CustomCheckBox" TargetType="{x:Type CheckBox}">
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
@@ -25,135 +24,65 @@
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type CheckBox}">
-                    <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Border x:Name="checkBoxBorder" 
-                                Background="{TemplateBinding Background}" 
-                                BorderThickness="{TemplateBinding BorderThickness}" 
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                CornerRadius="3"
-                                HorizontalAlignment="Center" 
-                                Height="18" 
-                                VerticalAlignment="Center" 
-                                Width="18">
-                            <Grid x:Name="markGrid">
-                                <Path x:Name="optionMark" 
-                                      Data="M0,5 L4,9 L11,0" 
-                                      Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" 
-                                      StrokeThickness="2"
-                                      Visibility="Collapsed"/>
-                                <Rectangle x:Name="indeterminateMark" 
-                                           Fill="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" 
-                                           Visibility="Collapsed"
-                                           Width="10" Height="2"
-                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Grid>
-                        </Border>
-                        <ContentPresenter x:Name="contentPresenter" 
-                                          Grid.Column="1"
-                                          Focusable="False" 
-                                          HorizontalAlignment="Left" 
-                                          Margin="4,0,0,0" 
-                                          RecognizesAccessKey="True" 
-                                          SnapsToDevicePixels="True" 
-                                          VerticalAlignment="Center"/>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="HasContent" Value="true">
-                            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="true">
-                            <Setter Property="Visibility" TargetName="optionMark" Value="Visible"/>
-                            <Setter Property="Background" TargetName="checkBoxBorder" Value="#FF5F9CD7"/>
-                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#FF3C7FB1"/>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="{x:Null}">
-                            <Setter Property="Visibility" TargetName="indeterminateMark" Value="Visible"/>
-                            <Setter Property="Background" TargetName="checkBoxBorder" Value="#FF5F9CD7"/>
-                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#FF3C7FB1"/>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#FF3C7FB1"/>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Background" TargetName="checkBoxBorder" Value="#FFC4E5F6"/>
-                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#FF2C628B"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Background" TargetName="checkBoxBorder" Value="#FFF4F4F4"/>
-                            <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#FFADB2B5"/>
-                            <Setter Property="Foreground" Value="#FF838383"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-
-
-    <Style x:Key="chkBullet" TargetType="CheckBox">
-        <Setter Property="IsChecked" Value="False"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#999"/>
-        <Setter Property="Template">
-            <Setter.Value>
                 <ControlTemplate TargetType="CheckBox">
-                    <Border Width="45" Height="20" CornerRadius="10" Background="{TemplateBinding Background}" >
-                        <Grid>
-                            <Border x:Name="border" Width="18" Height="18" CornerRadius="9" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="1 0" Background="White">
-                                <Border.RenderTransform>
-                                    <TranslateTransform  X="0"/>
-                                </Border.RenderTransform>
-                            </Border>
-                            <TextBlock x:Name="txt" Text="{TemplateBinding Content}" Margin="9 0" VerticalAlignment="Center" Foreground="White" >
-                                <TextBlock.RenderTransform>
-                                    <TranslateTransform   X="18"></TranslateTransform>
-                                </TextBlock.RenderTransform>
-                            </TextBlock>
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="true">
-                            <Setter Property="Text" TargetName="txt" Value="{Binding Tag,RelativeSource={RelativeSource TemplatedParent}}"/>
-                            <Setter Property="Background" Value="{Binding ProperBlue, Source={x:Static local:Properties.Instance}}"></Setter>
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="border" 
-                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" 
-                                                         To="25" Duration="00:00:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="txt" 
-                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" 
-                                                         To="0" Duration="00:00:0.2"/>
+                                        <ColorAnimation Storyboard.TargetName="OuterBorder"
+                                                    Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                    To="LightBlue" Duration="0:0:0.1"/>
                                     </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="border" 
-                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" 
-                                                         To="0" Duration="00:00:0.2"/>
-                                        <DoubleAnimation Storyboard.TargetName="txt" 
-                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" 
-                                                         To="18" Duration="00:00:0.2"/>
+                                        <ColorAnimation Storyboard.TargetName="OuterBorder"
+                                                    Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                                                    To="DodgerBlue" Duration="0:0:0.1"/>
                                     </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="False">
-                            <Setter Property="Text" TargetName="txt" Value="{Binding Content,RelativeSource={RelativeSource TemplatedParent}}"/>
-                            <Setter Property="Background" Value="{Binding ProperRed, Source={x:Static local:Properties.Instance}}"></Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="CheckStates">
+                                <VisualState x:Name="Checked">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="CheckMark"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="1" Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="CheckMark"
+                                                     Storyboard.TargetProperty="Opacity"
+                                                     To="0" Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Indeterminate"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border x:Name="OuterBorder" 
+                            BorderBrush="#FF707070" 
+                            BorderThickness="1" 
+                            CornerRadius="3"
+                            Background="White"
+                            Width="16" Height="16">
+                            <Path x:Name="CheckMark"
+                                 Stroke="#FF404040"
+                                 StrokeThickness="2"
+                                 Data="M 2,6 L 6,10 L 14,2"
+                                 Opacity="0"/>
+                        </Border>
+                        <ContentPresenter x:Name="ContentPresenter"
+                                    Content="{TemplateBinding Content}"
+                                    Margin="4,0,0,0"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"/>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>
