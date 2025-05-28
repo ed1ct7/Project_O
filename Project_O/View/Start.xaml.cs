@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Project_O.UserControls;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using TaskManagerLogic.Classes;
 
@@ -9,10 +11,15 @@ namespace Project_O.Windows
     /// </summary>
     public partial class Start : Window
     {
-        User user;
+        public User user;
         public Start()
         {
             InitializeComponent();
+            Loaded += Start_Loaded;
+        }
+        private void Start_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = user;
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -47,15 +54,22 @@ namespace Project_O.Windows
         {
             try
             {
+                this.IsEnabled = false;
                 user = await User.Login(UserNameLoginTextBox.Text, PasswordLoginTextBox._realText);
+                LogIn.Visibility = Visibility.Collapsed;
+                GroupEntry.Visibility = Visibility.Visible;
+                DataContext = user;
+                this.IsEnabled = true;
             }
             catch (UserException ex) when (ex.ErrorCode == 1)
             {
                 MessageBox.Show($"Пользователь с ником {UserNameLoginTextBox.Text} не существует");
+                this.IsEnabled = true;
             }
             catch (UserException ex) when (ex.ErrorCode == 2)
             {
                 MessageBox.Show($"Введён неверный пароль для пользователя {UserNameLoginTextBox.Text}");
+                this.IsEnabled = true;
             }
         }
 
@@ -63,12 +77,40 @@ namespace Project_O.Windows
         {
             try
             {
+                this.IsEnabled = false;
                 user = await User.Register(UserNameRegisterTextBox.Text, PasswordRegisterTextBox._realText);
+                Register.Visibility = Visibility.Collapsed;
+                LogIn.Visibility = Visibility.Visible;
+                this.IsEnabled = true;
             }
             catch (UserException ex) when (ex.ErrorCode == 3)
             {
                 MessageBox.Show($"Пользователь с ником {UserNameRegisterTextBox.Text} уже существует");
+                this.IsEnabled = true;
             }
+        }
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
+        private void SwitchWinButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (GroupCreation.Visibility == Visibility.Visible)
+            {
+                GroupCreation.Visibility = Visibility.Collapsed;
+                GroupEntry.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                GroupCreation.Visibility = Visibility.Visible;
+                GroupEntry.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void SwitchAuthButton_Click(object sender, RoutedEventArgs e)
+        {
+            GroupCreation.Visibility = Visibility.Collapsed;
+            GroupEntry.Visibility = Visibility.Collapsed;
+            LogIn.Visibility = Visibility.Visible;
         }
     }
 }

@@ -56,7 +56,7 @@
             <!---->
             <!--AccountEntry-->
             <!---->
-            <Grid Grid.Row="1" Margin="20,0,20,30" x:Name="LogIn" Visibility="Collapsed">
+            <Grid Grid.Row="1" Margin="20,0,20,30" x:Name="LogIn" Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
@@ -110,7 +110,7 @@
                         Tag="9"
                         >
                 </Button>
-                
+
                 <Grid Grid.Row="6" Margin="20,3" HorizontalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -126,11 +126,10 @@
                             ></Button>
                 </Grid>
             </Grid>
-            
             <!---->
             <!--AccountRegister-->
             <!---->
-            <Grid Grid.Row="1" Margin="20,0,20,30" x:Name="Register" Visibility="Visible">
+            <Grid Grid.Row="1" Margin="20,0,20,30" x:Name="Register" Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
@@ -178,7 +177,123 @@
 
 
             </Grid>
-        </Grid>
+            <!---->
+            <!--GroupCreation-->
+            <!---->
+            <Grid Grid.Row="1" Margin="20,0,20,30" x:Name="GroupCreation" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
 
+                <Label Style="{StaticResource S_Header}" Content="Создание группы"
+                    Tag="9"
+                    Margin="10,0"
+                    ></Label>
+
+                <TextBox Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" Tag="ID группы" 
+                    Margin="10" 
+                    local:TagProperties.IntTag="0"     
+                    ></TextBox>
+                <TextBox Grid.Row="2" Style="{StaticResource S_PlaceHolderText}" Tag="Код создания" 
+                    local:TagProperties.IntTag="0"
+                    Margin="10" ></TextBox>
+
+                <Button Content="Создать" 
+                    Margin="10" Grid.Row="4"
+                    Tag="9"
+                    Style="{StaticResource S_Auth}"></Button>
+
+                <Grid Grid.Row="6" Margin="10,3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="" Grid.Column="0" FontWeight="Medium"
+                   Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
+                   HorizontalAlignment="Center"
+               ></Label>
+                    <Button Grid.Column="1"
+                    Margin="0,0,9,0"
+                    HorizontalAlignment="Right"
+                    Click="SwitchWinButton_Click" FontWeight="Medium"
+                    Style="{StaticResource S_TextButton}" Content="Вход в группу ►"></Button>
+                    <Button Grid.Column="0"
+                    Margin="9,0,0,0"
+                    HorizontalAlignment="Left"
+                    Click="SwitchAuthButton_Click" FontWeight="Medium"
+                    Style="{StaticResource S_TextButton}" Content="◄ Авторизация"></Button>
+                </Grid>
+            </Grid>
+            <!---->
+            <!--GroupEntry-->
+            <!---->
+            <Grid Grid.Row="1" Margin="20,0,20,30" x:Name="GroupEntry" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                
+                <Label Grid.Row="0" Style="{StaticResource S_Header}" Content="Вход в группы"
+                    Margin="10"
+                    Tag="9"
+                       ></Label>
+                
+                <TextBox Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" 
+                         Tag="ID группы" 
+                         local:TagProperties.IntTag="0"
+                         KeyDown="TextBox_KeyDown"
+                         Margin="10" 
+                         ></TextBox>
+                
+                <TextBox Grid.Row="2" Style="{StaticResource S_PlaceHolderText}" 
+                         Tag="Пароль" 
+                         local:TagProperties.IntTag="0"
+                         Margin="10"
+                         KeyDown="TextBox_KeyDown"
+                         ></TextBox>
+                
+                <Button Content="Войти" 
+                        Margin="10" 
+                        Grid.Row="4" 
+                        Style="{StaticResource S_Auth}"
+                        Tag="9"
+                        ></Button>
+
+                <Grid Grid.Row="6" Margin="10,3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="" Grid.Column="0" FontWeight="Medium"
+                    Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
+                    HorizontalAlignment="Center"
+                    ></Label>
+                    <Button Grid.Column="1"
+                         Margin="0,0,9,0"
+                         HorizontalAlignment="Right"
+                         Click="SwitchWinButton_Click" FontWeight="Medium"
+                         Style="{StaticResource S_TextButton}" Content="Создание ►"></Button>
+                    <Button Grid.Column="0"
+                         Margin="9,0,0,0"
+                         HorizontalAlignment="Left"
+                         Click="SwitchAuthButton_Click" FontWeight="Medium"
+                         Style="{StaticResource S_TextButton}" Content="◄ Авторизация"></Button>
+                </Grid>
+                <Label Grid.Row="7" Content="{Binding UserName}"></Label>
+            </Grid>
+        </Grid>
     </Border>
 </Window>   

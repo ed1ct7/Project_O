@@ -36,36 +36,50 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Grid>
                         <Rectangle Margin="0,0,0,3" x:Name="border"
-                               Fill="{Binding FG_Control, Source={x:Static local:Properties.Instance}}" 
-                               Height="1" 
-                               VerticalAlignment="Bottom"/>
+                              Fill="{Binding FG_Control, Source={x:Static local:Properties.Instance}}" 
+                              Height="1" 
+                              VerticalAlignment="Bottom"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"></ColumnDefinition>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0"
-                                   Source="{Binding Path=(local:TagProperties.CustomTag), 
-                                   RelativeSource={RelativeSource TemplatedParent}}"
-                                   Width="22"
-                                   Height="18"
-                                   Visibility="Visible"/>
+                                  Source="{Binding Path=(local:TagProperties.CustomTag), 
+                                  RelativeSource={RelativeSource TemplatedParent}}"
+                                  Width="22"
+                                  Height="18"
+                                  Visibility="Visible">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=(local:TagProperties.CustomTag), 
+                                                RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                             <TextBlock x:Name="textBlock"
-                                   Grid.Column="1"
-                                   Margin="6,0,0,0"
-                                   FontSize="14"
-                                   Foreground="DimGray"
-                                   IsHitTestVisible="False"
-                                   Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                                   Visibility="Collapsed"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   />
+                                  Grid.Column="{Binding Path=(local:TagProperties.IntTag), 
+                                RelativeSource={RelativeSource TemplatedParent}}"
+                                  Margin="6,0,0,0"
+                                  FontSize="14"
+                                  Foreground="DimGray"
+                                  IsHitTestVisible="False"
+                                  Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                  Visibility="Collapsed"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left"
+                                  />
                             <ScrollViewer x:Name="PART_ContentHost"
-                                          FontSize="28"
-                                          Margin="6,0,0,0"
-                                          Grid.Column="1"
-                                          />
+                                     FontSize="28"
+                                     Margin="6,0,0,0"
+                                     Grid.Column="{Binding Path=(local:TagProperties.IntTag), 
+                                RelativeSource={RelativeSource TemplatedParent}}"
+                                     />
                         </Grid>
                     </Grid>
                     <ControlTemplate.Triggers>

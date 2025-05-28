@@ -27,7 +27,7 @@ namespace Project_O.Classes
             obj.SetValue(CustomTagProperty, value);
         }
         /////
-        ///OnHoveredBGBrush
+        ///OnHoveredBGBColor
         /////
         public static readonly DependencyProperty OnHoverBGBrushProperty =
                 DependencyProperty.RegisterAttached(
@@ -43,6 +43,25 @@ namespace Project_O.Classes
         public static void SetOnHoverBGBrush(DependencyObject obj, Brush value)
         {
             obj.SetValue(OnHoverBGBrushProperty, value);
+        }
+        ///
+        ///
+        ///
+        public static readonly DependencyProperty IntTagProperty =
+            DependencyProperty.RegisterAttached(
+                "IntTag",
+                typeof(int),
+                typeof(TagProperties),
+                new PropertyMetadata(1));
+
+        public static int GetIntTag(DependencyObject obj)
+        {
+            return (int)obj.GetValue(IntTagProperty);
+        }
+
+        public static void SetIntTag(DependencyObject obj, int value)
+        {
+            obj.SetValue(IntTagProperty, value);
         }
     }
 }
