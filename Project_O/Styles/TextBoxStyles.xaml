@@ -50,17 +50,6 @@
                                   Width="22"
                                   Height="18"
                                   Visibility="Visible">
-                                <Image.Style>
-                                    <Style TargetType="Image">
-                                        <Setter Property="Visibility" Value="Visible"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Path=(local:TagProperties.CustomTag), 
-                                                RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
-                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
                             </Image>
                             <TextBlock x:Name="textBlock"
                                   Grid.Column="{Binding Path=(local:TagProperties.IntTag), 
@@ -73,7 +62,19 @@
                                   Visibility="Collapsed"
                                   VerticalAlignment="Center"
                                   HorizontalAlignment="Left"
-                                  />
+                                  >
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=(local:TagProperties.IntTag), 
+                                            RelativeSource={RelativeSource TemplatedParent}}" Value="0">
+                                                <Setter Property="Width" Value="1000"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
                             <ScrollViewer x:Name="PART_ContentHost"
                                      FontSize="28"
                                      Margin="6,0,0,0"

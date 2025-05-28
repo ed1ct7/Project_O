@@ -26,7 +26,6 @@ namespace Project_O.Windows
             if (e.ChangedButton == MouseButton.Left)
                 DragMove();
         }
-        // Меню //
         private void btnMinimize_Click(object sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
         private void btnMaximize_Click(object sender, RoutedEventArgs e) => WindowState = WindowState ==
             WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
@@ -54,12 +53,18 @@ namespace Project_O.Windows
         {
             try
             {
-                this.IsEnabled = false;
-                user = await User.Login(UserNameLoginTextBox.Text, PasswordLoginTextBox._realText);
-                LogIn.Visibility = Visibility.Collapsed;
-                GroupEntry.Visibility = Visibility.Visible;
-                DataContext = user;
-                this.IsEnabled = true;
+                if (UserNameLoginTextBox.Text == "")
+                {
+                    UserNameLoginTextBox.Tag = "Имя не может быть пустым";
+                }
+                else { 
+                    this.IsEnabled = false;
+                    user = await User.Login(UserNameLoginTextBox.Text, PasswordLoginTextBox._realText);
+                    LogIn.Visibility = Visibility.Collapsed;
+                    GroupEntry.Visibility = Visibility.Visible;
+                    DataContext = user;
+                    this.IsEnabled = true;
+                }
             }
             catch (UserException ex) when (ex.ErrorCode == 1)
             {
@@ -77,11 +82,19 @@ namespace Project_O.Windows
         {
             try
             {
-                this.IsEnabled = false;
-                user = await User.Register(UserNameRegisterTextBox.Text, PasswordRegisterTextBox._realText);
-                Register.Visibility = Visibility.Collapsed;
-                LogIn.Visibility = Visibility.Visible;
-                this.IsEnabled = true;
+                if (UserNameRegisterTextBox.Text == "")
+                {
+                    UserNameRegisterTextBox.Tag = "Имя не может быть пустым";
+                }
+                else
+                {
+                    this.IsEnabled = false;
+                    user = await User.Register(UserNameRegisterTextBox.Text, PasswordRegisterTextBox._realText);
+                    Register.Visibility = Visibility.Collapsed;
+                    LogIn.Visibility = Visibility.Visible;
+                    this.IsEnabled = true;
+                }
+                
             }
             catch (UserException ex) when (ex.ErrorCode == 3)
             {
@@ -89,9 +102,40 @@ namespace Project_O.Windows
                 this.IsEnabled = true;
             }
         }
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            
+            foreach (char c in e.Text)
+            {
+                // Check if character is Latin, Cyrillic, or number
+                bool isAllowed = (c >= 'A' && c <= 'Z') ||  // Latin uppercase
+                                 (c >= 'a' && c <= 'z') ||  // Latin lowercase
+                                 (c >= 'А' && c <= 'Я') ||  // Cyrillic uppercase
+                                 (c >= 'а' && c <= 'я') ||  // Cyrillic lowercase
+                                 (c == 'Ё' || c == 'ё') ||  // Cyrillic Yo/yo
+                                 (c >= '0' && c <= '9');    // Numbers
+
+                if (!isAllowed)
+                {
+                    e.Handled = true;  // Block the character
+                    return;
+                }
+            }
+        }
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            // Allow navigation and control keys
+            if (e.Key == Key.Back || e.Key == Key.Delete ||
+                e.Key == Key.Left || e.Key == Key.Right ||
+                e.Key == Key.Home || e.Key == Key.End)
+            {
+                return;
+            }
+
+            // Block space key explicitly
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
         }
         private void SwitchWinButton_Click(object sender, RoutedEventArgs e)
         {

@@ -80,6 +80,8 @@
                          Tag="Имя"
                          Margin="10" 
                          local:TagProperties.CustomTag="pack://application:,,,/Media/Pictures/Avatar.png"
+                         PreviewKeyDown="TextBox_PreviewKeyDown"
+                         PreviewTextInput="TextBox_PreviewTextInput"
                          ></TextBox>
 
                 <UserControls:ucPasswordBox x:Name = "PasswordLoginTextBox" Grid.Row="2" Margin="10"/>
@@ -149,7 +151,9 @@
                 
                 <TextBox x:Name = "UserNameRegisterTextBox" Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" Tag="Имя" 
                          Margin="10"
+                         PreviewTextInput="TextBox_PreviewTextInput"
                          local:TagProperties.CustomTag="pack://application:,,,/Media/Pictures/Avatar.png"
+                         PreviewKeyDown="TextBox_PreviewKeyDown"
                          ></TextBox>
                 <UserControls:ucPasswordBox x:Name="PasswordRegisterTextBox" 
                          Grid.Row="2" 
@@ -196,13 +200,19 @@
                     Margin="10,0"
                     ></Label>
 
-                <TextBox Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" Tag="ID группы" 
+                <TextBox Grid.Row="1" Style="{StaticResource S_PlaceHolderText}"
+                    Tag="ID группы" 
                     Margin="10" 
-                    local:TagProperties.IntTag="0"     
+                    local:TagProperties.IntTag="0" 
+                    PreviewTextInput="TextBox_PreviewTextInput"
+                         PreviewKeyDown="TextBox_PreviewKeyDown"
                     ></TextBox>
-                <TextBox Grid.Row="2" Style="{StaticResource S_PlaceHolderText}" Tag="Код создания" 
+                <TextBox Grid.Row="2" Style="{StaticResource S_PlaceHolderText}" 
+                    Tag="Код создания" 
                     local:TagProperties.IntTag="0"
-                    Margin="10" ></TextBox>
+                    Margin="10"
+                    PreviewTextInput="TextBox_PreviewTextInput"
+                         ></TextBox>
 
                 <Button Content="Создать" 
                     Margin="10" Grid.Row="4"
@@ -254,7 +264,8 @@
                 <TextBox Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" 
                          Tag="ID группы" 
                          local:TagProperties.IntTag="0"
-                         KeyDown="TextBox_KeyDown"
+                         PreviewTextInput="TextBox_PreviewTextInput"
+                         PreviewKeyDown="TextBox_PreviewKeyDown"
                          Margin="10" 
                          ></TextBox>
                 
@@ -262,7 +273,8 @@
                          Tag="Пароль" 
                          local:TagProperties.IntTag="0"
                          Margin="10"
-                         KeyDown="TextBox_KeyDown"
+                         PreviewTextInput="TextBox_PreviewTextInput"
+                         PreviewKeyDown="TextBox_PreviewKeyDown"
                          ></TextBox>
                 
                 <Button Content="Войти" 
