@@ -34,7 +34,7 @@ namespace TaskManagerLogic.Classes
                 new string[] {  }
             };
         public List<string> UniqueLessons = new List<string>();
-
+        public Dictionary<DateTime, string[]> scheduleShifts { get; private set; }
         static public async Task<bool> CheckCode(string code) {
             return true;
 
@@ -45,7 +45,6 @@ namespace TaskManagerLogic.Classes
         }
         static public async Task<Group?> CreateGroup(string GroupName, string Password)
         {
-            
             string date = TMDateFormatter.ToString(DateTime.Now);
             YandexDrive drive = new YandexDrive();
             await drive.CreateNewFolder($"/Groups/{GroupName}");
@@ -54,10 +53,8 @@ namespace TaskManagerLogic.Classes
             await drive.CreateFileWithContent($"/Groups/{GroupName}/settings{date}.csv", $"Password\n{Password}");
             await drive.CreateFileWithContent($"/Groups/{GroupName}/users{date}.csv", "Users;Admins\n");
             await drive.CreateFileWithContent($"/Groups/{GroupName}/tasks{date}.csv", "Name;Subject;Desc;Files;CreateDate;EditDate;DeadlineDate;Priority\n");
+            await drive.CreateFileWithContent($"/Groups/{GroupName}/scheduleshifts{date}.csv", "Date;Timetable");
             return new Group(GroupName);
-            
-            
-
         }
         static public async Task<bool> CheckUserInGroup(string GroupName, string UserName)
         {
@@ -71,7 +68,7 @@ namespace TaskManagerLogic.Classes
         {
             this.GroupName = GroupName;
             Directory.CreateDirectory("C:\\ProgramData" + "\\TaskManager\\" + GroupName);
-            UpdateTimeTable(); Trace.WriteLine("this.UniqueLessons");
+            ActualizeGroupFiles();
 
 
         }
@@ -79,7 +76,7 @@ namespace TaskManagerLogic.Classes
         {
             YandexDrive drive = new YandexDrive();
 
-            foreach (string filename in new string[] { "settings", "users", "tasks" })
+            foreach (string filename in new string[] { "settings", "users", "tasks", "timetable", "scheduleshifts" })
             {
                 if (File.Exists("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\" + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"{filename}*.csv"))) File.Delete("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\" + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"{filename}*.csv"));
                 await drive.DownloadFile($"/Groups/{GroupName}/{await drive.GetFileNameByStart(filename, $"/Groups/{GroupName}")}", "C:\\ProgramData" + "\\TaskManager\\" + GroupName);
@@ -158,10 +155,8 @@ namespace TaskManagerLogic.Classes
         }
         public void UpdateTimeTable()
         {
-
             var lines = CSVreader.Read("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "" + "\\"
                 + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"timetable*.csv"));
-            this.UniqueLessons = new List<string>();
             for (int i = 0; i < 14; i++) {
                 if (lines[i] != "")
                 {
@@ -173,13 +168,46 @@ namespace TaskManagerLogic.Classes
                             UniqueLessons.Add(line);
                         }
                     }
-                    
                 }
-
             }
             this.UniqueLessons.Sort();
-            
-           
         }
+        public async Task UploadScheduleShifts()
+        {
+            List<string> newShifts = new List<string>();
+            foreach (DateTime key in scheduleShifts.Keys)
+            {
+                newShifts.Add($"{TMDateFormatter.ToStringWTime(key)};{string.Join(",", scheduleShifts[key])}");
+            }
+            CSVreader.Write("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "" + "\\"
+                + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"scheduleshifts*.csv"), newShifts);
+            YandexDrive drive = new YandexDrive();
+            string oldFileName = await drive.GetFileNameByStart("scheduleshifts", $"/Groups/{GroupName}");
+            string newFileName = $"scheduleshifts{TMDateFormatter.ToString(DateTime.Now)}.csv";
+            File.Move("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\" + oldFileName, "C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\" + newFileName);
+            await drive.DeleteFile($"/Groups/{GroupName}/{oldFileName}");
+            await drive.UploadFile($"/Groups/{GroupName}/{newFileName}", "C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\" + newFileName);
+        }
+        public void UpdateScheduleShifts()
+        {
+            var lines = CSVreader.Read("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "" + "\\"
+                + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"scheduleshifts*.csv"));
+            for (int i = 1; i < lines.Count; i++)
+            {
+                scheduleShifts.Add(TMDateFormatter.ToDateWTime(lines[i].Split(";")[0]).Date, lines[i].Split(";")[1].Split(","));
+            }
+
+        }
+        public async Task addScheduleShiftAtDate(DateTime Date, string[] NewTimetable)
+        {
+            scheduleShifts[Date.Date] = NewTimetable;
+            UpdateScheduleShifts();
+        }
+        public async Task deleteScheduleShiftAtDate(DateTime Date)
+        {
+            scheduleShifts.Remove(Date.Date);
+            UpdateScheduleShifts();
+        }
+        
     }
 }

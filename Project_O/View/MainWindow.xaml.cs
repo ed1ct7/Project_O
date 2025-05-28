@@ -125,6 +125,7 @@ namespace Project_O
         public string DayOfWeek { get; set; }
         public int DayNumber { get; set; }
         public DateTime Date { get; set; }
+        public string[] scheduleShift { get; set; }
         public ObservableCollection<LessonModel> Lessons { get; set; }
     }
     public class LessonModel

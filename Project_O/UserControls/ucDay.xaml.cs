@@ -31,7 +31,10 @@ namespace Project_O.UserControls
            
             this.Loaded += UcDay_Loaded;
         }
+        private void CheckScheduleShiftToDay()
+        {
 
+        }
         private void scheduleShift_Check(object sender, RoutedEventArgs e)
         {
             if (scheduleShift.IsChecked.Value == true)
