@@ -5,6 +5,7 @@ namespace Project_O.Classes
 {
     public class Properties : DependencyObject
     {
+        public static Brush tempBgBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#64229E"));
         // Background color property for Window
         public static Properties Instance { get; } = new Properties();
 
@@ -48,15 +49,13 @@ namespace Project_O.Classes
         }
         //
 
-
-
         // Background color property for Control
         public static readonly DependencyProperty BGP_SControl =
             DependencyProperty.Register(
                 "BGP_SControl",
                 typeof(Brush),
                 typeof(Properties),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
+                new PropertyMetadata(tempBgBrush));
         public Brush BG_SControl
         {
             get { return (Brush)GetValue(BGP_SControl); }
@@ -82,7 +81,7 @@ namespace Project_O.Classes
                 "P_BorderBrushS",
                 typeof(Brush),
                 typeof(Properties),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff9bb4"))));
+                new PropertyMetadata(tempBgBrush));
         public Brush BorderBrushS
         {
             get { return (Brush)GetValue(P_BorderBrushS); }
@@ -136,7 +135,7 @@ namespace Project_O.Classes
                 "ControlBorderColorOnHovered",
                 typeof(Brush),
                 typeof(Properties),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
+                new PropertyMetadata(tempBgBrush));
         public Brush BorderColor
         {
             get { return (Brush)GetValue(ControlBorderColor); }

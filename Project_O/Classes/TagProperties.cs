@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Project_O.Classes
 {
@@ -24,6 +25,24 @@ namespace Project_O.Classes
         public static void SetCustomTag(DependencyObject obj, string value)
         {
             obj.SetValue(CustomTagProperty, value);
+        }
+        /////
+        ///OnHoveredBGBrush
+        /////
+        public static readonly DependencyProperty OnHoverBGBrushProperty =
+                DependencyProperty.RegisterAttached(
+                    "OnHoverBGBrush",
+                    typeof(Brush),
+                    typeof(TagProperties),
+                    new PropertyMetadata(Brushes.LightGray));
+
+        public static Brush GetOnHoverBGBrush(DependencyObject obj)
+        {
+            return (Brush)obj.GetValue(OnHoverBGBrushProperty);
+        }
+        public static void SetOnHoverBGBrush(DependencyObject obj, Brush value)
+        {
+            obj.SetValue(OnHoverBGBrushProperty, value);
         }
     }
 }

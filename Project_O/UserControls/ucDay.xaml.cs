@@ -38,6 +38,8 @@ namespace Project_O.UserControls
             {
                 BorderU.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
                 BorderB.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
+                BorderB.Height = 2;
+                BorderU.Height = 2;
             }
             else
             {
@@ -48,6 +50,8 @@ namespace Project_O.UserControls
                     if (date == DateTime.Today) {
                         BorderU.Fill = Classes.Properties.Instance.ProperBlue;
                         BorderB.Fill = Classes.Properties.Instance.ProperBlue;
+                        BorderB.Height = 2;
+                        BorderU.Height = 2;
                     }
                     else {
                         BorderU.Fill = Classes.Properties.Instance.BorderBrushS;
@@ -68,6 +72,8 @@ namespace Project_O.UserControls
                 {
                     BorderU.Fill = Classes.Properties.Instance.ProperBlue;
                     BorderB.Fill = Classes.Properties.Instance.ProperBlue;
+                    BorderB.Height = 2;
+                    BorderU.Height = 2;
                 }
                 GenerateLessons();
             }
