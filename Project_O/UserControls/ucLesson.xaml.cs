@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -14,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TaskManagerLogic.Classes;
-using System.Diagnostics;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Project_O.UserControls
 {
@@ -26,7 +27,25 @@ namespace Project_O.UserControls
         public ucLesson()
         {
             InitializeComponent();
-
+            Loaded += UcLesson_Loaded;
+        }
+        private void UcLesson_Loaded(object sender, RoutedEventArgs e)
+        {
+            var lessonModel = DataContext as LessonModel;
+            if (lessonModel.CurrentTask != null)
+            {
+                Lesson.Background = new LinearGradientBrush
+                {
+                    StartPoint = new Point(0.5, 1),  // Top-center
+                    EndPoint = new Point(0.5, 0),    // Bottom-center
+                    GradientStops = new GradientStopCollection
+                    {
+                        new GradientStop(Classes.Properties.tempBgColor, 0.0), //Start //242326
+                        new GradientStop((Color)ColorConverter.ConvertFromString("#1E1D2B"), 1.0)
+                    }
+                };
+                //Lesson.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#26C491"));
+            }
         }
         public SubjectTask Task;
         private void LessonButton_Click(object sender, RoutedEventArgs e)

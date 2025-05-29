@@ -207,11 +207,12 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" 
+                    <Border x:Name="Border" 
                         Background="{TemplateBinding Background}"
                         CornerRadius="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
                         BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter HorizontalAlignment="Center"
+                                          x:Name="Presenter"
                                VerticalAlignment="Center"
                                TextElement.Foreground="{TemplateBinding Foreground}"/>
                         <VisualStateManager.VisualStateGroups>
@@ -222,7 +223,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="Border"
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="{Binding BG_ControlOnHovered, Source={x:Static local:Properties.Instance}}"
+                                            To="#3D5FC7"
                                             Duration="0:0:0.1"
                                             />
                                         <ColorAnimation
@@ -237,7 +238,7 @@
                                         <ColorAnimation
                                             Storyboard.TargetName="Border"
                                             Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            To="{Binding BG_ControlOnPressed, Source={x:Static local:Properties.Instance}}"
+                                            To="#223670"
                                             Duration="0:0:0.1"
                                             />
                                         <ColorAnimation
@@ -259,14 +260,15 @@
         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
         <Setter Property="Foreground" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Background" Value="Transparent"></Setter>
         <Setter Property="Height" Value="30"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Grid>
                         <Rectangle Name="BackgroundElement" 
-                         Fill="Transparent"
-                         Margin="0,0,0,0"/>
+                            Fill="{TemplateBinding Background}"
+                            Margin="0,0,0,0"/>
                         <Rectangle Margin="0,0,0,0" 
                                Fill="{TemplateBinding BorderBrush}"
                                Height="1"

@@ -5,8 +5,9 @@ namespace Project_O.Classes
 {
     public class Properties : DependencyObject
     {
-        public static Brush tempBgBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#64229E"));
-        public static Color tempBgColorOnHov = (Color)ColorConverter.ConvertFromString("#64229E");
+        public static Brush tempBgBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3B1E78"));
+        public static Color tempBgColor = (Color)ColorConverter.ConvertFromString("#1C1C1C");
+        public static Color tempBgColorOnHov = (Color)ColorConverter.ConvertFromString("#3B1E78");
 
         // Background color property for Window
         public static Properties Instance { get; } = new Properties();
@@ -201,7 +202,7 @@ namespace Project_O.Classes
                 "BGP_ControlOnPressed",
                 typeof(Color),
                 typeof(Properties),
-                new PropertyMetadata((Color)ColorConverter.ConvertFromString("#322636")));
+                new PropertyMetadata((Color)ColorConverter.ConvertFromString("#311963")));
         public Color BG_ControlOnPressed
         {
             get { return (Color)GetValue(BGP_ControlOnPressed); }

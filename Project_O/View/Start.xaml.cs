@@ -77,7 +77,6 @@ namespace Project_O.Windows
                 this.IsEnabled = true;
             }
         }
-
         private async void Button_Register_Click(object sender, RoutedEventArgs e)
         {
             try

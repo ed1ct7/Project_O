@@ -208,12 +208,18 @@
                          PreviewKeyDown="TextBox_PreviewKeyDown"
                     ></TextBox>
                 <TextBox Grid.Row="2" Style="{StaticResource S_PlaceHolderText}" 
+                    Tag="Пароль" 
+                    local:TagProperties.IntTag="0"
+                    Margin="10"
+                    PreviewTextInput="TextBox_PreviewTextInput"
+                         ></TextBox>
+                <TextBox Grid.Row="3" Style="{StaticResource S_PlaceHolderText}" 
                     Tag="Код создания" 
                     local:TagProperties.IntTag="0"
                     Margin="10"
                     PreviewTextInput="TextBox_PreviewTextInput"
                          ></TextBox>
-
+                
                 <Button Content="Создать" 
                     Margin="10" Grid.Row="4"
                     Tag="9"
@@ -256,7 +262,7 @@
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 
-                <Label Grid.Row="0" Style="{StaticResource S_Header}" Content="Вход в группы"
+                <Label Grid.Row="0" Style="{StaticResource S_Header}" Content="Вход в группу"
                     Margin="10"
                     Tag="9"
                        ></Label>

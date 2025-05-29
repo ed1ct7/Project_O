@@ -53,18 +53,29 @@
                 <Button  x:Name="AddLessonButton"
                     Style="{StaticResource S_Lesson}"
                     Content="+"
-                    Margin="0,3"
+                    Margin="0,0"
                     Click="AddLessonButton_Click"
                     />
             </StackPanel>
-            <CheckBox x:Name="scheduleShift"
+            <StackPanel Grid.Row="2"
+                VerticalAlignment="Bottom"
+                        Orientation="Horizontal"
+                        Margin="10,0,0,6"
+                        >
+                <CheckBox x:Name="scheduleShift"
                       Style="{StaticResource S_CustomCheckBox}"
                       Checked="scheduleShift_Check"
                       Unchecked="scheduleShift_Check"
-                      Grid.Row="2"
-                      VerticalAlignment="Bottom"
-                      HorizontalAlignment="Left"
-                      Content="" Margin="20,0,0,19" Height="16" Width="17"></CheckBox>
+                      VerticalAlignment="Center"
+                          Height="16" Width="17"></CheckBox>
+                <Label Content="Замены" Foreground="{Binding FG_Control,
+                    Source={x:Static local:Properties.Instance}}"
+                       FontSize="13"
+                       Height="30"
+                       VerticalAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       ></Label>
+            </StackPanel>
             <Rectangle Grid.Row="2" x:Name="BorderB"
                    Fill="{Binding BorderBrushS, Source={x:Static local:Properties.Instance}}" 
                    Height="1" 
