@@ -29,21 +29,24 @@ namespace Project_O
         public ObservableCollection<DayModel> DenominatorDays { get; } = new ObservableCollection<DayModel>();
         public DateTime CurrentDate { get; private set; } = DateTime.Today;
 
-        public MainWindow()
+        public MainWindow(User user)
         {
             
             InitializeComponent();
+            this.user = user;
             DataContext = this;
             GenerateWeeks();
-            string filesPath = "C:\\ProgramData\\TaskManager";
-            if (!File.Exists(filesPath))
-            {
-                Directory.CreateDirectory(filesPath);
-            }
+            if (user.Groups[user.Groups.Keys.ToArray()[0]]) AccStatus.Fill = new SolidColorBrush(Colors.Green);
             user.Groups.Keys.ToArray()[0].UpdateTimeTable();
             
         }
-
+        public static async Task<MainWindow> CreateMainWindow(User user)
+        {
+            foreach (var item in user.Groups.Keys) { 
+                await item.ActualizeGroupFiles();
+            }
+            return new MainWindow(user);
+        }
         
         public void GenerateWeeks()
         {

@@ -65,7 +65,7 @@ namespace TaskManagerLogic.Classes
             Directory.CreateDirectory("C:\\ProgramData" + "\\TaskManager\\" + GroupName);
             await drive.DownloadFile($"/Groups/{GroupName}/{await drive.GetFileNameByStart("settings", $"/Groups/{GroupName}")}", "C:\\ProgramData" + "\\TaskManager\\" + GroupName);
             return CSVreader.ReadStringByNumber("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\" +
-                CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"users*.csv"), 0).Split(";")[1] == Password;
+                CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"settings*.csv"), 0).Split(";")[1] == Password;
 
         }
         // Создание группы и базовых файлов на диске
@@ -100,7 +100,7 @@ namespace TaskManagerLogic.Classes
         {
             YandexDrive drive = new YandexDrive();
 
-            await drive.DownloadFile($"/Groups/{GroupName}/{drive.GetFileNameByStart("users", $"/Groups/{GroupName}")}", "C:\\ProgramData" + "\\TaskManager\\" + GroupName);
+            await drive.DownloadFile($"/Groups/{GroupName}/{await drive.GetFileNameByStart("users", $"/Groups/{GroupName}")}", "C:\\ProgramData" + "\\TaskManager\\" + GroupName);
 
             return CSVreader.ReadStringByNumber("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\" + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName, "users*.csv"), 1).Split(";").Contains(UserName);
         }
@@ -108,7 +108,6 @@ namespace TaskManagerLogic.Classes
         {
             this.GroupName = GroupName;
             Directory.CreateDirectory("C:\\ProgramData" + "\\TaskManager\\" + GroupName);
-            ActualizeGroupFiles();
 
 
         }
@@ -128,8 +127,7 @@ namespace TaskManagerLogic.Classes
         public async Task AddUser(string UserName, bool isMaster = false)
         {
             await ActualizeGroupFiles();
-            if (CSVreader.ReadStringByNumber("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\" +
-                CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"users*.csv"), 0).Split(";").Contains(UserName))
+            if (!await CheckUserInGroup(GroupName, UserName))
             {
                 CSVreader.EditLine("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\"
                 + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"users*.csv"),
@@ -150,7 +148,7 @@ namespace TaskManagerLogic.Classes
         public async Task AddMaster(string UserName) 
         {
             await ActualizeGroupFiles();
-            if (CSVreader.ReadStringByNumber("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\" +
+            if (!CSVreader.ReadStringByNumber("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\" +
                 CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"users*.csv"), 1).Split(";").Contains(UserName))
             {
                 CSVreader.EditLine("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\"
@@ -244,19 +242,25 @@ namespace TaskManagerLogic.Classes
         {
             var lines = CSVreader.Read("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "" + "\\"
                 + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"timetable*.csv"));
-            for (int i = 0; i < 14; i++) {
-                if (lines[i] != "")
+            try
+            {
+                for (int i = 0; i < 14; i++)
                 {
-                    Timetable[i] = lines[i].Split(';');
-                    foreach (string line in Timetable[i])
+                    if (lines[i] != "")
                     {
-                        if (!this.UniqueLessons.Contains(line))
+                        Timetable[i] = lines[i].Split(';');
+                        foreach (string line in Timetable[i])
                         {
-                            UniqueLessons.Add(line);
+                            if (!this.UniqueLessons.Contains(line))
+                            {
+                                UniqueLessons.Add(line);
+                            }
                         }
                     }
                 }
             }
+            catch { }
+            
             this.UniqueLessons.Sort();
         }
         // Загрузка списка замен

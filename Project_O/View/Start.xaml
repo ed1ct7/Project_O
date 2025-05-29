@@ -283,7 +283,7 @@
                          PreviewTextInput="TextBox_PreviewTextInput"
                          PreviewKeyDown="TextBox_PreviewKeyDown"
                          ></TextBox>
-                
+
                 <Button Content="Войти" 
                         Margin="10" 
                         Grid.Row="4" 

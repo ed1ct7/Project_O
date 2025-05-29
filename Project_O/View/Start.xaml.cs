@@ -1,4 +1,5 @@
 ﻿using Project_O.UserControls;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -15,6 +16,11 @@ namespace Project_O.Windows
         public Start()
         {
             InitializeComponent();
+            string filesPath = "C:\\ProgramData\\TaskManager";
+            if (!File.Exists(filesPath))
+            {
+                Directory.CreateDirectory(filesPath);
+            }
             Loaded += Start_Loaded;
         }
         private void Start_Loaded(object sender, RoutedEventArgs e)
@@ -150,12 +156,19 @@ namespace Project_O.Windows
                 GroupEntry.Visibility = Visibility.Collapsed;
             }
         }
-        private void SwitchAuthButton_Click(object sender, RoutedEventArgs e)
+        private async void SwitchAuthButton_Click(object sender, RoutedEventArgs e)
         {
-            GroupCreation.Visibility = Visibility.Collapsed;
-            GroupEntry.Visibility = Visibility.Collapsed;
-            LogIn.Visibility = Visibility.Visible;
-            user = null;
+            //GroupCreation.Visibility = Visibility.Collapsed;
+            //GroupEntry.Visibility = Visibility.Collapsed;
+            //LogIn.Visibility = Visibility.Visible;
+            //user = null;
+            if (user.Groups.Count != 0) {
+                MainWindow mainWindow = await MainWindow.CreateMainWindow(user);
+                mainWindow.Show();
+                this.Close();
+            }
+
+           
         }
 
         private async void Button_ConnectToGroup_Click(object sender, RoutedEventArgs e)
@@ -163,9 +176,12 @@ namespace Project_O.Windows
             try
             {
                 this.IsEnabled = false;
+                if (!await Group.isValidGroupName(GroupNameEntryTextBox.Text)) throw new GroupException("Группа не существует", 5);
                 if (await Group.CheckUserInGroup(GroupNameEntryTextBox.Text, user.UserName)) throw new GroupException("Пользователь уже в группе", 3);
                 await user.ConnectToGroup(GroupNameEntryTextBox.Text, GroupPasswordEntryTextBox.Text);
-                MainWindow mainWindow = new MainWindow();
+                var group = new Group(GroupNameEntryTextBox.Text);
+                await group.AddUser(user.UserName);
+                MainWindow mainWindow = await MainWindow.CreateMainWindow(user);
                 mainWindow.Show();
                 this.Close();
                 this.IsEnabled = true;
@@ -195,7 +211,8 @@ namespace Project_O.Windows
             {
                 this.IsEnabled = false;
                 await Group.CreateGroup(GroupNameCreateGroupTextBox.Text, GroupPasswordCreateGroupTextBox.Text, user.UserName, VerKeyCreateGroupTextBox.Text);
-                MainWindow mainWindow = new MainWindow();
+                await user.ConnectToGroup(GroupNameCreateGroupTextBox.Text, GroupPasswordCreateGroupTextBox.Text, true);
+                MainWindow mainWindow = await MainWindow.CreateMainWindow(user);
                 mainWindow.Show();
                 this.Close();
                 this.IsEnabled = true;

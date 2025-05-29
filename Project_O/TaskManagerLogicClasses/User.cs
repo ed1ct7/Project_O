@@ -74,7 +74,11 @@ namespace TaskManagerLogic.Classes
             var groupNames = CSVreader.ReadStringByColumns($"C:\\ProgramData\\TaskManager\\{CSVreader.GetFileNameByMask("C:\\ProgramData\\TaskManager","users*.csv")}", new string[] {"User"}, new string[] {UserName}).Split(";")[2].Split(",");
             foreach (string group in groupNames)
             {
-                if (group != "") groups.Add(new Group(group), await new Group(group).IsUserMaster(UserName));
+                if (group != "") {
+                    var gr = new Group(group);
+                    gr.ActualizeGroupFiles();
+                    groups.Add(gr, await gr.IsUserMaster(UserName));
+                };
             }
             return groups;
         }
@@ -114,7 +118,7 @@ namespace TaskManagerLogic.Classes
         }
         // Group Exception с кодом 5 - Группа не существует
         // Group Exception с кодом 6 - Неверный пароль группы
-        public async Task ConnectToGroup(string GroupName, string Password)
+        public async Task ConnectToGroup(string GroupName, string Password, bool isMaster = false)
         {
             if (!await Group.isValidGroupName(GroupName)) throw new GroupException("Группа не существует", 5);
             if (!await Group.CheckGroupPassword(GroupName, Password)) throw new GroupException("Неверный пароль группы", 6);
@@ -129,7 +133,7 @@ namespace TaskManagerLogic.Classes
             await drive.UploadFile($"/Users/{newFileName}", "C:\\ProgramData" + "\\TaskManager\\" + newFileName);
             await drive.DeleteFile($"/Users/{oldFileName}");
             var group = new Group(GroupName);
-            await group.AddUser(UserName);
+            Groups.Add(group, isMaster);
         }
 
     }

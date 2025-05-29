@@ -58,19 +58,19 @@
                     CornerRadius="10,10,12,12"
                     Background="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"
                     >
-                <Grid Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <Button x:Name="btnMinimize" Content="🗕"
+                    <Grid Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <Button x:Name="btnMinimize" Content="🗕"
                             Style="{StaticResource S_WMOther}"
                             Click="btnMinimize_Click"/>
-                        <Button x:Name="btnMaximize" Content="🗖"
+                            <Button x:Name="btnMaximize" Content="🗖"
                             Style="{StaticResource S_WMOther}"
                             Click="btnMaximize_Click"/>
-                        <Button x:Name="btnClose" Content="✖"
+                            <Button x:Name="btnClose" Content="✖"
                             Style="{StaticResource S_WMClose}"
                             Click="btnClose_Click"/>
-                    </StackPanel>
-                </Grid>
+                        </StackPanel>
+                    </Grid>
                 </Border>
             </Border>
 
@@ -145,6 +145,7 @@
                          BorderThickness="2"
                          Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
                     />
+                <Rectangle x:Name="AccStatus" HorizontalAlignment="Left" Height="47" Margin="62,168,0,0" Grid.Row="6" Fill="Yellow" VerticalAlignment="Top" Width="43"/>
             </Grid>
 
             <!-- Grid calendar -->
