@@ -64,9 +64,9 @@ namespace Project_O.UserControls
             var mainWindow = Window.GetWindow(this) as MainWindow;
 
             var lessonModel = DataContext as LessonModel;
-            var old = mainWindow.user.Groups[0].Timetable[(int)lessonModel.Day.Date.DayOfWeek + 7 * lessonModel.Day.DenNum].ToList();
+            var old = mainWindow.user.Groups.Keys.ToArray()[0].Timetable[(int)lessonModel.Day.Date.DayOfWeek + 7 * lessonModel.Day.DenNum].ToList();
             old.Remove(lessonModel.Name);
-            mainWindow.user.Groups[0].Timetable[(int)lessonModel.Day.Date.DayOfWeek + 7 * lessonModel.Day.DenNum] = old.ToArray();
+            mainWindow.user.Groups.Keys.ToArray()[0].Timetable[(int)lessonModel.Day.Date.DayOfWeek + 7 * lessonModel.Day.DenNum] = old.ToArray();
             if (mainWindow.ucNInformation.DataContext as LessonModel == lessonModel) mainWindow.ucNInformation.Visibility = Visibility.Collapsed;
             mainWindow.GenerateWeeks();
         }

@@ -98,13 +98,13 @@ namespace Project_O.UserControls
             dayModel.Lessons.Clear();
             var mainWindow = Window.GetWindow(this) as MainWindow;
             
-            foreach (var lesson in mainWindow.user.Groups[0].Timetable[dayIndex])
+            foreach (var lesson in mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex])
             {
             
                 var lessonModel = new LessonModel
                 {
                     Name = lesson,
-                    CurrentTask = mainWindow.user.Groups[0].GetTaskCreatedAtDate(lesson, date),
+                    CurrentTask = mainWindow.user.Groups.Keys.ToArray()[0].GetTaskCreatedAtDate(lesson, date),
                     Day = dayModel
                 };
                 dayModel.Lessons.Add(lessonModel);
@@ -122,7 +122,7 @@ namespace Project_O.UserControls
                 IsTextSearchEnabled = true,
                 Style = (Style)Application.Current.FindResource("S_AddLesson")
             };
-            comboBox.ItemsSource = mainWindow.user.Groups[0].UniqueLessons;
+            comboBox.ItemsSource = mainWindow.user.Groups.Keys.ToArray()[0].UniqueLessons;
 
             // Удаляем кнопку добавления и добавляем ComboBox
             if (StackPanelLessons.Children.Contains(AddLessonButton))
@@ -142,7 +142,7 @@ namespace Project_O.UserControls
                 if (!string.IsNullOrWhiteSpace(newLesson))
                 {
                     var mainWindow = Window.GetWindow(this) as MainWindow;
-                    mainWindow.user.Groups[0].Timetable[dayIndex] = mainWindow.user.Groups[0].Timetable[dayIndex].Concat(new[] { newLesson }).ToArray();
+                    mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex] = mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex].Concat(new[] { newLesson }).ToArray();
 
                     dayModel.Lessons.Add(new LessonModel { Name = newLesson });
 

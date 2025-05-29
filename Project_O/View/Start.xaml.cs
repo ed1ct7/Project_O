@@ -90,7 +90,8 @@ namespace Project_O.Windows
                     this.IsEnabled = false;
                     user = await User.Register(UserNameRegisterTextBox.Text, PasswordRegisterTextBox._realText);
                     Register.Visibility = Visibility.Collapsed;
-                    LogIn.Visibility = Visibility.Visible;
+                    GroupEntry.Visibility = Visibility.Visible;
+                    DataContext = user;
                     this.IsEnabled = true;
                 }
                 
@@ -154,6 +155,63 @@ namespace Project_O.Windows
             GroupCreation.Visibility = Visibility.Collapsed;
             GroupEntry.Visibility = Visibility.Collapsed;
             LogIn.Visibility = Visibility.Visible;
+            user = null;
+        }
+
+        private async void Button_ConnectToGroup_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.IsEnabled = false;
+                if (await Group.CheckUserInGroup(GroupNameEntryTextBox.Text, user.UserName)) throw new GroupException("Пользователь уже в группе", 3);
+                await user.ConnectToGroup(GroupNameEntryTextBox.Text, GroupPasswordEntryTextBox.Text);
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+                this.IsEnabled = true;
+
+                
+            }
+            catch (GroupException ex) when (ex.ErrorCode == 3)
+            {
+                MessageBox.Show($"Пользователь \"{user.UserName}\" уже подключён к группе \"{GroupNameEntryTextBox.Text}\"");
+                this.IsEnabled = true;
+            }
+            catch (GroupException ex) when (ex.ErrorCode == 5)
+            {
+                MessageBox.Show($"Группа с названием \"{GroupNameEntryTextBox.Text}\" не существует");
+                this.IsEnabled = true;
+            }
+            catch (GroupException ex) when (ex.ErrorCode == 6)
+            {
+                MessageBox.Show($"Неверный пароль для группы \"{GroupNameEntryTextBox.Text}\" ");
+                this.IsEnabled = true;
+            }
+        }
+
+        private async void Button_CreateGroup_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.IsEnabled = false;
+                await Group.CreateGroup(GroupNameCreateGroupTextBox.Text, GroupPasswordCreateGroupTextBox.Text, user.UserName, VerKeyCreateGroupTextBox.Text);
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+                this.Close();
+                this.IsEnabled = true;
+
+
+            }
+            catch (GroupException ex) when (ex.ErrorCode == 1)
+            {
+                MessageBox.Show("Введён несуществующий ключ");
+                this.IsEnabled = true;
+            }
+            catch (GroupException ex) when (ex.ErrorCode == 2)
+            {
+                MessageBox.Show($"Группа с названием \"{GroupNameCreateGroupTextBox.Text}\" уже существует");
+                this.IsEnabled = true;
+            }
         }
     }
 }

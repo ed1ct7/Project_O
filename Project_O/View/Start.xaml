@@ -200,21 +200,21 @@
                     Margin="10,0"
                     ></Label>
 
-                <TextBox Grid.Row="1" Style="{StaticResource S_PlaceHolderText}"
+                <TextBox x:Name ="GroupNameCreateGroupTextBox" Grid.Row="1" Style="{StaticResource S_PlaceHolderText}"
                     Tag="ID группы" 
                     Margin="10" 
                     local:TagProperties.IntTag="0" 
                     PreviewTextInput="TextBox_PreviewTextInput"
                          PreviewKeyDown="TextBox_PreviewKeyDown"
                     ></TextBox>
-                <TextBox Grid.Row="2" Style="{StaticResource S_PlaceHolderText}" 
+                <TextBox x:Name  ="GroupPasswordCreateGroupTextBox" Grid.Row="2" Style="{StaticResource S_PlaceHolderText}" 
                     Tag="Пароль" 
                     local:TagProperties.IntTag="0"
                     Margin="10"
                     PreviewTextInput="TextBox_PreviewTextInput"
                          ></TextBox>
-                <TextBox Grid.Row="3" Style="{StaticResource S_PlaceHolderText}" 
-                    Tag="Код создания" 
+                <TextBox x:Name="VerKeyCreateGroupTextBox" Grid.Row="3" Style="{StaticResource S_PlaceHolderText}" 
+                    Tag="Ключ доступа" 
                     local:TagProperties.IntTag="0"
                     Margin="10"
                     PreviewTextInput="TextBox_PreviewTextInput"
@@ -223,7 +223,7 @@
                 <Button Content="Создать" 
                     Margin="10" Grid.Row="4"
                     Tag="9"
-                    Style="{StaticResource S_Auth}"></Button>
+                    Style="{StaticResource S_Auth}" Click="Button_CreateGroup_Click"></Button>
 
                 <Grid Grid.Row="6" Margin="10,3">
                     <Grid.ColumnDefinitions>
@@ -266,8 +266,9 @@
                     Margin="10"
                     Tag="9"
                        ></Label>
-                
-                <TextBox Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" 
+
+                <TextBox x:Name="GroupNameEntryTextBox"
+                         Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" 
                          Tag="ID группы" 
                          local:TagProperties.IntTag="0"
                          PreviewTextInput="TextBox_PreviewTextInput"
@@ -275,7 +276,7 @@
                          Margin="10" 
                          ></TextBox>
                 
-                <TextBox Grid.Row="2" Style="{StaticResource S_PlaceHolderText}" 
+                <TextBox x:Name="GroupPasswordEntryTextBox" Grid.Row="2" Style="{StaticResource S_PlaceHolderText}" 
                          Tag="Пароль" 
                          local:TagProperties.IntTag="0"
                          Margin="10"
@@ -288,6 +289,7 @@
                         Grid.Row="4" 
                         Style="{StaticResource S_Auth}"
                         Tag="9"
+                        Click="Button_ConnectToGroup_Click"
                         ></Button>
 
                 <Grid Grid.Row="6" Margin="10,3">

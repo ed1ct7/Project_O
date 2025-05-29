@@ -25,8 +25,8 @@ namespace TaskManagerLogic.Classes
             }
         }
         public string UserName { get; private set; }
-        public List<Group> Groups { get; private set; }
-        public User(string UserName, List<Group> Groups)
+        public Dictionary<Group, bool> Groups { get; private set; }
+        public User(string UserName, Dictionary<Group, bool> Groups)
         {
             this.UserName = UserName;  
             this.Groups = Groups;
@@ -67,14 +67,14 @@ namespace TaskManagerLogic.Classes
             }
             throw new UserException("Пользователь не существует", 1);
         }
-        static public async Task<List<Group>> CreateGroupsList(string UserName)
+        static public async Task<Dictionary<Group, bool>> CreateGroupsList(string UserName)
         {
             await ActualizeUsersBase();
-            List<Group> groups = new List<Group>();
+            Dictionary<Group, bool> groups = new Dictionary<Group, bool>();
             var groupNames = CSVreader.ReadStringByColumns($"C:\\ProgramData\\TaskManager\\{CSVreader.GetFileNameByMask("C:\\ProgramData\\TaskManager","users*.csv")}", new string[] {"User"}, new string[] {UserName}).Split(";")[2].Split(",");
             foreach (string group in groupNames)
             {
-                if (group != "") groups.Add(new Group(group));
+                if (group != "") groups.Add(new Group(group), await new Group(group).IsUserMaster(UserName));
             }
             return groups;
         }
@@ -112,8 +112,12 @@ namespace TaskManagerLogic.Classes
                 throw new UserException("Пользователь с таким именем уже существует", 3);
             }
         }
-        public async Task ConnectToGroup(string GroupName)
+        // Group Exception с кодом 5 - Группа не существует
+        // Group Exception с кодом 6 - Неверный пароль группы
+        public async Task ConnectToGroup(string GroupName, string Password)
         {
+            if (!await Group.isValidGroupName(GroupName)) throw new GroupException("Группа не существует", 5);
+            if (!await Group.CheckGroupPassword(GroupName, Password)) throw new GroupException("Неверный пароль группы", 6);
             await ActualizeUsersBase();
             YandexDrive drive = new YandexDrive();
             var UserData = CSVreader.ReadStringByColumns("C:\\ProgramData" + "\\TaskManager" + "\\" + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager", "users*.csv"), new string[] { "UserName" }, new string[] { UserName }).Split(";");
@@ -124,7 +128,8 @@ namespace TaskManagerLogic.Classes
             File.Move("C:\\ProgramData" + "\\TaskManager\\" + oldFileName, "C:\\ProgramData" + "\\TaskManager\\" + newFileName);
             await drive.UploadFile($"/Users/{newFileName}", "C:\\ProgramData" + "\\TaskManager\\" + newFileName);
             await drive.DeleteFile($"/Users/{oldFileName}");
-
+            var group = new Group(GroupName);
+            await group.AddUser(UserName);
         }
 
     }

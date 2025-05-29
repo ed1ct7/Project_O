@@ -23,7 +23,7 @@ namespace Project_O
 {
     public partial class MainWindow : Window
     {
-        public User user = new User("NTC532", new List<Group> { new Group("TestGroup") });
+        public User user;
         
         public ObservableCollection<DayModel> NumeratorDays { get; } = new ObservableCollection<DayModel>();
         public ObservableCollection<DayModel> DenominatorDays { get; } = new ObservableCollection<DayModel>();
@@ -40,7 +40,7 @@ namespace Project_O
             {
                 Directory.CreateDirectory(filesPath);
             }
-            user.Groups[0].UpdateTimeTable();
+            user.Groups.Keys.ToArray()[0].UpdateTimeTable();
             
         }
 
@@ -114,8 +114,8 @@ namespace Project_O
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await user.Groups[0].UploadTimeTable();
-            user.Groups[0].UpdateTimeTable();
+            await user.Groups.Keys.ToArray()[0].UploadTimeTable();
+            user.Groups.Keys.ToArray()[0].UpdateTimeTable();
         }
     }
 

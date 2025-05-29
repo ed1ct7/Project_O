@@ -59,11 +59,11 @@ namespace Project_O.UserControls
             var lessonModel = DataContext as LessonModel;
             mainWindow.ucNInformation.Visibility = Visibility.Collapsed;
             if (lessonModel.CurrentTask == null) {
-                lessonModel.CurrentTask = await mainWindow.user.Groups[0].UploadTask(TaskName.Text, lessonModel.Name, TaskDesc.Text, new List<string>(), lessonModel.Day.Date, DateTime.Now, 1); 
+                lessonModel.CurrentTask = await mainWindow.user.Groups.Keys.ToArray()[0].UploadTask(TaskName.Text, lessonModel.Name, TaskDesc.Text, new List<string>(), lessonModel.Day.Date, DateTime.Now, 1); 
             }
             else
             {
-                lessonModel.CurrentTask = await mainWindow.user.Groups[0].UpdateTask(TaskName.Text, lessonModel.Name, TaskDesc.Text, new List<string>(), lessonModel.Day.Date, DateTime.Now, 1);
+                lessonModel.CurrentTask = await mainWindow.user.Groups.Keys.ToArray()[0].UpdateTask(TaskName.Text, lessonModel.Name, TaskDesc.Text, new List<string>(), lessonModel.Day.Date, DateTime.Now, 1);
             }
             this.DataContext = lessonModel;
             
