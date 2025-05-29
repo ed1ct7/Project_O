@@ -31,18 +31,21 @@ namespace Project_O
 
         public MainWindow()
         {
+            
             InitializeComponent();
             DataContext = this;
             GenerateWeeks();
-            this.user = user;
             string filesPath = "C:\\ProgramData\\TaskManager";
             if (!File.Exists(filesPath))
             {
                 Directory.CreateDirectory(filesPath);
             }
+            user.Groups[0].UpdateTimeTable();
             
         }
-        private void GenerateWeeks()
+
+        
+        public void GenerateWeeks()
         {
             NumeratorDays.Clear();
             DenominatorDays.Clear();
@@ -112,6 +115,7 @@ namespace Project_O
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             await user.Groups[0].UploadTimeTable();
+            user.Groups[0].UpdateTimeTable();
         }
     }
 
@@ -121,12 +125,14 @@ namespace Project_O
         public string DayOfWeek { get; set; }
         public int DayNumber { get; set; }
         public DateTime Date { get; set; }
+        public string[] scheduleShift { get; set; }
         public ObservableCollection<LessonModel> Lessons { get; set; }
     }
     public class LessonModel
     {
         public string Name { get; set; }
-        public DateTime Date { get; set; }
+        
         public SubjectTask CurrentTask;
+        public DayModel Day { init; get; }
     }
 }

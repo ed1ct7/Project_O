@@ -31,6 +31,7 @@ namespace TaskManagerLogic.Classes
             this.UserName = UserName;  
             this.Groups = Groups;
         }
+        
         static public async Task ActualizeUsersBase()
         {
 

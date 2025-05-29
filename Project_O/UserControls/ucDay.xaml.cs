@@ -18,7 +18,7 @@ using System.Windows.Shapes;
 using Project_O;
 using Project_O.Classes;
 using TaskManagerLogic.Classes;
-
+using System.Windows.Diagnostics;
 namespace Project_O.UserControls
 {
     public partial class ucDay : UserControl
@@ -30,7 +30,10 @@ namespace Project_O.UserControls
             InitializeComponent();
             this.Loaded += UcDay_Loaded;
         }
+        private void CheckScheduleShiftToDay()
+        {
 
+        }
         private void scheduleShift_Check(object sender, RoutedEventArgs e)
         {
             if (scheduleShift.IsChecked.Value == true)
@@ -83,6 +86,7 @@ namespace Project_O.UserControls
                     BorderU.Fill = Classes.Properties.Instance.ProperRed;
                     BorderB.Fill = Classes.Properties.Instance.ProperRed;
                 }
+
                 GenerateLessons();
             }
         }
@@ -96,11 +100,12 @@ namespace Project_O.UserControls
             
             foreach (var lesson in mainWindow.user.Groups[0].Timetable[dayIndex])
             {
+            
                 var lessonModel = new LessonModel
                 {
                     Name = lesson,
-                    Date = date,
-                    CurrentTask = mainWindow.user.Groups[0].GetTaskCreatedAtDate(lesson, date)
+                    CurrentTask = mainWindow.user.Groups[0].GetTaskCreatedAtDate(lesson, date),
+                    Day = dayModel
                 };
                 dayModel.Lessons.Add(lessonModel);
             }
@@ -110,13 +115,14 @@ namespace Project_O.UserControls
         {
             var dayModel = DataContext as DayModel;
             int dayIndex = (int)dayModel.Date.DayOfWeek + 7 * dayModel.DenNum;
-
+            var mainWindow = Window.GetWindow(this) as MainWindow;
             var comboBox = new ComboBox
             {
                 IsEditable = true,
                 IsTextSearchEnabled = true,
                 Style = (Style)Application.Current.FindResource("S_AddLesson")
             };
+            comboBox.ItemsSource = mainWindow.user.Groups[0].UniqueLessons;
 
             // Удаляем кнопку добавления и добавляем ComboBox
             if (StackPanelLessons.Children.Contains(AddLessonButton))

@@ -38,20 +38,35 @@ namespace Project_O.UserControls
                 TaskDesc.Text = lessonModel.CurrentTask.Description;
             }
         }
+        public void UpdateTextBoxInfo()
+        {
+            var lessonModel = DataContext as LessonModel;
+            if (lessonModel != null && lessonModel.CurrentTask != null)
+            {
+                TaskName.Text = lessonModel.CurrentTask.Name;
+                TaskDesc.Text = lessonModel.CurrentTask.Description;
+            }
+            else
+            {
+                TaskName.Text = "";
+                TaskDesc.Text = "";
+            }
+        }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             var mainWindow = Window.GetWindow(this) as MainWindow;
             var lessonModel = DataContext as LessonModel;
+            mainWindow.ucNInformation.Visibility = Visibility.Collapsed;
             if (lessonModel.CurrentTask == null) {
-                lessonModel.CurrentTask = await mainWindow.user.Groups[0].UploadTask(TaskName.Text, lessonModel.Name, TaskDesc.Text, new List<string>(), lessonModel.Date, DateTime.Now, 1); 
+                lessonModel.CurrentTask = await mainWindow.user.Groups[0].UploadTask(TaskName.Text, lessonModel.Name, TaskDesc.Text, new List<string>(), lessonModel.Day.Date, DateTime.Now, 1); 
             }
             else
             {
-                lessonModel.CurrentTask = await mainWindow.user.Groups[0].UpdateTask(TaskName.Text, lessonModel.Name, TaskDesc.Text, new List<string>(), lessonModel.Date, DateTime.Now, 1);
+                lessonModel.CurrentTask = await mainWindow.user.Groups[0].UpdateTask(TaskName.Text, lessonModel.Name, TaskDesc.Text, new List<string>(), lessonModel.Day.Date, DateTime.Now, 1);
             }
-
-                this.DataContext = lessonModel;
+            this.DataContext = lessonModel;
+            
         }
     }
 }

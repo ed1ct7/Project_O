@@ -10,8 +10,8 @@ using System.IO;
 using System.Threading;
 using System.Reflection.Metadata;
 
-namespace YandexDisk;
-internal class YandexDrive
+namespace TaskManagerLogic.Classes;
+public class YandexDrive
 {
     private string key;
     private IDiskApi diskApi;
