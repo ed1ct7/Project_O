@@ -32,7 +32,7 @@
             SnapsToDevicePixels="True"
             ClipToBounds="True">
 
-        <Grid>
+        <Grid Margin="0,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -40,7 +40,8 @@
             <!---->
             <!--WindowMenu-->
             <!---->
-            <Grid Grid.Row="0" Grid.ColumnSpan="3" Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
+            <Grid Grid.Row="0"
+                  Grid.ColumnSpan="3" Background="Transparent" WindowChrome.IsHitTestVisibleInChrome="True">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                     <Button x:Name="btnMinimize" Content="🗕"
                         Style="{StaticResource S_WMOther}"
@@ -70,7 +71,7 @@
                 <Label Grid.Row="0" 
                        Style="{StaticResource S_Header}" 
                        Content="Вход в аккаунт"
-                       Margin="10"
+                       Margin="10,10,10,5"
                        Tag="9"
                        Background="{Binding ProperBlue, Source={x:Static local:Properties.Instance}}"
                        BorderBrush="{Binding ProperBlue, Source={x:Static local:Properties.Instance}}"
@@ -78,15 +79,17 @@
 
                 <TextBox x:Name = "UserNameLoginTextBox" Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" 
                          Tag="Имя"
-                         Margin="10" 
+                         Margin="12,5,12,5"
                          local:TagProperties.CustomTag="pack://application:,,,/Media/Pictures/Avatar.png"
                          PreviewKeyDown="TextBox_PreviewKeyDown"
                          PreviewTextInput="TextBox_PreviewTextInput"
                          ></TextBox>
 
-                <UserControls:ucPasswordBox x:Name = "PasswordLoginTextBox" Grid.Row="2" Margin="10"/>
+                <UserControls:ucPasswordBox x:Name = "PasswordLoginTextBox" Grid.Row="2" 
+                         Margin="12,5,12,5"/>
 
-                <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="10">
+                <StackPanel Grid.Row="3" Orientation="Horizontal" 
+                         Margin="12,10,12,5">
                     <CheckBox 
                         Style="{StaticResource S_CustomCheckBox}"
                         HorizontalAlignment="Center"
@@ -105,7 +108,7 @@
                 </StackPanel>
 
                 <Button Grid.Row="4"
-                        Content="Войти" Margin="10" 
+                        Content="Войти" Margin="10,5,10,5" 
                         Style="{StaticResource S_Authb}"
                         BorderThickness="0" 
                         Click="Button_Login_Click"
@@ -143,24 +146,24 @@
                 </Grid.RowDefinitions>
                 
                 <Label Grid.Row="0" Style="{StaticResource S_Header}" Content="Регистрация"
-                       Margin="10"
+                       Margin="10,10,10,5"
                        Tag="9"
                        BorderThickness="0"
                        ></Label>
                 
                 
-                <TextBox x:Name = "UserNameRegisterTextBox" Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" Tag="Имя" 
-                         Margin="10"
+                <TextBox x:Name = "UserNameRegisterTextBox" Grid.Row="1" Style="{StaticResource S_PlaceHolderText}" Tag="Имя"  
+                         Margin="12,10,12,5"
                          PreviewTextInput="TextBox_PreviewTextInput"
                          local:TagProperties.CustomTag="pack://application:,,,/Media/Pictures/Avatar.png"
                          PreviewKeyDown="TextBox_PreviewKeyDown"
                          ></TextBox>
                 <UserControls:ucPasswordBox x:Name="PasswordRegisterTextBox" 
                          Grid.Row="2" 
-                         Margin="10"            
+                         Margin="12,10,12,5"         
                          local:TagProperties.CustomTag="pack://application:,,,/Media/Pictures/Avatar.png"/>
 
-                <Button Content="Зарегестрировать" Tag="9" Margin="10" Grid.Row="4" 
+                <Button Content="Зарегестрировать" Tag="9" Margin="10,10,10,5" Grid.Row="4" 
                         Style="{StaticResource S_Auth}" 
                         Click="Button_Register_Click"
                         ></Button>
@@ -178,8 +181,6 @@
                             Click="RegAuthButton_Click" FontWeight="Medium"
                         Style="{StaticResource S_TextButton}" Width="40" Content="Войти"></Button>
                 </Grid>
-
-
             </Grid>
             <!---->
             <!--GroupCreation-->
@@ -197,12 +198,12 @@
 
                 <Label Style="{StaticResource S_Header}" Content="Создание группы"
                     Tag="9"
-                    Margin="10,0"
+                    Margin="10,10,10,5"
                     ></Label>
 
                 <TextBox Grid.Row="1" Style="{StaticResource S_PlaceHolderText}"
                     Tag="ID группы" 
-                    Margin="10" 
+                    Margin="12,5,12,5"
                     local:TagProperties.IntTag="0" 
                     PreviewTextInput="TextBox_PreviewTextInput"
                          PreviewKeyDown="TextBox_PreviewKeyDown"
@@ -210,41 +211,50 @@
                 <TextBox Grid.Row="2" Style="{StaticResource S_PlaceHolderText}" 
                     Tag="Пароль" 
                     local:TagProperties.IntTag="0"
-                    Margin="10"
+                    Margin="12,5,12,5"
                     PreviewTextInput="TextBox_PreviewTextInput"
                          ></TextBox>
                 <TextBox Grid.Row="3" Style="{StaticResource S_PlaceHolderText}" 
                     Tag="Код создания" 
                     local:TagProperties.IntTag="0"
-                    Margin="10"
+                    Margin="12,5,12,5"
                     PreviewTextInput="TextBox_PreviewTextInput"
                          ></TextBox>
                 
                 <Button Content="Создать" 
-                    Margin="10" Grid.Row="4"
-                    Tag="9"
-                    Style="{StaticResource S_Auth}"></Button>
+                    Margin="10,10,10,5" Grid.Row="4"
+                    Tag="9,9,0,0"
+                    Style="{StaticResource S_Auth}"
+                        ></Button>
 
-                <Grid Grid.Row="6" Margin="10,3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="" Grid.Column="0" FontWeight="Medium"
-                   Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
-                   HorizontalAlignment="Center"
-               ></Label>
-                    <Button Grid.Column="1"
-                    Margin="0,0,9,0"
-                    HorizontalAlignment="Right"
-                    Click="SwitchWinButton_Click" FontWeight="Medium"
-                    Style="{StaticResource S_TextButton}" Content="Вход в группу ►"></Button>
-                    <Button Grid.Column="0"
-                    Margin="9,0,0,0"
-                    HorizontalAlignment="Left"
-                    Click="SwitchAuthButton_Click" FontWeight="Medium"
-                    Style="{StaticResource S_TextButton}" Content="◄ Авторизация"></Button>
-                </Grid>
+                <Border Grid.Row="6" Margin="10,0"
+                        BorderThickness="1"
+                        BorderBrush="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
+                        CornerRadius="0,0,9,9"
+                        >
+                    <StackPanel>
+                        <Button Grid.Row="7"
+                             FontSize="13"
+                             Tag="0,0,0,0"
+                             Height="28"
+                             FontWeight="Light"
+                             Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
+                             Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
+                             Content="Экран авторизации" 
+                             Click="SwitchAuthButton_Click"
+                             Style="{StaticResource S_Auth}" ></Button>
+                        <Button Grid.Row="8"
+                             FontSize="13"
+                             Tag="0,0,9,9"
+                             Height="28"
+                             FontWeight="Light"
+                             Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
+                             Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
+                             Content="Экран входа в группу" 
+                             Click="SwitchWinButton_Click"
+                             Style="{StaticResource S_Auth}" ></Button>
+                    </StackPanel>
+                </Border>
             </Grid>
             <!---->
             <!--GroupEntry-->
@@ -263,7 +273,7 @@
                 </Grid.RowDefinitions>
                 
                 <Label Grid.Row="0" Style="{StaticResource S_Header}" Content="Вход в группу"
-                    Margin="10"
+                    Margin="10,10,10,5"
                     Tag="9"
                        ></Label>
                 
@@ -272,63 +282,65 @@
                          local:TagProperties.IntTag="0"
                          PreviewTextInput="TextBox_PreviewTextInput"
                          PreviewKeyDown="TextBox_PreviewKeyDown"
-                         Margin="10" 
+                         Margin="12,5,12,5"
                          ></TextBox>
                 
                 <TextBox Grid.Row="2" Style="{StaticResource S_PlaceHolderText}" 
                          Tag="Пароль" 
                          local:TagProperties.IntTag="0"
-                         Margin="10"
+                         Margin="12,5,12,5"
                          PreviewTextInput="TextBox_PreviewTextInput"
                          PreviewKeyDown="TextBox_PreviewKeyDown"
                          ></TextBox>
-                
+
                 <Button Content="Войти" 
-                        Margin="10" 
+                        Margin="10,10,10,6" 
                         Grid.Row="4" 
                         Style="{StaticResource S_Auth}"
-                        Tag="9"
+                        Tag="9,9,0,0"
                         ></Button>
 
-                <Grid Grid.Row="7" Margin="10,3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="" Grid.Column="0" FontWeight="Medium"
-                    Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
-                    HorizontalAlignment="Center"
-                    ></Label>
-                    <Button Grid.Column="1"
-                         Margin="0,0,9,0"
-                         HorizontalAlignment="Right"
-                         Click="SwitchWinButton_Click" FontWeight="Medium"
-                         Style="{StaticResource S_TextButton}" Content="Создание ►"></Button>
-                    <Button Grid.Column="0"
-                         Margin="9,0,0,0"
-                         HorizontalAlignment="Left"
-                         Click="SwitchAuthButton_Click" FontWeight="Medium"
-                         Style="{StaticResource S_TextButton}" Content="◄ Авторизация"></Button>
-                </Grid>
-
-
-                <Border  Grid.Row="6" 
-                         Background="Transparent"
-                         CornerRadius="9"
-                         BorderThickness="0"
-                         Margin="10,0,0,0"
-                         >
-                    <Label
-                           VerticalContentAlignment ="Center"
-                           HorizontalContentAlignment="Left"
-                           FontSize="16"
-                           Height="40"
-                           Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}">
-                        <TextBlock Text="{Binding UserName, StringFormat='Аккаунт: {0}'}"/>
-                    </Label>
-                    
+                <Border Grid.Row="6"
+                        BorderThickness="1"
+                        BorderBrush="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
+                        Margin="10,0"
+                        CornerRadius="0,0,9,9"
+                        >
+                    <StackPanel>
+                        <Button Grid.Row="6"
+                            FontSize="13"
+                            Tag="0,0,0,0"
+                            Height="28"
+                            FontWeight="Light"
+                            Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
+                            Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
+                            Content="Войти в группу пользователя" 
+                            Style="{StaticResource S_Auth}" 
+                                ></Button>
+                        <Button Grid.Row="7"
+                             FontSize="13"
+                             Tag="0,0,0,0"
+                             Height="28"
+                             FontWeight="Light"
+                             Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
+                             Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
+                             Content="Экран авторизации" 
+                             Click="SwitchAuthButton_Click"
+                             Style="{StaticResource S_Auth}" 
+                                ></Button>
+                        <Button Grid.Row="8"
+                             FontSize="13"
+                             Tag="0,0,9,9"
+                             Height="28"
+                             FontWeight="Light"
+                             Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
+                             Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
+                             Content="Экран создания группы" 
+                             Click="SwitchWinButton_Click"
+                             Style="{StaticResource S_Auth}" 
+                                ></Button>
+                    </StackPanel>
                 </Border>
-                
             </Grid>
         </Grid>
     </Border>
