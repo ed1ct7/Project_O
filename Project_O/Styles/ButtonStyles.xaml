@@ -90,25 +90,51 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" 
+                    <Border x:Name="Border" 
                         Background="{TemplateBinding Background}"
                         CornerRadius="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
                         BorderBrush="{TemplateBinding BorderBrush}">
                         <ContentPresenter HorizontalAlignment="Center"
+                                          x:Name="Presenter"
                                       VerticalAlignment="Center"
                                       TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            From="{Binding BG_ControlOnPressed, Source={x:Static local:Properties.Instance}}"
+                                            To="{Binding BG_ControlOnHovered, Source={x:Static local:Properties.Instance}}"
+                                            Duration="0:0:0.1"
+                                            />
+                                        <ColorAnimation
+                                            Storyboard.TargetName="Presenter"
+                                            Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                                            To="White"
+                                            Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            To="{Binding BG_ControlOnPressed, Source={x:Static local:Properties.Instance}}"
+                                            Duration="0:0:0.1"
+                                            />
+                                        <ColorAnimation
+                                            Storyboard.TargetName="Presenter"
+                                            Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                                            To="White"
+                                            Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                     </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="{Binding BG_ControlOnHovered, Source={x:Static local:Properties.Instance}}"></Setter>
-                            <Setter Property="FontSize" Value="{Binding FontSizeOnHovered, Source={x:Static local:Properties.Instance}}"></Setter>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#FFBCBCBC"/>
-                            <Setter TargetName="border" Property="BorderBrush" 
-                                    Value="{Binding FontSizeOnHovered, Source={x:Static local:Properties.Instance}}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -188,20 +214,42 @@
                         <ContentPresenter HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            To="{Binding BG_ControlOnHovered, Source={x:Static local:Properties.Instance}}"
+                                            Duration="0:0:0.1"
+                                            />
+                                        <ColorAnimation
+                                            Storyboard.TargetName="Presenter"
+                                            Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                                            To="White"
+                                            Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                            Storyboard.TargetName="Border"
+                                            Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            To="{Binding BG_ControlOnPressed, Source={x:Static local:Properties.Instance}}"
+                                            Duration="0:0:0.1"
+                                            />
+                                        <ColorAnimation
+                                            Storyboard.TargetName="Presenter"
+                                            Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
+                                            To="White"
+                                            Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                     </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" 
-                                    Value="{Binding ProperBlue, Source={x:Static local:Properties.Instance}}" />
-                            <Setter Property="FontSize" Value="{Binding FontSizeOnHovered, Source={x:Static local:Properties.Instance}}"></Setter>
-                            <Setter Property="Foreground" Value="White"></Setter>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Background" Value="#FFBCBCBC"/>
-                            <Setter TargetName="border" Property="BorderBrush" 
-                                 Value="{Binding FontSizeOnHovered, Source={x:Static local:Properties.Instance}}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -217,28 +265,54 @@
                 <ControlTemplate TargetType="Button">
                     <Grid>
                         <Rectangle Name="BackgroundElement" 
-                             Fill="Transparent"
-                             Margin="0,0,0,0"/>
+                         Fill="Transparent"
+                         Margin="0,0,0,0"/>
                         <Rectangle Margin="0,0,0,0" 
-                                   Fill="{TemplateBinding BorderBrush}"
-                                   Height="1" 
-                                   VerticalAlignment="Top"
-                                   Width="10000"/>
+                               Fill="{TemplateBinding BorderBrush}"
+                               Height="1"
+                               x:Name="Presenter"
+                               VerticalAlignment="Top"
+                               Width="10000"/>
                         <ContentPresenter 
-                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                        Storyboard.TargetName="BackgroundElement"
+                                        Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)"
+                                        From="{Binding BG_ControlOnPressed, Source={x:Static local:Properties.Instance}}"
+                                        To="{Binding BG_ControlOnHovered, Source={x:Static local:Properties.Instance}}"
+                                        Duration="0:0:0.1"
+                                        />
+                                        <ColorAnimation
+                                        Storyboard.TargetName="Presenter"
+                                        Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)"
+                                        To="White"
+                                        Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimation
+                                        Storyboard.TargetName="BackgroundElement"
+                                        Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)"
+                                        To="{Binding BG_ControlOnPressed, Source={x:Static local:Properties.Instance}}"
+                                        Duration="0:0:0.1"
+                                        />
+                                        <ColorAnimation
+                                        Storyboard.TargetName="Presenter"
+                                        Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)"
+                                        To="White"
+                                        Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                     </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="BackgroundElement" 
-                                    Property="Fill" 
-                                    Value="{Binding BG_ControlOnHovered, Source={x:Static local:Properties.Instance}}"/>
-                            <Setter Property="FontSize" Value="{Binding FontSizeOnHovered, Source={x:Static local:Properties.Instance}}"></Setter>
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="BackgroundElement" Property="Fill" Value="#FFBCBCBC"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

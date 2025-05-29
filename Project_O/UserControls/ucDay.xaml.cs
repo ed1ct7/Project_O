@@ -28,7 +28,6 @@ namespace Project_O.UserControls
         public ucDay()
         {
             InitializeComponent();
-           
             this.Loaded += UcDay_Loaded;
         }
 
@@ -107,7 +106,8 @@ namespace Project_O.UserControls
             var comboBox = new ComboBox
             {
                 IsEditable = true,
-                IsTextSearchEnabled = true
+                IsTextSearchEnabled = true,
+                Style = (Style)Application.Current.FindResource("S_AddLesson")
             };
 
             // Удаляем кнопку добавления и добавляем ComboBox

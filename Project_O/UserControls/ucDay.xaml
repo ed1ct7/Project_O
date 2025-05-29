@@ -49,7 +49,6 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
-
                 <!-- Fixed Button -->
                 <Button  x:Name="AddLessonButton"
                     Style="{StaticResource S_Lesson}"
