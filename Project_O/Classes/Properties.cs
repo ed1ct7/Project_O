@@ -5,9 +5,15 @@ namespace Project_O.Classes
 {
     public class Properties : DependencyObject
     {
+        public static Brush tempBgBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3B1E78"));
+        public static Color tempBgColor = (Color)ColorConverter.ConvertFromString("#1C1C1C");
+        public static Color tempBgColorOnHov = (Color)ColorConverter.ConvertFromString("#3B1E78");
+
         // Background color property for Window
         public static Properties Instance { get; } = new Properties();
-
+        //
+        // BGP_Default
+        //
         public static readonly DependencyProperty BGP_Default =
             DependencyProperty.Register(
                 "BGP_Default",
@@ -20,9 +26,8 @@ namespace Project_O.Classes
             set { SetValue(BGP_Default, value); }
         }
         //
-
-        //Control properties
-        // Background color property for Control
+        // BGP_Control
+        //
         public static readonly DependencyProperty BGP_Control =
             DependencyProperty.Register(
                 "BGP_Control",
@@ -34,35 +39,37 @@ namespace Project_O.Classes
             get { return (Brush)GetValue(BGP_Control); }
             set { SetValue(BGP_Control, value); }
         }
-        // Foreground color property for Control
+        //
+        // FGP_Control
+        //
         public static readonly DependencyProperty FGP_Control =
             DependencyProperty.Register(
                 "FGP_Control",
                 typeof(Brush),
                 typeof(Properties),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#fffbfc"))));
+                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#fffbfc")))); //Almost white
         public Brush FG_Control
         {
             get { return (Brush)GetValue(FGP_Control); }
             set { SetValue(FGP_Control, value); }
         }
         //
-
-
-
-        // Background color property for Control
+        // BG_SControl
+        //
         public static readonly DependencyProperty BGP_SControl =
             DependencyProperty.Register(
                 "BGP_SControl",
                 typeof(Brush),
                 typeof(Properties),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
+                new PropertyMetadata(tempBgBrush));
         public Brush BG_SControl
         {
             get { return (Brush)GetValue(BGP_SControl); }
             set { SetValue(BGP_SControl, value); }
         }
-        // Foreground color property for Control
+        //
+        // FG_SControl
+        //
         public static readonly DependencyProperty FGP_SControl =
             DependencyProperty.Register(
                 "FGP_SControl",
@@ -75,22 +82,22 @@ namespace Project_O.Classes
             set { SetValue(FGP_SControl, value); }
         }
         //
-
+        // P_BorderBrushS
         //
         public static readonly DependencyProperty P_BorderBrushS =
             DependencyProperty.Register(
                 "P_BorderBrushS",
                 typeof(Brush),
                 typeof(Properties),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff9bb4"))));
+                new PropertyMetadata(tempBgBrush));
         public Brush BorderBrushS
         {
             get { return (Brush)GetValue(P_BorderBrushS); }
             set { SetValue(P_BorderBrushS, value); }
         }
-        //"#ff9bb4" 
-
-        //
+        ///"#ff9bb4" 
+        // P_DefaultBackS
+        ///
         public static readonly DependencyProperty P_DefaultBackS =
             DependencyProperty.Register(
                 "P_DefaultBackS",
@@ -102,10 +109,9 @@ namespace Project_O.Classes
             get { return (Brush)GetValue(P_DefaultBackS); }
             set { SetValue(P_DefaultBackS, value); }
         }
-        //
-
-
-
+        /// 
+        // P_ProperBlue
+        ///
         public static readonly DependencyProperty P_ProperBlue =
             DependencyProperty.Register(
                 "ProperBlue",
@@ -117,7 +123,9 @@ namespace Project_O.Classes
             get { return (Brush)GetValue(P_ProperBlue); }
             set { SetValue(P_ProperBlue, value); }
         }
-
+        ///
+        // P_ProperRed
+        ///
         public static readonly DependencyProperty P_ProperRed =
             DependencyProperty.Register(
                 "P_ProperRed",
@@ -129,111 +137,80 @@ namespace Project_O.Classes
             get { return (Brush)GetValue(P_ProperRed); }
             set { SetValue(P_ProperRed, value); }
         }
-
-        //
+        /// 
+        // ControlBorderColor
+        ///
         public static readonly DependencyProperty ControlBorderColor =
             DependencyProperty.Register(
                 "ControlBorderColorOnHovered",
                 typeof(Brush),
                 typeof(Properties),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
+                new PropertyMetadata(tempBgBrush));
         public Brush BorderColor
         {
             get { return (Brush)GetValue(ControlBorderColor); }
             set { SetValue(ControlBorderColor, value); }
         }
-        //
-
-
-        //
+        /// 
+        // FG_ControlOnHovered
+        ///
         public static readonly DependencyProperty FGP_ControlOnHovered =
             DependencyProperty.Register(
                 "FGP_ControlOnHovered",
-                typeof(Brush),
+                typeof(Color),
                 typeof(Properties),
-                 new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
-        public Brush FG_ControlOnHovered
+                 new PropertyMetadata((Color)ColorConverter.ConvertFromString("#ff1359")));
+        public Color FG_ControlOnHovered
         {
-            get { return (Brush)GetValue(FGP_ControlOnHovered); }
+            get { return (Color)GetValue(FGP_ControlOnHovered); }
             set { SetValue(FGP_ControlOnHovered, value); }
         }
-        //
-
-        // 
-        public static readonly DependencyProperty BGP_ControlOnHovered =
+        /// 
+        // BG_ControlOnHovered
+        ///
+        public static readonly DependencyProperty BGP_ControlOnHoveredProperty =
             DependencyProperty.Register(
-                "BGP_ControlOnHovered",
-                typeof(Brush),
+                "BGP_ControlOnHoveredProperty",
+                typeof(Color),
                 typeof(Properties),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
-        public Brush BG_ControlOnHovered
+                new PropertyMetadata(tempBgColorOnHov));
+
+        public Color BG_ControlOnHovered
         {
-            get { return (Brush)GetValue(BGP_ControlOnHovered); }
-            set { SetValue(BGP_ControlOnHovered, value); }
+            get => (Color)GetValue(BGP_ControlOnHoveredProperty);
+            set => SetValue(BGP_ControlOnHoveredProperty, value);
         }
-        //
-
-
-        // 
-        public static readonly DependencyProperty FGP_SControlOnHovered =
-            DependencyProperty.Register(
-                "FGP_SControlOnHovered",
-                typeof(Brush),
-                typeof(Properties),
-                 new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
-        public Brush FG_SControlOnHovered
-        {
-            get { return (Brush)GetValue(FGP_SControlOnHovered); }
-            set { SetValue(FGP_SControlOnHovered, value); }
-        }
-        //
-
-        // 
-        public static readonly DependencyProperty BGP_SControlOnHovered =
-            DependencyProperty.Register(
-                "BGP_SControlOnHovered",
-                typeof(Brush),
-                typeof(Properties),
-                new PropertyMetadata(new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff1359"))));
-        public Brush BG_SControlOnHovered
-        {
-            get { return (Brush)GetValue(BGP_SControlOnHovered); }
-            set { SetValue(BGP_SControlOnHovered, value); }
-        }
-        //
-
-
-
-        //
+        /// 
+        // FG_ControlOnPressed
+        ///
         public static readonly DependencyProperty FGP_ControlOnPressed =
             DependencyProperty.Register(
                 "FGP_ControlOnPressed",
-                typeof(Brush),
+                typeof(Color),
                 typeof(Properties),
-                new PropertyMetadata(Brushes.White));
-        public Brush FG_ControlOnPressed
+                new PropertyMetadata((Color)ColorConverter.ConvertFromString("#ff1359")));
+        public Color FG_ControlOnPressed
         {
-            get { return (Brush)GetValue(FGP_ControlOnPressed); }
+            get { return (Color)GetValue(FGP_ControlOnPressed); }
             set { SetValue(FGP_ControlOnPressed, value); }
         }
-        //
-
-        //
+        /// 
+        // BG_ControlOnPressed
+        ///
         public static readonly DependencyProperty BGP_ControlOnPressed =
             DependencyProperty.Register(
                 "BGP_ControlOnPressed",
-                typeof(Brush),
+                typeof(Color),
                 typeof(Properties),
-                new PropertyMetadata(Brushes.White));
-        public Brush BG_ControlOnPressed
+                new PropertyMetadata((Color)ColorConverter.ConvertFromString("#311963")));
+        public Color BG_ControlOnPressed
         {
-            get { return (Brush)GetValue(BGP_ControlOnPressed); }
+            get { return (Color)GetValue(BGP_ControlOnPressed); }
             set { SetValue(BGP_ControlOnPressed, value); }
         }
-        //
-
-
-
+        /// 
+        // FontSizeOnHovered
+        ///
         public static readonly DependencyProperty P_FontSizeChangedOnHovered =
            DependencyProperty.Register(
                "P_FontSizeChangedOnHovered",
@@ -245,9 +222,9 @@ namespace Project_O.Classes
             get { return (int)GetValue(P_FontSizeChangedOnHovered); }
             set { SetValue(P_FontSizeChangedOnHovered, value); }
         }
-
-
-
+        /// 
+        // DefaultCornerRadius
+        ///
         public static readonly DependencyProperty P_DefaultCornerRadius =
             DependencyProperty.Register(
                 "P_DefaultCornerRadius",

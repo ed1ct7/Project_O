@@ -30,27 +30,58 @@
 
     <Style x:Key="S_PlaceHolderText" TargetType="TextBox" BasedOn="{StaticResource S_TextBox}">
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
-        <Setter Property="BorderBrush" Value="{Binding BorderColor, Source={x:Static local:Properties.Instance}}" />
+        <Setter Property="BorderBrush" Value="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
-
                     <Grid>
-                        <Rectangle Margin="0,0,0,0" x:Name="border"
-                               Fill="{Binding FG_Control, Source={x:Static local:Properties.Instance}}" 
-                               Height="1" 
-                               VerticalAlignment="Bottom"/>
-                        <ScrollViewer x:Name="PART_ContentHost" />
-                        <TextBlock x:Name="textBlock"
-                                   Margin="2,0,0,0"
-                                   FontSize="14"
-                                   Foreground="DimGray"
-                                   IsHitTestVisible="False"
-                                   Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
-                                   Visibility="Collapsed"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   />
+                        <Rectangle Margin="0,0,0,3" x:Name="border"
+                              Fill="{Binding FG_Control, Source={x:Static local:Properties.Instance}}" 
+                              Height="1" 
+                              VerticalAlignment="Bottom"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0"
+                                  Source="{Binding Path=(local:TagProperties.CustomTag), 
+                                  RelativeSource={RelativeSource TemplatedParent}}"
+                                  Width="22"
+                                  Height="18"
+                                  Visibility="Visible">
+                            </Image>
+                            <TextBlock x:Name="textBlock"
+                                  Grid.Column="{Binding Path=(local:TagProperties.IntTag), 
+                                RelativeSource={RelativeSource TemplatedParent}}"
+                                  Margin="6,0,0,0"
+                                  FontSize="14"
+                                  Foreground="DimGray"
+                                  IsHitTestVisible="False"
+                                  Text="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"
+                                  Visibility="Collapsed"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left"
+                                  >
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=(local:TagProperties.IntTag), 
+                                            RelativeSource={RelativeSource TemplatedParent}}" Value="0">
+                                                <Setter Property="Width" Value="1000"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                     FontSize="28"
+                                     Margin="6,0,0,0"
+                                     Grid.Column="{Binding Path=(local:TagProperties.IntTag), 
+                                RelativeSource={RelativeSource TemplatedParent}}"
+                                     />
+                        </Grid>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Text" Value="">
@@ -60,16 +91,13 @@
                             <Setter TargetName="border" Property="Opacity" Value="0.56" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter TargetName="textBlock" Property="Visibility" Value="Collapsed" />
-                            
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

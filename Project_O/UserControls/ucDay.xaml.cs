@@ -28,7 +28,6 @@ namespace Project_O.UserControls
         public ucDay()
         {
             InitializeComponent();
-           
             this.Loaded += UcDay_Loaded;
         }
         private void CheckScheduleShiftToDay()
@@ -41,6 +40,8 @@ namespace Project_O.UserControls
             {
                 BorderU.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
                 BorderB.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
+                //BorderB.Height = 2;
+                //BorderU.Height = 2;
             }
             else
             {
@@ -51,13 +52,20 @@ namespace Project_O.UserControls
                     if (date == DateTime.Today) {
                         BorderU.Fill = Classes.Properties.Instance.ProperBlue;
                         BorderB.Fill = Classes.Properties.Instance.ProperBlue;
+                        //BorderB.Height = 2;
+                        //BorderU.Height = 2;
                     }
-                    else {
+                    else if (date.DayOfWeek == DayOfWeek.Sunday)
+                        {
+                            BorderU.Fill = Classes.Properties.Instance.ProperRed;
+                            BorderB.Fill = Classes.Properties.Instance.ProperRed;
+                        }
+                    }else {
                         BorderU.Fill = Classes.Properties.Instance.BorderBrushS;
                         BorderB.Fill = Classes.Properties.Instance.BorderBrushS;
-                    }
                 }
             }
+            
         }
 
         private void UcDay_Loaded(object sender, RoutedEventArgs e)
@@ -71,6 +79,12 @@ namespace Project_O.UserControls
                 {
                     BorderU.Fill = Classes.Properties.Instance.ProperBlue;
                     BorderB.Fill = Classes.Properties.Instance.ProperBlue;
+                   //BorderB.Height = 2;
+                   //BorderU.Height = 2;
+                }
+                if (date.DayOfWeek == DayOfWeek.Sunday) {
+                    BorderU.Fill = Classes.Properties.Instance.ProperRed;
+                    BorderB.Fill = Classes.Properties.Instance.ProperRed;
                 }
 
                 GenerateLessons();
@@ -86,7 +100,7 @@ namespace Project_O.UserControls
             
             foreach (var lesson in mainWindow.user.Groups[0].Timetable[dayIndex])
             {
-
+            
                 var lessonModel = new LessonModel
                 {
                     Name = lesson,
@@ -105,7 +119,8 @@ namespace Project_O.UserControls
             var comboBox = new ComboBox
             {
                 IsEditable = true,
-                IsTextSearchEnabled = true
+                IsTextSearchEnabled = true,
+                Style = (Style)Application.Current.FindResource("S_AddLesson")
             };
             comboBox.ItemsSource = mainWindow.user.Groups[0].UniqueLessons;
 

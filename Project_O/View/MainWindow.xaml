@@ -108,8 +108,8 @@
                         CornerRadius="0"
                         Padding="0,5">
                     <StackPanel>
-                        <Button Style="{StaticResource S_MenuButton}" Content="Обновить" 
-                                Margin="0,0,0,5" Click="Button_Click"/>
+                        <Button Style="{StaticResource S_MenuButton}" Content="Обновить"
+                                Margin="0,0,0,5"/>
                         <Button Style="{StaticResource S_MenuButton}" Content="Расписание" 
                                 Margin="0,0,0,5"/>
                         <Button Style="{StaticResource S_MenuButton}" Content="Настройки" 
@@ -201,15 +201,31 @@
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
 
-                        <StackPanel Orientation="Horizontal" 
+                        <Grid
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center" 
+                                    Width="160"
                                     Margin="0,10,0,10" 
                                     Grid.Row="4">
-                            <Button Content="◄" Width="30" Margin="10,0" Click="PreviousWeek_Click"/>
-                            <TextBlock x:Name="MonthYearText" VerticalAlignment="Center" Foreground="White" FontSize="14"/>
-                            <Button Content="►" Width="30" Margin="10,0" Click="NextWeek_Click"/>
-                        </StackPanel>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="6*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Content="◄" Grid.Column="0"
+                                    Background="Transparent"
+                                    Foreground="{Binding FG_Control,Source={x:Static local:Properties.Instance}}"
+                                    BorderThickness="0"
+                                    Click="PreviousWeek_Click"/>
+                            <TextBlock Grid.Column="1"
+                                       HorizontalAlignment="Center"
+                                x:Name="MonthYearText" VerticalAlignment="Center" Foreground="White" FontSize="14"/>
+                            <Button Grid.Column="2"
+                                Background="Transparent"
+                                Foreground="{Binding FG_Control,Source={x:Static local:Properties.Instance}}"
+                                    BorderThickness="0"
+                                Content="►" Click="NextWeek_Click"/>
+                        </Grid>
 
                         <!-- Denominator label -->
                         <Label Grid.Row="2" 
