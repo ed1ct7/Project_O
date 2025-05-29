@@ -49,20 +49,21 @@ namespace Project_O.UserControls
                 this.date = dayModel.Date;
                 if (dayModel != null)
                 {
-                    if (date == DateTime.Today) {
+                    if (date == DateTime.Today)
+                    {
                         BorderU.Fill = Classes.Properties.Instance.ProperBlue;
                         BorderB.Fill = Classes.Properties.Instance.ProperBlue;
-                        //BorderB.Height = 2;
-                        //BorderU.Height = 2;
                     }
                     else if (date.DayOfWeek == DayOfWeek.Sunday)
-                        {
-                            BorderU.Fill = Classes.Properties.Instance.ProperRed;
-                            BorderB.Fill = Classes.Properties.Instance.ProperRed;
-                        }
-                    }else {
+                    {
+                        BorderU.Fill = Classes.Properties.Instance.ProperRed;
+                        BorderB.Fill = Classes.Properties.Instance.ProperRed;
+                    }
+                    else
+                    {
                         BorderU.Fill = Classes.Properties.Instance.BorderBrushS;
                         BorderB.Fill = Classes.Properties.Instance.BorderBrushS;
+                    }
                 }
             }
             

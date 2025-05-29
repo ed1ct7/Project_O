@@ -8,6 +8,9 @@
         <Setter Property="Height" Value="40"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"/>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
@@ -31,6 +34,9 @@
     <Style x:Key="S_PlaceHolderText" TargetType="TextBox" BasedOn="{StaticResource S_TextBox}">
         <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         <Setter Property="BorderBrush" Value="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"/>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBox}">
@@ -53,7 +59,7 @@
                             </Image>
                             <TextBlock x:Name="textBlock"
                                   Grid.Column="{Binding Path=(local:TagProperties.IntTag), 
-                                RelativeSource={RelativeSource TemplatedParent}}"
+                                  RelativeSource={RelativeSource TemplatedParent}}"
                                   Margin="6,0,0,0"
                                   FontSize="14"
                                   Foreground="DimGray"
@@ -76,10 +82,9 @@
                                 </TextBlock.Style>
                             </TextBlock>
                             <ScrollViewer x:Name="PART_ContentHost"
-                                     FontSize="28"
                                      Margin="6,0,0,0"
                                      Grid.Column="{Binding Path=(local:TagProperties.IntTag), 
-                                RelativeSource={RelativeSource TemplatedParent}}"
+                                     RelativeSource={RelativeSource TemplatedParent}}"
                                      />
                         </Grid>
                     </Grid>

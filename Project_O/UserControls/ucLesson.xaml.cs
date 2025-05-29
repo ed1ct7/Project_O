@@ -36,12 +36,14 @@ namespace Project_O.UserControls
             {
                 Lesson.Background = new LinearGradientBrush
                 {
-                    StartPoint = new Point(0.5, 1),  // Top-center
-                    EndPoint = new Point(0.5, 0),    // Bottom-center
+                    //StartPoint = new Point(0.5, 1),  // Top-center
+                    //EndPoint = new Point(0.5, 0),    // Bottom-center
+                    StartPoint = new Point(1, 1),  // Top-center
+                    EndPoint = new Point(0, 0),    // Bottom-center
                     GradientStops = new GradientStopCollection
                     {
-                        new GradientStop(Classes.Properties.tempBgColor, 0.0), //Start //242326
-                        new GradientStop((Color)ColorConverter.ConvertFromString("#1E1D2B"), 1.0)
+                        new GradientStop((Color)ColorConverter.ConvertFromString("#242326"), 0.0), //Start //242326
+                        new GradientStop((Color)ColorConverter.ConvertFromString("#466d57"), 1.0)
                     }
                 };
                 //Lesson.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#26C491"));
@@ -58,7 +60,7 @@ namespace Project_O.UserControls
             
             mainWindow.ucNInformation.DataContext = lessonModel;
             mainWindow.ucNInformation.UpdateTextBoxInfo();
-            Debug.WriteLine((int)lessonModel.Day.Date.DayOfWeek);
+            //Debug.WriteLine((int)lessonModel.Day.Date.DayOfWeek);
         }
         private void LessonRemove_Click(object sender, RoutedEventArgs e) {
             var mainWindow = Window.GetWindow(this) as MainWindow;
