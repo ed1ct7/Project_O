@@ -145,6 +145,7 @@
                          BorderThickness="2"
                          Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
                     />
+                <Rectangle x:Name="AccStatus" HorizontalAlignment="Left" Height="47" Margin="62,168,0,0" Grid.Row="6" Fill="Yellow" VerticalAlignment="Top" Width="43"/>
             </Grid>
 
             <!-- Grid calendar -->

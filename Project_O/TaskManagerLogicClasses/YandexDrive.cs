@@ -34,6 +34,10 @@ public class YandexDrive
 
     public async Task DownloadFile(string FilePath, string SavePath)
     {
+        if (File.Exists($"{SavePath}\\{FilePath.Split("/")[FilePath.Split("/").Length - 1]}"))
+        {
+            File.Delete($"{SavePath}\\{FilePath.Split("/")[FilePath.Split("/").Length - 1]}");
+        }
         await diskApi.Files.DownloadFileAsync(
             path: FilePath,
             localFile: $"{SavePath}\\{FilePath.Split("/")[FilePath.Split("/").Length-1]}"

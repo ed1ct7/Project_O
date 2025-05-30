@@ -23,27 +23,30 @@ namespace Project_O
 {
     public partial class MainWindow : Window
     {
-        public User user = new User("NTC532", new List<Group> { new Group("TestGroup") });
+        public User user;
         
         public ObservableCollection<DayModel> NumeratorDays { get; } = new ObservableCollection<DayModel>();
         public ObservableCollection<DayModel> DenominatorDays { get; } = new ObservableCollection<DayModel>();
         public DateTime CurrentDate { get; private set; } = DateTime.Today;
 
-        public MainWindow()
+        public MainWindow(User user)
         {
             
             InitializeComponent();
+            this.user = user;
             DataContext = this;
             GenerateWeeks();
-            string filesPath = "C:\\ProgramData\\TaskManager";
-            if (!File.Exists(filesPath))
-            {
-                Directory.CreateDirectory(filesPath);
-            }
-            user.Groups[0].UpdateTimeTable();
+            if (user.Groups[user.Groups.Keys.ToArray()[0]]) AccStatus.Fill = new SolidColorBrush(Colors.Green);
+            user.Groups.Keys.ToArray()[0].UpdateTimeTable();
             
         }
-
+        public static async Task<MainWindow> CreateMainWindow(User user)
+        {
+            foreach (var item in user.Groups.Keys) { 
+                await item.ActualizeGroupFiles();
+            }
+            return new MainWindow(user);
+        }
         
         public void GenerateWeeks()
         {
@@ -66,6 +69,7 @@ namespace Project_O
                     Date = day,
                     Lessons = new ObservableCollection<LessonModel>()
                 };
+                dayModel.scheduleShift = user.Groups.Keys.ToArray()[0].GetScheduleShiftAtDate(day);
                 NumeratorDays.Add(dayModel);
             }
 
@@ -81,6 +85,7 @@ namespace Project_O
                     Date = day,
                     Lessons = new ObservableCollection<LessonModel>()
                 });
+                DenominatorDays[i].scheduleShift = user.Groups.Keys.ToArray()[0].GetScheduleShiftAtDate(day);
             }
             // Date update
             MonthYearText.Text = CurrentDate.ToString("MMMM yyyy");
@@ -114,8 +119,8 @@ namespace Project_O
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            await user.Groups[0].UploadTimeTable();
-            user.Groups[0].UpdateTimeTable();
+            await user.Groups.Keys.ToArray()[0].UploadTimeTable();
+            user.Groups.Keys.ToArray()[0].UpdateTimeTable();
         }
     }
 
