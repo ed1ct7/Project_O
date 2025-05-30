@@ -79,7 +79,9 @@ namespace Project_O.UserControls
                 lessonModel.CurrentTask = await mainWindow.user.Groups.Keys.ToArray()[0].UpdateTask(TaskName.Text, lessonModel.Name, TaskDesc.Text, new List<string>(), lessonModel.Day.Date, DateTime.Now, 1);
             }
             this.DataContext = lessonModel;
+            mainWindow.GenerateWeeks();
             mainWindow.IsEnabled = true;
+            
 
         }
     }
