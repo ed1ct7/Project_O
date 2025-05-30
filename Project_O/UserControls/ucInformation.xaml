@@ -16,10 +16,10 @@
                 <Label Margin="10,10" Style="{StaticResource S_Info}" Content="Предмет"></Label>
                 <Label Style="{StaticResource S_NomDin}" Content="{Binding Name}"></Label>
                 <Label Margin="10,10" Style="{StaticResource S_Info}" Content="Задание"></Label>
-                <TextBox x:Name="TaskName"></TextBox>
+                <TextBox Style="{StaticResource S_TextBox}" x:Name="TaskName"></TextBox>
                 <Label Margin="10,10" Style="{StaticResource S_Info}" Content="Описание"></Label>
-                <TextBox x:Name="TaskDesc"></TextBox>
-                <Button Content="Подтвердить" Click="Button_Click"/>
+                <TextBox Style="{StaticResource S_TextBox}" x:Name="TaskDesc"></TextBox>
+                <Button x:Name="AddTask" Style="{StaticResource S_MenuButton}"  Content="Подтвердить" Click="Button_Click"/>
             </StackPanel>
         </Border>
     </Grid>

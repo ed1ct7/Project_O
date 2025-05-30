@@ -11,17 +11,17 @@
         <Setter Property="FontSize" Value="14"></Setter>
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
-                    <Border x:Name="border" 
+                    <Border x:Name="Border" 
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="0,0,0,9"
+                        CornerRadius="{TemplateBinding Tag}"
                         Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}" 
                             >
-                        
                         <ScrollViewer x:Name="PART_ContentHost"
                                   Margin="{TemplateBinding Padding}"
                                   VerticalAlignment="Top"/>

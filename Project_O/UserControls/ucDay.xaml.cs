@@ -75,7 +75,17 @@ namespace Project_O.UserControls
         {
             var dayModel = DataContext as DayModel;
             this.date = dayModel.Date;
-            
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+
+            if (mainWindow.user.Groups[mainWindow.user.Groups.Keys.ToArray()[0]])
+            {
+            }
+            else
+            {
+                AddLessonButton.Visibility = Visibility.Collapsed;
+                Shift.Visibility = Visibility.Collapsed;
+            }
+
             if (dayModel != null)
             {
                 

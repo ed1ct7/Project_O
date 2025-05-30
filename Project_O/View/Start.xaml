@@ -318,6 +318,7 @@
                             Foreground="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"
                             Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
                             Content="Войти в группу пользователя" 
+                            Click="ConnectToPrevGroup"
                             Style="{StaticResource S_Auth}" 
                                 ></Button>
                         <Button Grid.Row="7"
