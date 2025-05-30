@@ -31,6 +31,7 @@ namespace Project_O.UserControls
         }
         private void UcLesson_Loaded(object sender, RoutedEventArgs e)
         {
+            var mainWindow = Window.GetWindow(this) as MainWindow;
             var lessonModel = DataContext as LessonModel;
             if (lessonModel.CurrentTask != null)
             {

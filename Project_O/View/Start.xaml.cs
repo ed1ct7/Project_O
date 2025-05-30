@@ -167,6 +167,8 @@ namespace Project_O.Windows
                 MainWindow mainWindow = await MainWindow.CreateMainWindow(user);
                 mainWindow.Show();
                 this.Close();
+                
+                
             }
 
            
