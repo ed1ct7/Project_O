@@ -38,10 +38,12 @@
             <StackPanel x:Name="StackPanelLessons" Margin="0,50,0,0" Grid.RowSpan="3">
                 <!-- Scrollable Lessons -->
                 <ScrollViewer 
+                    Style="{StaticResource ModernScrollViewer}"
                     VerticalScrollBarVisibility="Auto"
-                    MaxHeight="140">
+                    MaxHeight="160">
                     <!-- Prevents infinite expansion -->
-                    <ItemsControl x:Name="LessonsCollection" ItemsSource="{Binding Lessons}">
+                    <ItemsControl x:Name="LessonsCollection" 
+                                  ItemsSource="{Binding Lessons}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <UserControls:ucLesson Margin="0,0"/>

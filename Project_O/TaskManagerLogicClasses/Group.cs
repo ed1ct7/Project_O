@@ -78,11 +78,11 @@ namespace TaskManagerLogic.Classes
             YandexDrive drive = new YandexDrive();
             await drive.CreateNewFolder($"/Groups/{GroupName}");
             await drive.CreateNewFolder($"/Groups/{GroupName}/Files");
-            await drive.CreateFileWithContent($"/Groups/{GroupName}/timetable{date}.csv", "Timetable\n");
+            await drive.CreateFileWithContent($"/Groups/{GroupName}/timetable{date}.csv", "\n");
             await drive.CreateFileWithContent($"/Groups/{GroupName}/settings{date}.csv", $"Password;{Password}");
             await drive.CreateFileWithContent($"/Groups/{GroupName}/users{date}.csv", $"{Author}\n{Author}");
             await drive.CreateFileWithContent($"/Groups/{GroupName}/tasks{date}.csv", "Name;Subject;Desc;Files;CreateDate;EditDate;DeadlineDate;Priority\n");
-            await drive.CreateFileWithContent($"/Groups/{GroupName}/scheduleshifts{date}.csv", "Date;Timetable");
+            await drive.CreateFileWithContent($"/Groups/{GroupName}/scheduleshifts{date}.csv", "");
             await UseKey(Key);
             return new Group(GroupName);
         }
