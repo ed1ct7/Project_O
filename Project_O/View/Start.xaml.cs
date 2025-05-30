@@ -143,7 +143,10 @@ namespace Project_O.Windows
                     user = await User.Register(UserNameRegisterTextBox.Text, PasswordRegisterTextBox._realText);
                     Register.Visibility = Visibility.Collapsed;
                     GroupEntry.Visibility = Visibility.Visible;
-
+                    GroupNameEntryTextBox.Visibility = Visibility.Visible;
+                    GroupPasswordEntryTextBox.Visibility = Visibility.Visible;
+                    EntryGroupButton.Visibility = Visibility.Collapsed;
+                    GroupEntryButtonVoity.Visibility = Visibility.Visible;
                     DataContext = user;
                     this.IsEnabled = true;
                 }
