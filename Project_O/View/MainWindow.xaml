@@ -91,13 +91,14 @@
                     Background="{Binding BG_SControl, Source={x:Static local:Properties.Instance}}"
                     Margin="0,0,6,0"
                     >
-                    <Label Grid.Row="0" Style="{StaticResource S_DefaultLabel}" 
-                           Content="Меню" 
+                    <Label Grid.Row="0" Style="{StaticResource S_DefaultLabel}"
                            FontSize="22" 
                            FontWeight="Bold"
                            Margin="0,0,0,0"
                            Background="Transparent"
-                           ></Label>
+                           >
+                        <TextBlock Text="{Binding UserName, StringFormat='Аккаунт: {0}'}"/>
+                    </Label>
                 </Border>
 
                 <Border Grid.Row="1"
@@ -133,18 +134,23 @@
                            ></Label>
                 </Border>
 
-
-                <TextBox Grid.Row="6" Height="auto"
-                         Margin="0,0,6,0"
+                <Border Margin="0,0,6,0" Grid.Row="6" 
+                        BorderBrush="{Binding BG_SControl, Source={x:Static local:Properties.Instance}}"
+                        BorderThickness="2"
+                        CornerRadius="0,0,0,9"
+                        Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
+                    >
+                    <TextBox Height="auto"
+                             Background="Transparent"
                          Style="{StaticResource S_TextBox}"
                          SpellCheck.IsEnabled="True" Language="ru-ru"
                          AcceptsReturn="True"
                          VerticalContentAlignment="Top"
                          TextAlignment="Left"
                          TextWrapping="Wrap"
-                         BorderThickness="2"
-                         Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
+                         BorderThickness="0"
                     />
+                </Border>
                 <Rectangle x:Name="AccStatus" HorizontalAlignment="Left" Height="47" Margin="62,168,0,0" Grid.Row="6" Fill="Yellow" VerticalAlignment="Top" Width="43"/>
             </Grid>
 
@@ -286,10 +292,9 @@
 
 
                     <Border Grid.Row="1" 
-                        CornerRadius="9,9,9,9"
+                        CornerRadius="0,0,9,0"
                         Background="{Binding DefaultBackS, Source={x:Static local:Properties.Instance}}"
                         BorderBrush="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"
-                        
                             >
                         <Label x:Name="placeHolderText" VerticalContentAlignment="Center"
                            Margin="0"

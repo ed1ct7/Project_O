@@ -35,8 +35,11 @@ namespace Project_O
             InitializeComponent();
             this.user = user;
             DataContext = this;
-            GenerateWeeks();
-            if (user.Groups[user.Groups.Keys.ToArray()[0]]) AccStatus.Fill = new SolidColorBrush(Colors.Green);
+            string UserName = user.UserName;
+            string AccountStatus = "Пользователь";
+            if (user.Groups[user.Groups.Keys.ToArray()[0]]) {
+                AccountStatus = "Администратор";
+            }
             user.Groups.Keys.ToArray()[0].UpdateTimeTable();
             
         }

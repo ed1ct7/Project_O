@@ -56,10 +56,10 @@
                     <Grid>
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        <Rectangle Margin="-10,-10,-10,-10" Fill="{Binding FG_Control, Source={x:Static local:Properties.Instance}}" Height="2" VerticalAlignment="Top"/>
-                        <Rectangle Fill="Transparent" Width="2" HorizontalAlignment="Right"/>
-                        <Rectangle Margin="-10,-10,-10,-10" Fill="{Binding FG_Control, Source={x:Static local:Properties.Instance}}" Height="2" VerticalAlignment="Bottom"/>
-                        <Rectangle Fill="Transparent" Width="2" HorizontalAlignment="Left"/>
+                        <Rectangle Margin="-10,-10,-10,-10" Fill="{Binding BG_SControl, Source={x:Static local:Properties.Instance}}" Height="2" VerticalAlignment="Top"/>
+                        <Rectangle Fill="Transparent" Width="1" HorizontalAlignment="Right"/>
+                        <Rectangle Margin="-10,-10,-10,-10" Fill="{Binding BG_SControl, Source={x:Static local:Properties.Instance}}" Height="2" VerticalAlignment="Bottom"/>
+                        <Rectangle Fill="Transparent" Width="1" HorizontalAlignment="Left"/>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

@@ -157,19 +157,23 @@ namespace Project_O.Windows
                 GroupEntry.Visibility = Visibility.Collapsed;
             }
         }
-        private async void SwitchAuthButton_Click(object sender, RoutedEventArgs e)
+        private void SwitchAuthButton_Click(object sender, RoutedEventArgs e)
         {
-            //GroupCreation.Visibility = Visibility.Collapsed;
-            //GroupEntry.Visibility = Visibility.Collapsed;
-            //LogIn.Visibility = Visibility.Visible;
-            //user = null;
-            if (user.Groups.Count != 0) {
+            GroupCreation.Visibility = Visibility.Collapsed;
+            GroupEntry.Visibility = Visibility.Collapsed;
+            LogIn.Visibility = Visibility.Visible;
+            user = null;           
+        }
+
+        private async void ConnectToPrevGroup(object sender, RoutedEventArgs e)
+        {
+            if (user.Groups.Count != 0)
+            {
+                this.IsEnabled = false;
                 MainWindow mainWindow = await MainWindow.CreateMainWindow(user);
                 mainWindow.Show();
                 this.Close();
             }
-
-           
         }
 
         private async void Button_ConnectToGroup_Click(object sender, RoutedEventArgs e)
