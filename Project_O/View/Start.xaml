@@ -299,6 +299,7 @@
                 <Button Content="Войти" 
                         Margin="10,10,10,6" 
                         Grid.Row="4" 
+                        x:Name="GroupEntryButtonVoity"
                         Style="{StaticResource S_Auth}"
                         Tag="9,9,0,0"
                         Click="Button_ConnectToGroup_Click"
@@ -311,7 +312,9 @@
                         CornerRadius="0,0,9,9"
                         >
                     <StackPanel>
-                        <Button Grid.Row="6"
+                        <Button 
+                            x:Name="EntryGroupButton"
+                            Grid.Row="6"
                             FontSize="13"
                             Tag="0,0,0,0"
                             Height="28"

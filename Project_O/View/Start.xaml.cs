@@ -38,6 +38,20 @@ namespace Project_O.Windows
                     string userName = CSVreader.ReadStringByNumber(filesPath, 0);
                     user = new User(userName, await User.CreateGroupsList(userName));
                     IsEnabled = true;
+                    if (user.Groups.Count > 0)
+                    {
+                        GroupNameEntryTextBox.Visibility = Visibility.Collapsed;
+                        GroupPasswordEntryTextBox.Visibility = Visibility.Collapsed;
+                        EntryGroupButton.Visibility = Visibility.Visible;
+                        GroupEntryButtonVoity.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        GroupNameEntryTextBox.Visibility = Visibility.Visible;
+                        GroupPasswordEntryTextBox.Visibility = Visibility.Visible;
+                        EntryGroupButton.Visibility = Visibility.Collapsed;
+                        GroupEntryButtonVoity.Visibility = Visibility.Visible;
+                    }
                 } 
             }
         }
@@ -88,6 +102,19 @@ namespace Project_O.Windows
                         string filesPath = "C:\\ProgramData\\TaskManager\\Remember.txt";
                         File.WriteAllText(filesPath, user.UserName);
                     }
+                    if (user.Groups.Count > 0) {
+                        GroupNameEntryTextBox.Visibility = Visibility.Collapsed;
+                        GroupPasswordEntryTextBox.Visibility = Visibility.Collapsed;
+                        EntryGroupButton.Visibility = Visibility.Visible;
+                        GroupEntryButtonVoity.Visibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        GroupNameEntryTextBox.Visibility = Visibility.Visible;
+                        GroupPasswordEntryTextBox.Visibility = Visibility.Visible;
+                        EntryGroupButton.Visibility = Visibility.Collapsed;
+                        GroupEntryButtonVoity.Visibility = Visibility.Visible;
+                    }
                     this.IsEnabled = true;
                 }
             }
@@ -116,6 +143,7 @@ namespace Project_O.Windows
                     user = await User.Register(UserNameRegisterTextBox.Text, PasswordRegisterTextBox._realText);
                     Register.Visibility = Visibility.Collapsed;
                     GroupEntry.Visibility = Visibility.Visible;
+
                     DataContext = user;
                     this.IsEnabled = true;
                 }
