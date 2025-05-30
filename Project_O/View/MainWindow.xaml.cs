@@ -124,6 +124,8 @@ namespace Project_O
         {
             await user.Groups.Keys.ToArray()[0].UploadTimeTable();
             user.Groups.Keys.ToArray()[0].UpdateTimeTable();
+            await user.Groups.Keys.ToArray()[0].UploadScheduleShifts();
+            user.Groups.Keys.ToArray()[0].UpdateScheduleShifts();
         }
     }
 

@@ -46,6 +46,7 @@ namespace Project_O.UserControls
             else
             {
                 dayModel.scheduleShift = null;
+                mainWindow.user.Groups.Keys.ToArray()[0].scheduleShifts.Remove(date);
                 this.date = dayModel.Date;
                 if (dayModel != null)
                 {
@@ -150,18 +151,18 @@ namespace Project_O.UserControls
                 if (!string.IsNullOrWhiteSpace(newLesson))
                 {
                     var mainWindow = Window.GetWindow(this) as MainWindow;
-                    if (dayModel.scheduleShift != null)
+                    if (dayModel.scheduleShift == null)
                     {
                         mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex] = mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex].Concat(new[] { newLesson }).ToArray();
-                        dayModel.Lessons.Add(new LessonModel { Name = newLesson });
+                        dayModel.Lessons.Add(new LessonModel { Name = newLesson, Day = dayModel });
                     }
                     else
                     {
                         var temp = dayModel.scheduleShift.ToList();
                         temp.Add(newLesson);
                         dayModel.scheduleShift = temp.ToArray();
-                        dayModel.Lessons.Add(new LessonModel { Name = newLesson });
-                        mainWindow.user.Groups.Keys.ToArray()[0].scheduleShifts[dayModel.Date.Date] = dayModel.scheduleShift;
+                        dayModel.Lessons.Add(new LessonModel { Name = newLesson, Day = dayModel });
+                        mainWindow.user.Groups.Keys.ToArray()[0].addScheduleShiftAtDate(dayModel.Date.Date, dayModel.scheduleShift);
                     }
 
 
