@@ -19,7 +19,7 @@
                 <TextBox Style="{StaticResource S_TextBox}" x:Name="TaskName"></TextBox>
                 <Label Margin="10,10" Style="{StaticResource S_Info}" Content="Описание"></Label>
                 <TextBox Style="{StaticResource S_TextBox}" x:Name="TaskDesc"></TextBox>
-                <Button Style="{StaticResource S_MenuButton}"  Content="Подтвердить" Click="Button_Click"/>
+                <Button x:Name="AddTask" Style="{StaticResource S_MenuButton}"  Content="Подтвердить" Click="Button_Click"/>
             </StackPanel>
         </Border>
     </Grid>

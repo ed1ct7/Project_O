@@ -32,6 +32,18 @@ namespace Project_O.UserControls
         private void UcInformation_Loaded(object sender, RoutedEventArgs e)
         {
             var lessonModel = DataContext as LessonModel;
+
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+
+            if (mainWindow.user.Groups[mainWindow.user.Groups.Keys.ToArray()[0]])
+            {
+
+            }
+            else
+            {
+                AddTask.Visibility = Visibility.Collapsed;
+            }
+
             if (lessonModel != null && lessonModel.CurrentTask != null)
             {
                 TaskName.Text = lessonModel.CurrentTask.Name;

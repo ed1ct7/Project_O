@@ -32,7 +32,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
-                    <Border CornerRadius="9"
+                    <Border CornerRadius="0"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
@@ -64,13 +64,14 @@
 
                         <!-- Dropdown popup -->
                         <Popup x:Name="Popup"
-                          Placement="Bottom"
-                          IsOpen="{TemplateBinding IsDropDownOpen}"
-                          Focusable="False"
-                          PopupAnimation="Fade">
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            Focusable="False"
+                            Width="100"
+                            PopupAnimation="Fade">
                                 <Border 
                                     Background="{TemplateBinding Background}"
-                                    CornerRadius="10"
+                                    CornerRadius="0,0,0,0"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="1"
                                     MaxHeight="{TemplateBinding MaxDropDownHeight}">

@@ -34,14 +34,19 @@ namespace Project_O
             
             InitializeComponent();
             this.user = user;
-            DataContext = this;
             string UserName = user.UserName;
             string AccountStatus = "Пользователь";
             if (user.Groups[user.Groups.Keys.ToArray()[0]]) {
                 AccountStatus = "Администратор";
             }
+            else
+            {
+                UploadData.Visibility = Visibility.Collapsed;
+            }
+            LabelName.Content = AccountStatus + ": " + UserName;
+            DataContext = this;
             user.Groups.Keys.ToArray()[0].UpdateTimeTable();
-            
+            GenerateWeeks();
         }
         public static async Task<MainWindow> CreateMainWindow(User user)
         {

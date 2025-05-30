@@ -221,8 +221,6 @@ namespace Project_O.Windows
                 mainWindow.Show();
                 this.Close();
                 this.IsEnabled = true;
-
-
             }
             catch (GroupException ex) when (ex.ErrorCode == 1)
             {
