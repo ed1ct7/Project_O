@@ -286,7 +286,7 @@ namespace TaskManagerLogic.Classes
             scheduleShifts = new Dictionary<DateTime, string[]>();
             var lines = CSVreader.Read("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "" + "\\"
                 + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"scheduleshifts*.csv"));
-            for (int i = 1; i < lines.Count; i++)
+            for (int i = 0; i < lines.Count; i++)
             {
                 scheduleShifts.Add(TMDateFormatter.ToDateWTime(lines[i].Split(";")[0]).Date, lines[i].Split(";")[1].Split(","));
             }
