@@ -13,6 +13,7 @@ namespace Project_O.Windows
     public partial class Start : Window
     {
         public User user;
+        public string user_name;
         public Start()
         {
             InitializeComponent();

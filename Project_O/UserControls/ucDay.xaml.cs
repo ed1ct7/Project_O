@@ -53,8 +53,6 @@ namespace Project_O.UserControls
                     {
                         BorderU.Fill = Classes.Properties.Instance.ProperBlue;
                         BorderB.Fill = Classes.Properties.Instance.ProperBlue;
-                        //BorderB.Height = 2;
-                        //BorderU.Height = 2;
                     }
                     else if (date.DayOfWeek == DayOfWeek.Sunday)
                     {

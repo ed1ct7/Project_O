@@ -95,7 +95,7 @@
                            Content="Меню" 
                            FontSize="22" 
                            FontWeight="Bold"
-                           Margin="6,6,6,0"
+                           Margin="0,0,0,0"
                            Background="Transparent"
                            ></Label>
                 </Border>
@@ -168,8 +168,9 @@
                                Content="Расписание" 
                                FontSize="22" 
                                FontWeight="Bold"
-                               Margin="6,6,6,0"
-                               Background="Transparent"
+                               Margin="0,-2,0,0"
+                               VerticalAlignment="Top"
+                               Background="Transparent" Height="43"
                                ></Label>
                     </Border>
 
@@ -278,7 +279,7 @@
                                Content="Информация" 
                                FontSize="22" 
                                FontWeight="Bold"
-                               Margin="6,6,6,0"
+                               Margin="0,0,0,0"
                                Background="Transparent"
                                ></Label>
                     </Border>

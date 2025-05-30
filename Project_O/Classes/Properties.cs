@@ -5,9 +5,9 @@ namespace Project_O.Classes
 {
     public class Properties : DependencyObject
     {
-        public static Brush tempBgBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3B1E78"));
+        public static Brush tempBgBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3f284d")); //
         public static Color tempBgColor = (Color)ColorConverter.ConvertFromString("#1C1C1C");
-        public static Color tempBgColorOnHov = (Color)ColorConverter.ConvertFromString("#3B1E78");
+        public static Color tempBgColorOnHov = (Color)ColorConverter.ConvertFromString("#3f284d"); //4f2645 442a4b 3f284d 36264f
 
         // Background color property for Window
         public static Properties Instance { get; } = new Properties();
@@ -168,17 +168,17 @@ namespace Project_O.Classes
         /// 
         // BG_ControlOnHovered
         ///
-        public static readonly DependencyProperty BGP_ControlOnHoveredProperty =
+        public static readonly DependencyProperty BGP_ControlOnHovered =
             DependencyProperty.Register(
-                "BGP_ControlOnHoveredProperty",
+                "BGP_ControlOnHovered",
                 typeof(Color),
                 typeof(Properties),
                 new PropertyMetadata(tempBgColorOnHov));
 
         public Color BG_ControlOnHovered
         {
-            get => (Color)GetValue(BGP_ControlOnHoveredProperty);
-            set => SetValue(BGP_ControlOnHoveredProperty, value);
+            get => (Color)GetValue(BGP_ControlOnHovered);
+            set => SetValue(BGP_ControlOnHovered, value);
         }
         /// 
         // FG_ControlOnPressed
@@ -202,7 +202,7 @@ namespace Project_O.Classes
                 "BGP_ControlOnPressed",
                 typeof(Color),
                 typeof(Properties),
-                new PropertyMetadata((Color)ColorConverter.ConvertFromString("#311963")));
+                new PropertyMetadata((Color)ColorConverter.ConvertFromString("#352140")));
         public Color BG_ControlOnPressed
         {
             get { return (Color)GetValue(BGP_ControlOnPressed); }
