@@ -125,12 +125,20 @@ namespace Project_O
             WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
         private void btnClose_Click(object sender, RoutedEventArgs e) => Close();
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void DownloadData_Click(object sender, RoutedEventArgs e)
         {
+            this.IsEnabled = false;
             await user.Groups.Keys.ToArray()[0].UploadTimeTable();
             user.Groups.Keys.ToArray()[0].UpdateTimeTable();
             await user.Groups.Keys.ToArray()[0].UploadScheduleShifts();
             user.Groups.Keys.ToArray()[0].UpdateScheduleShifts();
+            this.IsEnabled = true;
+        }
+        private async void UploadData_Click(object sender, RoutedEventArgs e)
+        {
+            this.IsEnabled = false;
+
+            this.IsEnabled = true;
         }
     }
 

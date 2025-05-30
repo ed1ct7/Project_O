@@ -24,9 +24,22 @@ namespace Project_O.Windows
             }
             Loaded += Start_Loaded;
         }
-        private void Start_Loaded(object sender, RoutedEventArgs e)
+        private async void Start_Loaded(object sender, RoutedEventArgs e)
         {
+            string filesPath = "C:\\ProgramData\\TaskManager\\Remember.txt";
             this.DataContext = user;
+            if (File.Exists(filesPath)) {
+                if (CSVreader.ReadStringByNumber(filesPath, 0) != "" && 
+                    CSVreader.ReadStringByNumber(filesPath, 0) != "non")
+                {
+                    IsEnabled = false;
+                    LogIn.Visibility = Visibility.Collapsed;
+                    GroupEntry.Visibility = Visibility.Visible;
+                    string userName = CSVreader.ReadStringByNumber(filesPath, 0);
+                    user = new User(userName, await User.CreateGroupsList(userName));
+                    IsEnabled = true;
+                } 
+            }
         }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -70,6 +83,11 @@ namespace Project_O.Windows
                     LogIn.Visibility = Visibility.Collapsed;
                     GroupEntry.Visibility = Visibility.Visible;
                     DataContext = user;
+                    if(RememberButton.IsChecked == true)
+                    {
+                        string filesPath = "C:\\ProgramData\\TaskManager\\Remember.txt";
+                        File.WriteAllText(filesPath, user.UserName);
+                    }
                     this.IsEnabled = true;
                 }
             }
@@ -159,6 +177,15 @@ namespace Project_O.Windows
         }
         private void SwitchAuthButton_Click(object sender, RoutedEventArgs e)
         {
+            string filesPath = "C:\\ProgramData\\TaskManager\\Remember.txt";
+            this.DataContext = user;
+            if (File.Exists(filesPath))
+            {
+                if (CSVreader.ReadStringByNumber(filesPath, 0) != "")
+                {
+                    File.WriteAllText(filesPath, "non");
+                }
+            }
             GroupCreation.Visibility = Visibility.Collapsed;
             GroupEntry.Visibility = Visibility.Collapsed;
             LogIn.Visibility = Visibility.Visible;
@@ -173,8 +200,6 @@ namespace Project_O.Windows
                 MainWindow mainWindow = await MainWindow.CreateMainWindow(user);
                 mainWindow.Show();
                 this.Close();
-                
-                
             }
         }
 
@@ -192,8 +217,6 @@ namespace Project_O.Windows
                 mainWindow.Show();
                 this.Close();
                 this.IsEnabled = true;
-
-                
             }
             catch (GroupException ex) when (ex.ErrorCode == 3)
             {

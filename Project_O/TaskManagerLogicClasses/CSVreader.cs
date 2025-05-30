@@ -19,7 +19,6 @@ namespace TaskManagerLogic.Classes
         public static string ReadStringByNumber(string FilePath, int n)
         {
             var Lines = File.ReadAllLines(FilePath).ToList();
-            
             return Lines[n];
         }
         // Возвращает строку файла по указанному пути с указанными значениями определённых столбцов 

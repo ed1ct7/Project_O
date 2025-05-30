@@ -110,9 +110,9 @@
                         Padding="0,5">
                     <StackPanel>
                         <Button Style="{StaticResource S_MenuButton}" Content="Загрузить данные"
-                                Margin="0,0,0,5" Click="Button_Click"/>
+                                Margin="0,0,0,5" Click="DownloadData_Click"/>
                         <Button x:Name="UploadData" Style="{StaticResource S_MenuButton}" Content="Выгрузить данные" 
-                                Margin="0,0,0,5"/>
+                                Margin="0,0,0,5" Click="UploadData_Click"/>
                     </StackPanel>
                 </Border>
 

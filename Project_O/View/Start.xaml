@@ -91,6 +91,7 @@
                 <StackPanel Grid.Row="3" Orientation="Horizontal" 
                          Margin="12,10,12,5">
                     <CheckBox 
+                        x:Name="RememberButton"
                         Style="{StaticResource S_CustomCheckBox}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
