@@ -14,6 +14,7 @@ namespace TaskManagerLogic.Classes
     
     public class User
     {
+        // Хэширование текста
         static private string Hash(string input)
         {
             using (SHA256 sha256 = SHA256.Create())
@@ -32,6 +33,7 @@ namespace TaskManagerLogic.Classes
             this.Groups = Groups;
         }
         
+        // Скачать данные о пользователях
         static public async Task ActualizeUsersBase()
         {
 
@@ -50,6 +52,7 @@ namespace TaskManagerLogic.Classes
         // UserException с кодом ошибки 2 - неверный пароль 
         // Для обработки catch (UserException ex) when (ex.ErrorCode == N)
 
+        // Проверка введённой информации о польователе
         static private async Task<bool> CheckUserInfo(string UserName, string Password) 
         {
             await ActualizeUsersBase();
@@ -67,6 +70,7 @@ namespace TaskManagerLogic.Classes
             }
             throw new UserException("Пользователь не существует", 1);
         }
+        //  Составить словарь групп пользователя
         static public async Task<Dictionary<Group, bool>> CreateGroupsList(string UserName)
         {
             await ActualizeUsersBase();
@@ -82,6 +86,7 @@ namespace TaskManagerLogic.Classes
             }
             return groups;
         }
+        // Вход в аккаунт
         static public async Task<User?> Login(string UserName, string Password)
         {
             bool isExist = await CheckUserInfo(UserName, Password);
@@ -93,6 +98,7 @@ namespace TaskManagerLogic.Classes
         }
 
         // UserException с кодом ошибки 3 - пользователь с таким ником уже существует
+        // Регистрация аккаунта
         static public async Task<User?> Register(string UserName, string Password)
         {
             try
@@ -118,6 +124,7 @@ namespace TaskManagerLogic.Classes
         }
         // Group Exception с кодом 5 - Группа не существует
         // Group Exception с кодом 6 - Неверный пароль группы
+        // Подключить пользователя к группе
         public async Task ConnectToGroup(string GroupName, string Password, bool isMaster = false)
         {
             if (!await Group.isValidGroupName(GroupName)) throw new GroupException("Группа не существует", 5);

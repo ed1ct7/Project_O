@@ -64,15 +64,12 @@ namespace Project_O.UserControls
         }
         private void LessonRemove_Click(object sender, RoutedEventArgs e) {
             var mainWindow = Window.GetWindow(this) as MainWindow;
-
             var lessonModel = DataContext as LessonModel;
             if (lessonModel.Day.scheduleShift == null)
             {
                 var old = mainWindow.user.Groups.Keys.ToArray()[0].Timetable[(int)lessonModel.Day.Date.DayOfWeek + 7 * lessonModel.Day.DenNum].ToList();
                 old.Remove(lessonModel.Name);
                 mainWindow.user.Groups.Keys.ToArray()[0].Timetable[(int)lessonModel.Day.Date.DayOfWeek + 7 * lessonModel.Day.DenNum] = old.ToArray();
-                
-                
             }
             else
             {
