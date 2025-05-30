@@ -33,7 +33,7 @@ namespace TaskManagerLogic.Classes
                 new string[] {  }
             };
         public List<string> UniqueLessons = new List<string>();
-        public Dictionary<DateTime, string[]> scheduleShifts { get; private set; }
+        public Dictionary<DateTime, string[]> scheduleShifts = new Dictionary<DateTime, string[]>();
         // Group exception с кодом 1 - неверный ключ
         
         // Функция проверки кода
@@ -283,6 +283,7 @@ namespace TaskManagerLogic.Classes
         // Обновление списка замен
         public void UpdateScheduleShifts()
         {
+            scheduleShifts = new Dictionary<DateTime, string[]>();
             var lines = CSVreader.Read("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "" + "\\"
                 + CSVreader.GetFileNameByMask("C:\\ProgramData" + "\\TaskManager\\" + GroupName + "\\", $"scheduleshifts*.csv"));
             for (int i = 1; i < lines.Count; i++)
@@ -291,17 +292,20 @@ namespace TaskManagerLogic.Classes
             }
 
         }
+        public string[]? GetScheduleShiftAtDate(DateTime Date)
+        {
+            if (!scheduleShifts.Keys.Contains(Date.Date)) return null;
+            return scheduleShifts[Date.Date];
+        } 
         // Добавление замены на дату
-        public async Task addScheduleShiftAtDate(DateTime Date, string[] NewTimetable)
+        public void addScheduleShiftAtDate(DateTime Date, string[] NewTimetable)
         {
             scheduleShifts[Date.Date] = NewTimetable;
-            UpdateScheduleShifts();
         }
         // Удаление замены на дату
-        public async Task deleteScheduleShiftAtDate(DateTime Date)
+        public void deleteScheduleShiftAtDate(DateTime Date)
         {
             scheduleShifts.Remove(Date.Date);
-            UpdateScheduleShifts();
         }
         
     }

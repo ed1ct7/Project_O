@@ -69,6 +69,7 @@ namespace Project_O
                     Date = day,
                     Lessons = new ObservableCollection<LessonModel>()
                 };
+                dayModel.scheduleShift = user.Groups.Keys.ToArray()[0].GetScheduleShiftAtDate(day);
                 NumeratorDays.Add(dayModel);
             }
 
@@ -84,6 +85,7 @@ namespace Project_O
                     Date = day,
                     Lessons = new ObservableCollection<LessonModel>()
                 });
+                DenominatorDays[i].scheduleShift = user.Groups.Keys.ToArray()[0].GetScheduleShiftAtDate(day);
             }
             // Date update
             MonthYearText.Text = CurrentDate.ToString("MMMM yyyy");

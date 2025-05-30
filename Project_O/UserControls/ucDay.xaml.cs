@@ -30,41 +30,45 @@ namespace Project_O.UserControls
             InitializeComponent();
             this.Loaded += UcDay_Loaded;
         }
-        private void CheckScheduleShiftToDay()
-        {
-
-        }
+        
         private void scheduleShift_Check(object sender, RoutedEventArgs e)
+
         {
-            if (scheduleShift.IsChecked.Value == true)
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+            var dayModel = DataContext as DayModel;
+            if (scheduleShift.IsChecked == true)
             {
                 BorderU.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
                 BorderB.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
-                //BorderB.Height = 2;
-                //BorderU.Height = 2;
+                dayModel.scheduleShift = mainWindow.user.Groups.Keys.ToArray()[0].Timetable[(int)dayModel.Date.DayOfWeek + 7 * dayModel.DenNum];
+                mainWindow.user.Groups.Keys.ToArray()[0].addScheduleShiftAtDate(dayModel.Date.Date, dayModel.scheduleShift);
             }
             else
             {
-                var dayModel = DataContext as DayModel;
+                dayModel.scheduleShift = null;
                 this.date = dayModel.Date;
                 if (dayModel != null)
                 {
-                    if (date == DateTime.Today) {
+                    if (date == DateTime.Today)
+                    {
                         BorderU.Fill = Classes.Properties.Instance.ProperBlue;
                         BorderB.Fill = Classes.Properties.Instance.ProperBlue;
                         //BorderB.Height = 2;
                         //BorderU.Height = 2;
                     }
                     else if (date.DayOfWeek == DayOfWeek.Sunday)
-                        {
-                            BorderU.Fill = Classes.Properties.Instance.ProperRed;
-                            BorderB.Fill = Classes.Properties.Instance.ProperRed;
-                        }
-                    }else {
+                    {
+                        BorderU.Fill = Classes.Properties.Instance.ProperRed;
+                        BorderB.Fill = Classes.Properties.Instance.ProperRed;
+                    }
+                    else
+                    {
                         BorderU.Fill = Classes.Properties.Instance.BorderBrushS;
                         BorderB.Fill = Classes.Properties.Instance.BorderBrushS;
+                    }
                 }
             }
+            GenerateLessons();
             
         }
 
@@ -75,6 +79,7 @@ namespace Project_O.UserControls
             
             if (dayModel != null)
             {
+                
                 if (date == DateTime.Today)
                 {
                     BorderU.Fill = Classes.Properties.Instance.ProperBlue;
@@ -85,6 +90,10 @@ namespace Project_O.UserControls
                 if (date.DayOfWeek == DayOfWeek.Sunday) {
                     BorderU.Fill = Classes.Properties.Instance.ProperRed;
                     BorderB.Fill = Classes.Properties.Instance.ProperRed;
+                }
+                if (dayModel.scheduleShift != null)
+                {
+                    scheduleShift.IsChecked = true;
                 }
 
                 GenerateLessons();
@@ -97,8 +106,9 @@ namespace Project_O.UserControls
             int dayIndex = (int)dayModel.Date.DayOfWeek + 7 * dayModel.DenNum;
             dayModel.Lessons.Clear();
             var mainWindow = Window.GetWindow(this) as MainWindow;
-            
-            foreach (var lesson in mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex])
+            string[] thisdaytimetable = mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex];
+            if (dayModel.scheduleShift != null) thisdaytimetable = dayModel.scheduleShift;
+            foreach (var lesson in thisdaytimetable)
             {
             
                 var lessonModel = new LessonModel
@@ -142,9 +152,20 @@ namespace Project_O.UserControls
                 if (!string.IsNullOrWhiteSpace(newLesson))
                 {
                     var mainWindow = Window.GetWindow(this) as MainWindow;
-                    mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex] = mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex].Concat(new[] { newLesson }).ToArray();
+                    if (dayModel.scheduleShift != null)
+                    {
+                        mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex] = mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex].Concat(new[] { newLesson }).ToArray();
+                        dayModel.Lessons.Add(new LessonModel { Name = newLesson });
+                    }
+                    else
+                    {
+                        var temp = dayModel.scheduleShift.ToList();
+                        temp.Add(newLesson);
+                        dayModel.scheduleShift = temp.ToArray();
+                        dayModel.Lessons.Add(new LessonModel { Name = newLesson });
+                        mainWindow.user.Groups.Keys.ToArray()[0].scheduleShifts[dayModel.Date.Date] = dayModel.scheduleShift;
+                    }
 
-                    dayModel.Lessons.Add(new LessonModel { Name = newLesson });
 
                     if (StackPanelLessons.Children.Contains(comboBox))
                         StackPanelLessons.Children.Remove(comboBox);
