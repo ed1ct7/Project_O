@@ -40,7 +40,7 @@ namespace Project_O.UserControls
             {
                 BorderU.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
                 BorderB.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
-                dayModel.scheduleShift = mainWindow.user.Groups.Keys.ToArray()[0].Timetable[(int)dayModel.Date.DayOfWeek + 7 * dayModel.DenNum];
+                if (dayModel.scheduleShift == null) dayModel.scheduleShift = mainWindow.user.Groups.Keys.ToArray()[0].Timetable[(int)dayModel.Date.DayOfWeek + 7 * dayModel.DenNum];
                 mainWindow.user.Groups.Keys.ToArray()[0].addScheduleShiftAtDate(dayModel.Date.Date, dayModel.scheduleShift);
             }
             else
@@ -116,7 +116,13 @@ namespace Project_O.UserControls
             dayModel.Lessons.Clear();
             var mainWindow = Window.GetWindow(this) as MainWindow;
             string[] thisdaytimetable = mainWindow.user.Groups.Keys.ToArray()[0].Timetable[dayIndex];
-            if (dayModel.scheduleShift != null) thisdaytimetable = dayModel.scheduleShift;
+            if (dayModel.scheduleShift != null) 
+            {
+                thisdaytimetable = dayModel.scheduleShift;
+                BorderU.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
+                BorderB.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#01f8bd"));
+            }
+
             foreach (var lesson in thisdaytimetable)
             {
             

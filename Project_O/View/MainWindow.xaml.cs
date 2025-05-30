@@ -46,6 +46,7 @@ namespace Project_O
             LabelName.Content = AccountStatus + ": " + UserName;
             DataContext = this;
             user.Groups.Keys.ToArray()[0].UpdateTimeTable();
+            user.Groups.Keys.ToArray()[0].UpdateScheduleShifts();
             GenerateWeeks();
         }
         public static async Task<MainWindow> CreateMainWindow(User user)
@@ -97,6 +98,7 @@ namespace Project_O
             }
             // Date update
             MonthYearText.Text = CurrentDate.ToString("MMMM yyyy");
+            Console.Write(user.Groups.Keys.ToArray()[0].scheduleShifts);
         }
 
         private async void PreviousWeek_Click(object sender, RoutedEventArgs e)
