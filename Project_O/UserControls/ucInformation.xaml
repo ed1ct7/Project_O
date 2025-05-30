@@ -16,9 +16,17 @@
                 <Label Margin="10,10" Style="{StaticResource S_Info}" Content="Предмет"></Label>
                 <Label Style="{StaticResource S_NomDin}" Content="{Binding Name}"></Label>
                 <Label Margin="10,10" Style="{StaticResource S_Info}" Content="Задание"></Label>
-                <TextBox Style="{StaticResource S_TextBox}" x:Name="TaskName"></TextBox>
+                <TextBox 
+                    Height="60"
+                         SpellCheck.IsEnabled="True" Language="ru-ru"
+                         AcceptsReturn="True"
+                    Style="{StaticResource S_TextBox}" x:Name="TaskName"></TextBox>
                 <Label Margin="10,10" Style="{StaticResource S_Info}" Content="Описание"></Label>
-                <TextBox Style="{StaticResource S_TextBox}" x:Name="TaskDesc"></TextBox>
+                <TextBox 
+                    Height="140"
+                                             SpellCheck.IsEnabled="True" Language="ru-ru"
+                         AcceptsReturn="True"
+                    Style="{StaticResource S_TextBox}" x:Name="TaskDesc"></TextBox>
                 <Button x:Name="AddTask" Style="{StaticResource S_MenuButton}"  Content="Подтвердить" Click="Button_Click"/>
             </StackPanel>
         </Border>

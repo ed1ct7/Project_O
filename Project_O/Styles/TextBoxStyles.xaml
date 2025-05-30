@@ -6,11 +6,13 @@
         <Setter Property="Background" Value="{Binding BG_Control, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="Foreground" Value="{Binding FG_Control, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="Height" Value="40"/>
+        <Setter Property="TextWrapping" Value="Wrap"></Setter>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="{Binding BorderColor, Source={x:Static local:Properties.Instance}}"/>
         <Setter Property="FontSize" Value="14"></Setter>
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Padding" Value="2" />
         <Setter Property="Tag" Value="{Binding Tag, RelativeSource={RelativeSource TemplatedParent}}"></Setter>
         <Setter Property="Template">
             <Setter.Value>

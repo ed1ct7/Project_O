@@ -139,7 +139,10 @@ namespace Project_O
         private async void UploadData_Click(object sender, RoutedEventArgs e)
         {
             this.IsEnabled = false;
-
+            await user.Groups.Keys.ToArray()[0].ActualizeGroupFiles();
+            user.Groups.Keys.ToArray()[0].UpdateTimeTable();
+            user.Groups.Keys.ToArray()[0].UpdateScheduleShifts();
+            GenerateWeeks();
             this.IsEnabled = true;
         }
     }
